@@ -64,7 +64,7 @@ function parseColor(str) {
   if (h.length === 6) {
     return { r: parseInt(h.slice(0, 2), 16), g: parseInt(h.slice(2, 4), 16), b: parseInt(h.slice(4, 6), 16) };
   }
-  return { r: 5, g: 5, b: 5 };
+  return { r: 15, g: 52, b: 115 };
 }
 
 // WCAG relative luminance, with optional greyscale + brightness factor
@@ -342,8 +342,12 @@ export class HeroAnimationController {
     if (this.timeline) this.timeline.kill();
     if (this.introTl) this.introTl.kill();
     if (!gsap) return this;
-    gsap.set(this.tiles.map((t) => t.el), { clearProps: "all" });
-    gsap.set([this.nav, ...(this.intro || [])], { opacity: 1, y: 0 });
+    gsap.set(this.tiles.map((t) => t.el), {
+      x: 0, y: 0, scale: 1, rotate: 0, opacity: 1,
+      clearProps: "willChange",
+    });
+    if (this.grid) gsap.set(this.grid, { scale: 1, clearProps: "willChange" });
+    gsap.set([this.nav, ...(this.intro || [])].filter(Boolean), { opacity: 1, y: 0 });
     if (this.stage) gsap.set(this.stage, { opacity: 1 });
     return this;
   }
