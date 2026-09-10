@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  body { margin: 0; background: #ffffff; color: #16150f; }
+  a { color: #16150f; text-decoration: none; }
+  a:hover { color: #6b6455; }
+  @keyframes orbit {
+    0%     { transform: translate(calc(var(--r) *  0.000), 92px)    scale(1.080); opacity: 1;    z-index: 100; filter: none; }
+    6.25%  { transform: translate(calc(var(--r) *  0.383), 85.0px)  scale(1.062); opacity: 0.98; z-index: 96;  filter: none; }
+    12.5%  { transform: translate(calc(var(--r) *  0.707), 65.0px)  scale(1.010); opacity: 0.92; z-index: 85;  filter: none; }
+    18.75% { transform: translate(calc(var(--r) *  0.924), 35.2px)  scale(0.932); opacity: 0.83; z-index: 69;  filter: none; }
+    25%    { transform: translate(calc(var(--r) *  1.000), 0px)     scale(0.840); opacity: 0.73; z-index: 50;  filter: none; }
+    31.25% { transform: translate(calc(var(--r) *  0.924), -35.2px) scale(0.748); opacity: 0.63; z-index: 31;  filter: blur(0.6px); }
+    37.5%  { transform: translate(calc(var(--r) *  0.707), -65.0px) scale(0.670); opacity: 0.54; z-index: 15;  filter: blur(1.1px); }
+    43.75% { transform: translate(calc(var(--r) *  0.383), -85.0px) scale(0.618); opacity: 0.48; z-index: 4;   filter: blur(1.4px); }
+    50%    { transform: translate(calc(var(--r) *  0.000), -92px)   scale(0.600); opacity: 0.46; z-index: 0;   filter: blur(1.5px); }
+    56.25% { transform: translate(calc(var(--r) * -0.383), -85.0px) scale(0.618); opacity: 0.48; z-index: 4;   filter: blur(1.4px); }
+    62.5%  { transform: translate(calc(var(--r) * -0.707), -65.0px) scale(0.670); opacity: 0.54; z-index: 15;  filter: blur(1.1px); }
+    68.75% { transform: translate(calc(var(--r) * -0.924), -35.2px) scale(0.748); opacity: 0.63; z-index: 31;  filter: blur(0.6px); }
+    75%    { transform: translate(calc(var(--r) * -1.000), 0px)     scale(0.840); opacity: 0.73; z-index: 50;  filter: none; }
+    81.25% { transform: translate(calc(var(--r) * -0.924), 35.2px)  scale(0.932); opacity: 0.83; z-index: 69;  filter: none; }
+    87.5%  { transform: translate(calc(var(--r) * -0.707), 65.0px)  scale(1.010); opacity: 0.92; z-index: 85;  filter: none; }
+    93.75% { transform: translate(calc(var(--r) * -0.383), 85.0px)  scale(1.062); opacity: 0.98; z-index: 96;  filter: none; }
+    100%   { transform: translate(calc(var(--r) *  0.000), 92px)    scale(1.080); opacity: 1;    z-index: 100; filter: none; }
+  }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #ffffff; font-family: 'DM Sans', Helvetica, sans-serif; padding: 22px 28px 18px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; gap: 8px; overflow: hidden">
+
+  <div style="display: flex; flex-direction: column; align-items: center; gap: 9px; max-width: 620px; text-align: center">
+    <div style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b6455">Four co-founders</div>
+    <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(32px, 4.4vw, 54px); line-height: 0.98; font-weight: 400; letter-spacing: -0.015em">Spin the forge</h1>
+    <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #6b6455; max-width: 430px; text-wrap: pretty">Hover a face to see them shift. Tap one and the disk turns, brings them to the front, and they step out of the circle.</p>
+  </div>
+
+  <div style="position: relative; width: 100%; max-width: 1080px; height: clamp(330px, 56vh, 560px); margin-top: 4px">
+
+    <div style="position: absolute; left: 50%; top: 50%; width: 88%; height: 300px; transform: translate(-50%, -34%); background: radial-gradient(ellipse at center, rgba(22,21,15,0.055), rgba(22,21,15,0) 66%); pointer-events: none"></div>
+
+    <div style="position: absolute; inset: 0; pointer-events: none">
+      <sc-for list="{{ orbit }}" as="m" hint-placeholder-count="4">
+        <div style="position: absolute; left: 50%; top: 50%; width: 0; height: 0; will-change: transform; --r: {{ radius }}; animation: orbit {{ m.spinDur }} linear infinite; animation-delay: {{ m.spinDelay }}; animation-play-state: {{ m.playState }}; transition: transform 760ms cubic-bezier(.22,.9,.2,1), opacity 420ms ease; transform: {{ m.snapTransform }}; opacity: {{ m.snapOpacity }}; z-index: {{ m.snapZ }}" style-hover="animation-play-state: paused">
+          <div role="button" tabindex="0" ref="{{ m.ref }}" onClick="{{ m.onSelect }}" onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}" style="position: absolute; left: 0; top: 0; width: 138px; height: 138px; margin-left: -69px; margin-top: -69px; border-radius: 50%; cursor: pointer; background: #f1efeb; pointer-events: {{ m.pointer }}; transition: transform 380ms cubic-bezier(.2,.9,.25,1), box-shadow 380ms ease; outline: none; transform: {{ m.hoverTransform }}; box-shadow: {{ m.shadow }}">
+            <img src="{{ m.avatar }}" alt="{{ m.name }}" draggable="false" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 22%; display: block; transition: filter 300ms ease, opacity 200ms ease; filter: {{ m.imgFilter }}; opacity: {{ m.imgOpacity }}" />
+            <div style="position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; padding: 3px 7px; border-radius: 999px; background: rgba(255,255,255,0.92); color: #16150f; transition: opacity 260ms ease; opacity: {{ m.initialsOpacity }}">{{ m.initials }}</div>
+            <div style="position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 14px; white-space: nowrap; transition: opacity 260ms ease; display: flex; flex-direction: column; align-items: center; gap: 3px; opacity: {{ m.labelOpacity }}">
+              <div style="font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #16150f">{{ m.name }}</div>
+              <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6455">{{ m.role }}</div>
+            </div>
+          </div>
+        </div>
+      </sc-for>
+    </div>
+
+    <div style="position: absolute; left: 0; right: 0; bottom: 172px; top: 0; box-sizing: border-box; display: flex; align-items: flex-end; justify-content: center; pointer-events: none; opacity: {{ heroOpacity }}">
+      <sc-if value="{{ hasHero }}" hint-placeholder-val="{{ false }}">
+        <img src="{{ heroCutout }}" alt="{{ heroName }}" draggable="false" onMouseEnter="{{ onHeroEnter }}" onMouseLeave="{{ onHeroLeave }}" style="height: clamp(150px, 34vh, 440px); width: auto; max-height: 100%; display: block; filter: drop-shadow(0 26px 34px rgba(22,21,15,0.16)); transition: opacity 240ms ease; opacity: {{ heroImgOpacity }}; pointer-events: auto" />
+      </sc-if>
+    </div>
+
+    <div style="position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 9px; text-align: center; opacity: {{ heroOpacity }}; pointer-events: {{ heroPointer }}">
+      <div style="display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; justify-content: center">
+        <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #6b6455">{{ heroInitials }}</div>
+        <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 27px; letter-spacing: -0.01em">{{ heroName }}</div>
+        <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6455">{{ heroRole }}</div>
+      </div>
+      <p style="margin: 0; max-width: 460px; font-size: 13px; line-height: 1.55; color: #6b6455; text-wrap: pretty">{{ heroBio }}</p>
+      <button onClick="{{ onClose }}" style="margin-top: 2px; border: 1px solid #e2ded4; background: #ffffff; border-radius: 999px; padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6455; cursor: pointer; transition: background 200ms ease, color 200ms ease, border-color 200ms ease" style-hover="background: #16150f; color: #ffffff; border-color: #16150f">back to the disk</button>
+    </div>
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;orbitRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:340,&quot;min&quot;:240,&quot;max&quot;:440,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;spinSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:8,&quot;max&quot;:90,&quot;step&quot;:2,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;hoverCycleMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:700,&quot;min&quot;:350,&quot;max&quot;:1600,&quot;step&quot;:50,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hover&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.people = [
+      { initials: 'MK', name: 'Mohan Kumar', role: 'Co-Founder — Capture & Fabrication',
+        bio: 'Runs scanning and production: point clouds, tooling, and the machines that turn data into objects.',
+        shots: ['mohan_1', 'mohan_3', 'mohan_2'] },
+      { initials: 'AS', name: 'Avinash Singh Rajput', role: 'Co-Founder — Design & Prototype',
+        bio: 'Takes an idea from first sketch to a working part — concept, CAD, prototype, revision, repeat.',
+        shots: ['avi_3', 'avi_1', 'avi_2'] },
+      { initials: 'HS', name: 'Hari Sharan Dwivedi', role: 'Co-Founder — Direction',
+        bio: "Sets the forge's direction — what gets made, for whom, and why it matters.",
+        shots: ['hari_2', 'hari_1', 'hari_3'] },
+      { initials: 'KP', name: 'Kailash Pati Pandey', role: 'Co-Founder — Materials & Finishing',
+        bio: 'Chooses the matter and the finish: how an object catches light, holds an edge, and feels in the hand.',
+        shots: ['kp_2', 'kp_1', 'kp_3'] }
+    ];
+    this.nodes = [];
+    // phase (deg) each member resumes from; the CSS animation owns idle motion
+    this.phase = this.people.map((_, i) => i * (360 / this.people.length));
+    this.state = { active: null, expanded: false, hover: null, stageW: 1000, frame: 0, fading: false, heroHover: false, heroFading: false };
+  }
+
+  componentDidMount() {
+    this.measure = () => this.setState({ stageW: Math.min(window.innerWidth - 56, 1080) });
+    this.measure();
+    window.addEventListener('resize', this.measure);
+  }
+  componentWillUnmount() {
+    if (this.measure) window.removeEventListener('resize', this.measure);
+    clearTimeout(this.expandT); clearInterval(this.cycle); clearInterval(this.heroCycle);
+    clearTimeout(this.fadeT); clearTimeout(this.heroFadeT);
+  }
+
+  duration() { return Math.max(6000, this.props.spinSeconds ? this.props.spinSeconds * 1000 : 30000); }
+
+  // read where each circle actually is right now, straight off its running CSS animation
+  readPhases() {
+    const dur = this.duration();
+    return this.people.map((_, i) => {
+      const el = this.nodes[i] && this.nodes[i].parentElement;
+      const anims = el && el.getAnimations ? el.getAnimations() : [];
+      const timing = anims.length && anims[0].effect && anims[0].effect.getComputedTiming
+        ? anims[0].effect.getComputedTiming() : null;
+      if (timing && typeof timing.progress === 'number') return (timing.progress * 360) % 360;
+      if (anims.length && anims[0].currentTime != null) {
+        return (((anims[0].currentTime / dur) * 360) + this.phase[i]) % 360;
+      }
+      return this.phase[i];
+    });
+  }
+
+  startCycle() {
+    clearInterval(this.cycle);
+    const period = this.props.hoverCycleMs ?? 700;
+    this.cycle = setInterval(() => {
+      this.setState({ fading: true });
+      clearTimeout(this.fadeT);
+      this.fadeT = setTimeout(() => this.setState(s => ({ frame: s.frame + 1, fading: false })), 190);
+    }, period);
+  }
+  stopCycle() { clearInterval(this.cycle); clearTimeout(this.fadeT); this.setState({ frame: 0, fading: false }); }
+
+  startHeroCycle() {
+    clearInterval(this.heroCycle);
+    const period = this.props.hoverCycleMs ?? 700;
+    this.heroCycle = setInterval(() => {
+      this.setState({ heroFading: true });
+      clearTimeout(this.heroFadeT);
+      this.heroFadeT = setTimeout(() => this.setState(s => ({ frame: s.frame + 1, heroFading: false })), 190);
+    }, period);
+  }
+  stopHeroCycle() { clearInterval(this.heroCycle); clearTimeout(this.heroFadeT); this.setState({ heroHover: false, heroFading: false, frame: 0 }); }
+
+  select(i) {
+    const live = this.readPhases();
+    // rotate the whole disk so member i lands at the front (phase 0)
+    this.phase = live.map(a => ((a - live[i]) % 360 + 360) % 360);
+    clearInterval(this.cycle); clearTimeout(this.fadeT); clearTimeout(this.expandT);
+    this.setState({ active: i, expanded: false, hover: null, frame: 0, fading: false });
+    this.expandT = setTimeout(() => this.setState({ expanded: true }), 800);
+  }
+
+  close() {
+    this.stopHeroCycle(); clearTimeout(this.expandT);
+    this.setState({ active: null, expanded: false, frame: 0 });
+  }
+
+  geometry(deg) {
+    const R = Math.min(this.props.orbitRadius ?? 340, Math.max(150, (this.state.stageW || 1000) / 2 - 86));
+    const rad = (deg * Math.PI) / 180;
+    const depth = (Math.cos(rad) + 1) / 2;
+    return {
+      x: R * Math.sin(rad), y: 92 * Math.cos(rad), depth,
+      scale: 0.6 + 0.48 * depth, opacity: 0.46 + 0.54 * depth, z: Math.round(depth * 100)
+    };
+  }
+
+  renderVals() {
+    const dur = this.duration();
+    const snapped = this.state.active !== null;
+    const R = Math.min(this.props.orbitRadius ?? 340, Math.max(150, (this.state.stageW || 1000) / 2 - 86));
+    const orbit = this.people.map((p, i) => {
+      const hovered = this.state.hover === i;
+      const isActive = this.state.active === i;
+      const g = this.geometry(this.phase[i]);
+      const shot = hovered ? p.shots[this.state.frame % p.shots.length] : p.shots[0];
+      return {
+        name: p.name, role: p.role, initials: p.initials,
+        avatar: 'team/av_' + shot + '.png',
+        ref: (el) => { this.nodes[i] = el; },
+        spinDur: snapped ? '0ms' : dur + 'ms',
+        spinDelay: snapped ? '0ms' : '-' + Math.round((this.phase[i] / 360) * dur) + 'ms',
+        playState: snapped ? 'paused' : 'running',
+        snapTransform: snapped
+          ? 'translate(' + g.x.toFixed(1) + 'px, ' + g.y.toFixed(1) + 'px) scale(' + (isActive ? 0.55 : g.scale).toFixed(3) + ')'
+          : 'none',
+        snapOpacity: snapped ? (isActive ? 0 : g.opacity.toFixed(2)) : 1,
+        snapZ: snapped ? g.z : 'auto',
+        pointer: snapped ? 'none' : 'auto',
+        hoverTransform: hovered ? 'scale(1.14) translateY(-12px)' : 'scale(1)',
+        imgOpacity: hovered && this.state.fading ? 0.15 : 1,
+        shadow: hovered
+          ? '0 0 0 6px #ffffff, 0 22px 34px rgba(22,21,15,0.2)'
+          : '0 0 0 5px #ffffff, 0 14px 26px rgba(22,21,15,0.12)',
+        imgFilter: hovered ? 'saturate(1.1) contrast(1.04)' : 'saturate(0.92)',
+        initialsOpacity: hovered || snapped ? 0 : 0.9,
+        labelOpacity: hovered ? 1 : 0,
+        onSelect: () => this.select(i),
+        onEnter: () => { if (this.state.active !== null) return; this.setState({ hover: i, frame: 0 }); this.startCycle(); },
+        onLeave: () => { if (this.state.hover === i) { this.setState({ hover: null }); this.stopCycle(); } }
+      };
+    });
+    const hero = this.state.expanded && this.state.active !== null ? this.people[this.state.active] : null;
+    const heroShot = hero ? (this.state.heroHover ? hero.shots[this.state.frame % hero.shots.length] : hero.shots[0]) : null;
+    return {
+      orbit,
+      radius: R + 'px',
+      hasHero: !!heroShot,
+      heroOpacity: hero ? 1 : 0,
+      heroPointer: hero ? 'auto' : 'none',
+      heroImgOpacity: this.state.heroFading ? 0.1 : 1,
+      heroCutout: heroShot ? 'team/' + heroShot + '.png' : '',
+      heroName: hero ? hero.name : '',
+      heroRole: hero ? hero.role : '',
+      heroInitials: hero ? hero.initials : '',
+      heroBio: hero ? hero.bio : '',
+      onHeroEnter: () => { this.setState({ heroHover: true, frame: 0 }); this.startHeroCycle(); },
+      onHeroLeave: () => this.stopHeroCycle(),
+      onClose: () => this.close()
+    };
+  }
+}
+
+</script>
+</body>
+</html>

@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600&family=Newsreader:ital,opsz,wght@0,6..72,300;1,6..72,300&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet" />
+<style>
+html { scroll-behavior: smooth; }
+body { margin: 0; background: #d2d2d0; -webkit-font-smoothing: antialiased; }
+a { color: #e8442d; text-decoration: none; }
+a:hover { color: #b32a17; }
+[data-reveal="in"] { opacity: 1 !important; transform: none !important; }
+</style>
+</helmet>
+<div style="background:#d2d2d0;font-family:Archivo,'Helvetica Neue',Helvetica,Arial,sans-serif;color:#0a0a0a;padding:28px 28px 0;min-height:100vh">
+
+  <div style="display:flex;align-items:flex-start;justify-content:space-between;gap:24px;margin-bottom:34px">
+    <div style="position:relative;width:196px;aspect-ratio:64/30;overflow:hidden">
+      <img src="uploads/TL6.png" alt="Tvashta Labs" style="position:absolute;left:-15.625%;top:-200%;width:156.25%;height:auto" />
+    </div>
+    <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:#4a4a48;text-align:right;padding-top:4px">Independent product<br />&amp; design practice</div>
+  </div>
+
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(380px,1fr));gap:56px 40px">
+
+    <!-- INTRODUCTION -->
+    <section data-screen-label="Introduction">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Introduction</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(140px,0.34fr) minmax(0,1fr);gap:24px;padding:48px 44px 40px">
+          <div style="display:flex;align-items:flex-start;flex-wrap:wrap;gap:10px;min-width:0">
+            <div style="position:relative;width:100%;max-width:130px;aspect-ratio:64/30;overflow:hidden;flex:1 1 100px">
+              <img src="uploads/TL6.png" alt="Tvashta Labs" style="position:absolute;left:-15.625%;top:-200%;width:156.25%;height:auto" />
+            </div>
+            <div style="font-size:10px;line-height:1.3;padding-top:2px;color:#0a0a0a;min-width:0">Est.<br /><strong style="font-weight:600">Brooklyn 2011</strong></div>
+          </div>
+          <div data-reveal="1" style="opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease">
+            <h3 style="margin:0;font-size:clamp(28px,3vw,42px);font-weight:500;line-height:1.06;letter-spacing:-0.032em;text-wrap:pretty">We solve complex problems through design &amp; technology</h3>
+            <p style="font-family:Newsreader,Georgia,serif;font-size:15px;line-height:1.5;margin:26px 0 0;max-width:52ch">“Entrusted with digital product work by some of the most demanding operators in retail, health and finance.”<br /><span style="padding-left:1.6em">— The Quarterly Review</span></p>
+            <p style="margin:14px 0 0;font-size:14px"><a href="#expertise" style="border-bottom:1px solid currentColor">Learn more</a></p>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:36px 44px 48px">
+          <div style="font-size:13px">Latest</div>
+          <div>
+            <div style="background:#232322;padding:22px">
+              <div style="position:relative;aspect-ratio:16/10;overflow:hidden">
+                <div style="position:absolute;inset:0;background:#f26c1c;transition:opacity 1.4s ease;opacity:{{op0}}">
+                  <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,.16) 0 1px,transparent 1px 13px)"></div>
+                  <div style="position:absolute;right:14px;top:0;bottom:0;display:flex;align-items:center;writing-mode:vertical-rl;font-family:Newsreader,Georgia,serif;font-size:clamp(18px,2.4vw,34px);color:#171717">WREN ATELIER</div>
+                </div>
+                <div style="position:absolute;inset:0;background:#0f2d24;transition:opacity 1.4s ease;opacity:{{op1}}">
+                  <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.12) 0 1px,transparent 1px 22px)"></div>
+                  <div style="position:absolute;left:18px;bottom:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#dfe8e3">CASE 02 — HARBOR FOODS COMMERCE</div>
+                </div>
+                <div style="position:absolute;inset:0;background:#e7e4dd;transition:opacity 1.4s ease;opacity:{{op2}}">
+                  <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(0,0,0,.10) 0 1px,transparent 1px 9px)"></div>
+                  <div style="position:absolute;left:18px;top:16px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#3a3a38">project visual — drop image</div>
+                </div>
+              </div>
+            </div>
+            <h4 style="margin:16px 0 6px;font-size:15px;font-weight:500">Wren Atelier’s Digital Redesign</h4>
+            <p style="margin:0;font-size:13px;line-height:1.5;color:#2a2a28;max-width:60ch">A reimagined storefront marking the evolution of the label from fashion toward lifestyle. <a href="#case-studies" style="border-bottom:1px solid currentColor">Learn more.</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SELECT CLIENTS -->
+    <section data-screen-label="Select Clients">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Select Clients</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:48px 44px">
+          <div style="font-size:13px">Select Clients</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:44px 32px">
+            <sc-for list="{{ clients }}" as="c" hint-placeholder-count="6">
+              <div data-reveal="1" style="opacity:0;transform:translateY(12px);transition:opacity .6s ease,transform .6s ease">
+                <h4 style="margin:0 0 10px;font-size:19px;font-weight:500;letter-spacing:-0.02em;color:{{ c.color }}">{{ c.name }}</h4>
+                <p style="margin:0 0 16px;font-size:12px;line-height:1.55;color:#2a2a28">{{ c.desc }}</p>
+                <a href="#case-studies" style="font-size:12px;border-bottom:1px solid currentColor">View case study</a>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:36px 44px 48px">
+          <div style="font-size:13px">Index</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0 32px">
+            <sc-for list="{{ clientIndex }}" as="n" hint-placeholder-count="8">
+              <div style="border-bottom:1px solid #e4e4e2;padding:14px 0;font-size:20px;font-weight:400;letter-spacing:-0.02em">{{ n }}</div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- EXPERTISE -->
+    <section id="expertise" data-screen-label="Expertise">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Expertise &amp; Capabilities</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:72px 44px 56px">
+          <div style="font-size:13px">Expertise &amp; Capabilities</div>
+          <div data-reveal="1" style="opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease">
+            <h3 style="margin:0;font-size:clamp(28px,3vw,42px);font-weight:500;letter-spacing:-0.032em;line-height:1.06">From Ambiguity to Impact<sup style="font-size:0.34em;top:-1.1em">™</sup></h3>
+            <p style="font-family:Newsreader,Georgia,serif;font-size:15px;line-height:1.6;margin:26px 0 0;max-width:54ch">For over a decade, companies setting out to win in the digital economy have turned to Tvashta Labs. We unite hands-on product, design and technical talent to transform our clients’ core businesses.</p>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:36px 44px 56px">
+          <div style="font-size:13px">Capabilities</div>
+          <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:34px 32px">
+            <sc-for list="{{ capabilities }}" as="cap" hint-placeholder-count="5">
+              <div>
+                <h4 style="margin:0 0 12px;font-size:14px;font-weight:600">{{ cap.title }}</h4>
+                <sc-for list="{{ cap.items }}" as="i" hint-placeholder-count="4">
+                  <div style="font-size:12px;line-height:1.9;color:#2a2a28">{{ i }}</div>
+                </sc-for>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- OUTCOMES -->
+    <section data-screen-label="Outcomes">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Outcomes</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:72px 44px 56px">
+          <div style="font-size:13px">Outcomes</div>
+          <div data-reveal="1" style="opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease">
+            <div style="font-size:clamp(64px,8vw,116px);font-weight:500;letter-spacing:-0.045em;line-height:0.9">5M</div>
+            <h4 style="margin:34px 0 10px;font-size:19px;font-weight:500;letter-spacing:-0.02em">Paying subscribers for a national streaming service</h4>
+            <p style="margin:0 0 14px;font-size:13px;line-height:1.55;color:#2a2a28;max-width:58ch">We defined the feature set, designed and prototyped the product, and set the long-term roadmap for the country’s most-watched live streaming video service.</p>
+            <a href="#case-studies" style="font-size:12px;border-bottom:1px solid currentColor">View case study</a>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="padding:44px 44px 56px;display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:44px 32px">
+          <sc-for list="{{ metrics }}" as="m" hint-placeholder-count="3">
+            <div data-reveal="1" style="opacity:0;transform:translateY(16px);transition:opacity .7s ease,transform .7s ease">
+              <div style="font-size:clamp(44px,4.6vw,68px);font-weight:500;letter-spacing:-0.045em;line-height:0.9">{{ m.value }}<sup style="font-size:0.44em;top:-0.9em;letter-spacing:-0.02em">{{ m.unit }}</sup></div>
+              <h4 style="margin:20px 0 8px;font-size:14px;font-weight:600">{{ m.title }}</h4>
+              <p style="margin:0;font-size:12px;line-height:1.55;color:#2a2a28">{{ m.desc }}</p>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section data-screen-label="Process">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Process</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:72px 44px 48px">
+          <div style="font-size:13px">Process</div>
+          <div data-reveal="1" style="opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease">
+            <blockquote style="margin:0;font-family:Newsreader,Georgia,serif;font-size:clamp(24px,2.5vw,34px);line-height:1.24;letter-spacing:-0.01em">“One team, one room, one backlog. Everything else is overhead.”</blockquote>
+            <p style="margin:22px 0 0;font-size:13px">— Dana Ferreira, Partner &amp; Head of Product</p>
+            <p style="margin:22px 0 0;font-size:13px;line-height:1.6;color:#2a2a28;max-width:58ch">We work in small, senior, embedded teams alongside our clients. Strategy, design and engineering sit together from week one, shipping to real users long before the engagement ends.</p>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:36px 44px 48px">
+          <div style="font-size:13px">Working Together</div>
+          <div style="position:relative;aspect-ratio:4/3;background:#c9c7c1;overflow:hidden">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,.07) 0 1px,transparent 1px 11px)"></div>
+            <div style="position:absolute;left:16px;bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#3a3a38">photography — team working session</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- LEADERSHIP -->
+    <section data-screen-label="Leadership">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Leadership</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:72px 44px 48px">
+          <div style="font-size:13px">Leadership</div>
+          <div data-reveal="1" style="opacity:0;transform:translateY(14px);transition:opacity .7s ease,transform .7s ease">
+            <blockquote style="margin:0;font-family:Newsreader,Georgia,serif;font-size:clamp(24px,2.5vw,34px);line-height:1.24">“We stayed small on purpose. Seniority is the product.”</blockquote>
+            <p style="margin:22px 0 0;font-size:13px">— Ivo Marchetti, Founding Partner</p>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="display:flex;flex-wrap:wrap;gap:28px;align-items:center;padding:48px 44px 60px">
+          <div style="flex:1 1 190px;min-width:0;font-size:12px;line-height:1.7;color:#2a2a28">Ivo has led product engagements across retail, transit and public health for fifteen years. He founded the practice after a decade building consumer software in-house.</div>
+          <div style="flex:0 0 140px;width:140px;aspect-ratio:1;border-radius:50%;background:#c9c7c1;position:relative;overflow:hidden">
+            <div style="position:absolute;inset:0;background:repeating-linear-gradient(135deg,rgba(0,0,0,.08) 0 1px,transparent 1px 8px)"></div>
+            <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:10px;color:#3a3a38;text-align:center">portrait</div>
+          </div>
+          <div style="flex:1 1 190px;min-width:0;font-size:12px;line-height:1.7;color:#2a2a28">Partners: Dana Ferreira, Product. Noor Haddad, Design. Peter Lindqvist, Engineering. Amara Osei, Strategy.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- NEWS -->
+    <section data-screen-label="News">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">News</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:72px 44px 48px">
+          <div style="font-size:13px">News</div>
+          <div>
+            <div style="position:relative;aspect-ratio:16/9;background:#1d2a3a;overflow:hidden">
+              <div style="position:absolute;inset:0;background:repeating-linear-gradient(90deg,rgba(255,255,255,.10) 0 1px,transparent 1px 18px)"></div>
+              <div style="position:absolute;left:16px;bottom:14px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#dfe4ea">featured image</div>
+            </div>
+            <h4 style="margin:18px 0 8px;font-size:19px;font-weight:500;letter-spacing:-0.02em">A field guide to shipping in regulated industries</h4>
+            <p style="margin:0;font-size:13px;line-height:1.55;color:#2a2a28;max-width:60ch">Our engineering partners on the practices that let small teams release weekly inside banks, hospitals and public agencies.</p>
+          </div>
+        </div>
+        <div style="height:1px;background:#e4e4e2;margin:0 44px"></div>
+        <div style="padding:32px 44px 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:24px">
+          <sc-for list="{{ news }}" as="a" hint-placeholder-count="3">
+            <div>
+              <div style="aspect-ratio:4/3;background:#c9c7c1;position:relative;overflow:hidden">
+                <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,.07) 0 1px,transparent 1px 9px)"></div>
+              </div>
+              <div style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.07em;color:#6a6a68;margin:12px 0 6px">{{ a.date }}</div>
+              <div style="font-size:13px;line-height:1.4">{{ a.title }}</div>
+            </div>
+          </sc-for>
+        </div>
+      </div>
+    </section>
+
+    <!-- CAREERS -->
+    <section data-screen-label="Careers">
+      <h2 style="margin:0 0 10px;font-size:28px;font-weight:400;letter-spacing:-0.02em">Careers</h2>
+      <div style="background:#fff;box-shadow:0 1px 2px rgba(0,0,0,0.06);border-top:4px solid #0a0a0a;height:min(220px,32vh);overflow:hidden;display:flex;flex-direction:column;transition:transform .35s cubic-bezier(.22,.61,.36,1),box-shadow .35s ease,border-color .3s ease" style-hover="transform:translateY(-8px);box-shadow:0 14px 28px rgba(0,0,0,0.13);border-top:4px solid #e8442d" data-scrollcard="1">
+        <div style="position:relative;flex:0 0 240px;overflow:hidden;background:#cfc7ba">
+          <div style="position:absolute;inset:0;opacity:{{amb0}};transition:opacity 2.4s ease;background:linear-gradient(180deg,#e3dbcd 0%,#c8bfae 60%,#b3a795 100%)"></div>
+          <div style="position:absolute;inset:0;opacity:{{amb1}};transition:opacity 2.4s ease;background:linear-gradient(180deg,#ded6c8 0%,#c2b9a8 55%,#a89c8a 100%)"></div>
+          <div style="position:absolute;inset:0;background:repeating-linear-gradient(180deg,rgba(0,0,0,.05) 0 1px,transparent 1px 14px)"></div>
+          <div style="position:absolute;left:0;right:0;bottom:0;padding:28px 44px 26px;background:linear-gradient(180deg,rgba(0,0,0,0) 0%,rgba(0,0,0,.42) 100%)">
+            <div style="font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:0.08em;color:#f4f2ee">ambient studio video — light wood, pendant lights, quiet movement</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:minmax(0,0.34fr) minmax(0,1fr);gap:24px;padding:36px 44px 48px">
+          <div style="font-size:13px">Careers</div>
+          <div>
+            <h4 style="margin:0 0 10px;font-size:19px;font-weight:500;letter-spacing:-0.02em">Come build with us</h4>
+            <p style="margin:0 0 14px;font-size:13px;line-height:1.55;color:#2a2a28;max-width:56ch">We hire senior practitioners and give them room. Open roles in Brooklyn, Lisbon and Portland.</p>
+            <a href="#footer" style="font-size:12px;border-bottom:1px solid currentColor">See open roles</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- CASE STUDIES -->
+  <div id="case-studies" style="padding:120px 0 96px">
+    <h2 style="margin:0 0 48px;font-size:clamp(38px,5vw,72px);font-weight:400;letter-spacing:-0.035em">Case Studies</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:0 64px">
+      <sc-for list="{{ caseStudies }}" as="cs" hint-placeholder-count="10">
+        <a href="#case-studies" style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;border-top:1px solid #b6b6b3;padding:20px 0;color:{{ cs.color }}" style-hover="opacity:0.55">
+          <span style="font-size:clamp(20px,2vw,30px);letter-spacing:-0.025em">{{ cs.name }}</span>
+          <span style="font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:0.08em;color:#6a6a68">{{ cs.kind }}</span>
+        </a>
+      </sc-for>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <div id="footer" style="border-top:1px solid #b6b6b3;padding:28px 0 48px;display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:24px;align-items:start">
+    <div style="position:relative;width:120px;aspect-ratio:64/30;overflow:hidden;justify-self:start">
+      <img src="uploads/TL6.png" alt="Tvashta Labs" style="position:absolute;left:-15.625%;top:-200%;width:156.25%;height:auto" />
+    </div>
+    <div style="font-size:11px;line-height:1.7;color:#3a3a38">© 2026 Tvashta Labs<br /><a href="#footer" style="color:#2b56d6">Cookie preferences</a></div>
+    <div style="font-size:11px;line-height:1.7;color:#3a3a38">hello@tvashtalabs.com<br />+1 718 555 0142</div>
+    <div style="font-size:11px;line-height:1.7;color:#3a3a38">Brooklyn · Lisbon · Portland</div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#e8442d&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#e8442d&quot;,&quot;#1f6f4a&quot;,&quot;#2b56d6&quot;,&quot;#0a0a0a&quot;]}}">
+class Component extends DCLogic {
+  state = { shot: 0, amb: 0 };
+
+  componentDidMount() {
+    this._t = setInterval(() => this.setState(s => ({ shot: (s.shot + 1) % 3 })), 4200);
+    this._a = setInterval(() => this.setState(s => ({ amb: s.amb ? 0 : 1 })), 6000);
+    const io = new IntersectionObserver(es => {
+      es.forEach(e => { if (e.isIntersecting) { e.target.setAttribute('data-reveal', 'in'); io.unobserve(e.target); } });
+    }, { rootMargin: '0px 0px -8% 0px', threshold: 0.15 });
+    requestAnimationFrame(() => document.querySelectorAll('[data-reveal="1"]').forEach(n => io.observe(n)));
+    this._io = io;
+    this._cards = [];
+    document.querySelectorAll('[data-scrollcard]').forEach(el => {
+      const anim = (to, dur) => {
+        cancelAnimationFrame(el._raf);
+        const from = el.scrollTop, dist = to - from;
+        if (!dist) return;
+        const t0 = performance.now();
+        const step = t => {
+          const p = Math.min(1, (t - t0) / dur);
+          const e = p < 0.5 ? 4 * p * p * p : 1 - Math.pow(-2 * p + 2, 3) / 2;
+          el.scrollTop = from + dist * e;
+          if (p < 1) el._raf = requestAnimationFrame(step);
+        };
+        el._raf = requestAnimationFrame(step);
+      };
+      const advance = () => {
+        const max = el.scrollHeight - el.clientHeight;
+        const next = Math.min(max, Math.round(el.scrollTop / el.clientHeight) * el.clientHeight + el.clientHeight);
+        if (next > el.scrollTop + 2) anim(next, 520);
+        else clearInterval(el._iv);
+      };
+      const enter = () => { clearInterval(el._iv); advance(); el._iv = setInterval(advance, 2000); };
+      const leave = () => { clearInterval(el._iv); anim(0, 480); };
+      el.addEventListener('mouseenter', enter);
+      el.addEventListener('mouseleave', leave);
+      this._cards.push([el, enter, leave]);
+    });
+  }
+  componentWillUnmount() { clearInterval(this._t); clearInterval(this._a); this._io && this._io.disconnect();     (this._cards || []).forEach(([el, en, lv]) => { cancelAnimationFrame(el._raf); clearInterval(el._iv); el.removeEventListener('mouseenter', en); el.removeEventListener('mouseleave', lv); }); }
+
+  renderVals() {
+    const s = this.state.shot;
+    const accent = this.props.accent ?? '#e8442d';
+    return {
+      op0: s === 0 ? 1 : 0, op1: s === 1 ? 1 : 0, op2: s === 2 ? 1 : 0,
+      amb0: this.state.amb ? 0 : 1, amb1: this.state.amb ? 1 : 0,
+      accent,
+      clients: [
+        { name: 'Harbor Foods', color: '#0a0a0a', desc: 'Ongoing transformation of an omnichannel grocery business — in-store, employee-facing and the first commerce app.' },
+        { name: 'Vantage Sport', color: '#1f6f4a', desc: 'Expanding the brand beyond marketing into digital products, including a personalised health-science platform.' },
+        { name: 'Northline Bank', color: '#0a0a0a', desc: 'A ground-up retail banking app for two million customers, launched in eleven months across iOS and Android.' },
+        { name: 'Terra Motors', color: '#7a2e1d', desc: 'Configurator, ordering and delivery experience for an electric vehicle line sold entirely direct-to-consumer.' },
+        { name: 'Aviary Health', color: '#0a0a0a', desc: 'Patient scheduling and records for a national clinic network, designed around the front-desk shift, not the org chart.' },
+        { name: 'Civic Transit', color: '#2b56d6', desc: 'Real-time rider information and fare payment for a metropolitan transit authority serving 1.4M daily trips.' }
+      ],
+      clientIndex: ['Meadow', 'Kessler', 'Public Works', 'Orchid Labs', 'Bellweather', 'Ridgeline', 'Sonder', 'Halcyon'],
+      capabilities: [
+        { title: 'Strategy', items: ['Digital product strategy', 'Ecosystem strategy', 'Proof of concept & MVP definition', 'Roadmap development'] },
+        { title: 'Design', items: ['Product & interface design', 'Design systems', 'Brand in digital', 'Motion & prototyping'] },
+        { title: 'Product', items: ['Discovery & framing', 'Delivery management', 'Experimentation', 'Team enablement'] },
+        { title: 'Research', items: ['Generative research', 'Usability & concept testing', 'Behavioural analytics', 'Service mapping'] },
+        { title: 'Technology', items: ['Native & web engineering', 'Platform architecture', 'Commerce & content systems', 'Performance & accessibility'] }
+      ],
+      metrics: [
+        { value: '105', unit: '%', title: 'Increase in mobile conversion', desc: 'A rebuilt checkout for a national grocer, shipped in stages over a single quarter.' },
+        { value: '680', unit: 'M', title: 'Annual digital transactions', desc: 'Fare payment and rider tools now carrying the majority of a transit system’s volume.' },
+        { value: '5', unit: 'B', title: 'In commerce revenue enabled', desc: 'Storefront and fulfilment platforms operating across nineteen markets.' }
+      ],
+      news: [
+        { date: 'AUG 2026', title: 'Tvashta Labs joins the Lisbon design week jury' },
+        { date: 'JUN 2026', title: 'Northline Bank app named app of the year' },
+        { date: 'APR 2026', title: 'On hiring senior-only teams: a partner letter' }
+      ],
+      caseStudies: [
+        { name: 'Harbor Foods', kind: 'Commerce', color: '#0a0a0a' },
+        { name: 'Civic Transit', kind: 'Public', color: '#2b56d6' },
+        { name: 'Northline Bank', kind: 'Financial', color: '#0a0a0a' },
+        { name: 'Wren Atelier', kind: 'Fashion', color: '#7a2e1d' },
+        { name: 'Vantage Sport', kind: 'Health', color: '#1f6f4a' },
+        { name: 'Terra Motors', kind: 'Mobility', color: '#0a0a0a' },
+        { name: 'Aviary Health', kind: 'Healthcare', color: '#0a0a0a' },
+        { name: 'Orchid Labs', kind: 'Platform', color: '#0a0a0a' },
+        { name: 'Public Works', kind: 'Civic', color: '#0a0a0a' },
+        { name: 'Halcyon', kind: 'Hospitality', color: '#7a2e1d' }
+      ]
+    };
+  }
+}
+</script>
+</body>
+</html>

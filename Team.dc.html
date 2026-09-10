@@ -1,0 +1,428 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@400;500;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #ffffff; }
+  body { -webkit-font-smoothing: antialiased; }
+  a { color: #16150f; text-decoration: none; }
+  a:hover { color: #6b6455; }
+  @keyframes orbit {
+    0%     { transform: translate(calc(var(--r) *  0.000), 92px)    scale(1.080); opacity: 1;    z-index: 100; filter: none; }
+    6.25%  { transform: translate(calc(var(--r) *  0.383), 85.0px)  scale(1.062); opacity: 0.98; z-index: 96;  filter: none; }
+    12.5%  { transform: translate(calc(var(--r) *  0.707), 65.0px)  scale(1.010); opacity: 0.92; z-index: 85;  filter: none; }
+    18.75% { transform: translate(calc(var(--r) *  0.924), 35.2px)  scale(0.932); opacity: 0.83; z-index: 69;  filter: none; }
+    25%    { transform: translate(calc(var(--r) *  1.000), 0px)     scale(0.840); opacity: 0.73; z-index: 50;  filter: none; }
+    31.25% { transform: translate(calc(var(--r) *  0.924), -35.2px) scale(0.748); opacity: 0.63; z-index: 31;  filter: blur(0.6px); }
+    37.5%  { transform: translate(calc(var(--r) *  0.707), -65.0px) scale(0.670); opacity: 0.54; z-index: 15;  filter: blur(1.1px); }
+    43.75% { transform: translate(calc(var(--r) *  0.383), -85.0px) scale(0.618); opacity: 0.48; z-index: 4;   filter: blur(1.4px); }
+    50%    { transform: translate(calc(var(--r) *  0.000), -92px)   scale(0.600); opacity: 0.46; z-index: 0;   filter: blur(1.5px); }
+    56.25% { transform: translate(calc(var(--r) * -0.383), -85.0px) scale(0.618); opacity: 0.48; z-index: 4;   filter: blur(1.4px); }
+    62.5%  { transform: translate(calc(var(--r) * -0.707), -65.0px) scale(0.670); opacity: 0.54; z-index: 15;  filter: blur(1.1px); }
+    68.75% { transform: translate(calc(var(--r) * -0.924), -35.2px) scale(0.748); opacity: 0.63; z-index: 31;  filter: blur(0.6px); }
+    75%    { transform: translate(calc(var(--r) * -1.000), 0px)     scale(0.840); opacity: 0.73; z-index: 50;  filter: none; }
+    81.25% { transform: translate(calc(var(--r) * -0.924), 35.2px)  scale(0.932); opacity: 0.83; z-index: 69;  filter: none; }
+    87.5%  { transform: translate(calc(var(--r) * -0.707), 65.0px)  scale(1.010); opacity: 0.92; z-index: 85;  filter: none; }
+    93.75% { transform: translate(calc(var(--r) * -0.383), 85.0px)  scale(1.062); opacity: 0.98; z-index: 96;  filter: none; }
+    100%   { transform: translate(calc(var(--r) *  0.000), 92px)    scale(1.080); opacity: 1;    z-index: 100; filter: none; }
+  }
+</style>
+</helmet>
+<div style="min-height: 100vh; background: #ffffff; color: #16150f; font-family: 'DM Sans', Helvetica, Arial, sans-serif; overflow-x: hidden;">
+
+  <a href="Longshot Lab.dc.html" style="position: fixed; left: clamp(18px, 5vw, 40px); top: clamp(14px, 3.5vw, 24px); z-index: 31; display: block; width: 200px; height: 46px;" style-hover="opacity: 0.65;">
+    <img data-mark-word="1" src="wordmark-blue.png" alt="Tvashta Labs" style="position: absolute; left: 0; top: 15px; height: 17px; width: auto; display: block; transform-origin: left center; will-change: opacity, transform;" />
+    <img data-mark-tile="1" src="TL6.png" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; width: 46px; height: 46px; border-radius: 9px; display: block; opacity: 0; transform-origin: left center; will-change: opacity, transform;" />
+  </a>
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: flex-start; justify-content: flex-end; padding: clamp(16px, 4vw, 30px) clamp(18px, 5vw, 40px); pointer-events: none;">
+    <button type="button" onClick="{{ openMenu }}" aria-label="Open menu" style="display: flex; flex-direction: column; gap: 6px; width: 30px; padding: 4px 0; background: transparent; border: 0; cursor: pointer; pointer-events: auto;" style-hover="opacity: 0.6;">
+      <span style="display: block; height: 1.6px; width: 100%; background: #0F3473;"></span>
+      <span style="display: block; height: 1.6px; width: 100%; background: #0F3473;"></span>
+    </button>
+  </header>
+
+  <div style="position: fixed; inset: 0; z-index: 40; background: #0B285A; overflow-y: auto; transition: opacity 300ms ease; opacity: {{ menuOpacity }}; pointer-events: {{ menuPointer }};">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(18px, 5vw, 40px);">
+      <img src="wordmark.png" alt="Tvashta Labs" style="height: 17px; width: auto; display: block;" />
+      <button type="button" onClick="{{ closeMenu }}" aria-label="Close menu" style="width: 34px; height: 34px; position: relative; background: transparent; border: 0; cursor: pointer;" style-hover="opacity: 0.6;">
+        <span style="position: absolute; left: 3px; top: 16px; width: 28px; height: 1.6px; background: #F5F3EE; transform: rotate(45deg); display: block;"></span>
+        <span style="position: absolute; left: 3px; top: 16px; width: 28px; height: 1.6px; background: #F5F3EE; transform: rotate(-45deg); display: block;"></span>
+      </button>
+    </div>
+    <div style="max-width: 1560px; margin: 0 auto; padding: clamp(40px,9vw,70px) clamp(18px, 5vw, 40px) clamp(34px,7vw,60px); display: grid; grid-template-columns: repeat(auto-fit, minmax(min(340px, 100%), 1fr)); gap: clamp(44px, 8vw, 90px); align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 60px;">
+        <div data-dimgroup="1" style="display: flex; flex-direction: column; gap: 8px;">
+          <a data-dimitem="1" href="Longshot Lab.dc.html" onClick="{{ closeMenu }}" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Home</a>
+          <a data-dimitem="1" href="Projects.dc.html" onClick="{{ closeMenu }}" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Work</a>
+          <a data-dimitem="1" href="Team.dc.html" onClick="{{ closeMenu }}" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Founders&rsquo; Roundtable</a>
+          <a data-dimitem="1" href="Longshot Lab.dc.html#process" onClick="{{ closeMenu }}" style="font-family: 'DM Sans', Helvetica, Arial, sans-serif; font-size: clamp(40px, 5.4vw, 76px); line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">The Digital Forge</a>
+        </div>
+        <div data-dimgroup="1" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+          <a data-hoverswap="work@tvashtalabs.com" href="mailto:work@tvashtalabs.com" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; border: 1px solid #F5F3EE; border-radius: 999px; padding: 15px 30px; transition: background 420ms cubic-bezier(.22,.9,.2,1), color 420ms cubic-bezier(.22,.9,.2,1), border-color 420ms cubic-bezier(.22,.9,.2,1); " style-hover="background: #F5F3EE; color: #0B285A;">Work with us</a>
+          <a data-dimitem="1" href="Team.dc.html" onClick="{{ closeMenu }}" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Team</a>
+          <a data-dimitem="1" href="Projects.dc.html" onClick="{{ closeMenu }}" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Projects</a>
+          <a data-dimitem="1" href="Longshot Lab.dc.html#journal" onClick="{{ closeMenu }}" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Archive</a>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <a href="Longshot Lab.dc.html#artefacts" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">017</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">Project</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Kashi Model — capture to replica</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+        <a href="Longshot Lab.dc.html#artefacts" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">024</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">Project</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Dhara Vessel — imagined, prototyped, made</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+        <a href="Team.dc.html" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'DM Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">04</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">People</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Four founders, one workbench</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="max-width: 1560px; margin: 0 auto; padding: clamp(24px,6vw,40px) clamp(18px, 5vw, 40px) clamp(40px,9vw,70px); display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; flex-wrap: wrap;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;">Keep up to date</span>
+        <span style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <input type="email" placeholder="Your email" style="width: 260px; background: transparent; border: 1px solid #1C4386; border-radius: 999px; outline: none; padding: 15px 26px; color: #F5F3EE; font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.14em;" />
+          <a href="mailto:work@tvashtalabs.com" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE;" style-hover="color: #18A6A0;">Subscribe</a>
+        </span>
+      </div>
+      <div style="display: flex; align-items: center; gap: 34px;">
+        <a href="Team.dc.html" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Instagram</a>
+        <a href="Team.dc.html" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">LinkedIn</a>
+        <a href="Team.dc.html" style="font-family: 'DM Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">X</a>
+      </div>
+    </div>
+  </div>
+
+  <section style="position: relative; z-index: 0; isolation: isolate; min-height: 100vh; box-sizing: border-box; padding: clamp(96px,22vw,120px) clamp(16px,5vw,28px) 40px; display: flex; flex-direction: column; align-items: center; gap: 8px; overflow: hidden;">
+
+    <div style="display: flex; flex-direction: column; align-items: center; gap: 9px; max-width: 620px; text-align: center;">
+      <div style="font-family: 'DM Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #6b6455;">Four co-founders</div>
+      <h1 style="margin: 0; font-family: 'Instrument Serif', Georgia, serif; font-size: clamp(32px, 4.4vw, 54px); line-height: 0.98; font-weight: 400; letter-spacing: -0.015em;">Spin the forge</h1>
+      <p style="margin: 0; font-size: 14px; line-height: 1.5; color: #6b6455; max-width: 430px; text-wrap: pretty;">Hover a face to see them shift. Tap one and the disk turns, brings them to the front, and they step out of the circle.</p>
+    </div>
+
+    <div style="position: relative; width: 100%; max-width: 1080px; height: clamp(330px, 56vh, 560px); margin-top: 4px;">
+
+      <div style="position: absolute; left: 50%; top: 50%; width: 88%; height: 300px; transform: translate(-50%, -34%); background: radial-gradient(ellipse at center, rgba(22,21,15,0.055), rgba(22,21,15,0) 66%); pointer-events: none;"></div>
+
+      <div style="position: absolute; inset: 0; pointer-events: none;">
+        <sc-for list="{{ orbit }}" as="m" hint-placeholder-count="4">
+          <div style="position: absolute; left: 50%; top: 50%; width: 0; height: 0; will-change: transform; --r: {{ radius }}; animation: orbit {{ m.spinDur }} linear infinite; animation-delay: {{ m.spinDelay }}; animation-play-state: {{ m.playState }}; transition: transform 760ms cubic-bezier(.22,.9,.2,1), opacity 420ms ease; transform: {{ m.snapTransform }}; opacity: {{ m.snapOpacity }}; z-index: {{ m.snapZ }}" style-hover="animation-play-state: paused">
+            <div role="button" tabindex="0" ref="{{ m.ref }}" onClick="{{ m.onSelect }}" onMouseEnter="{{ m.onEnter }}" onMouseLeave="{{ m.onLeave }}" style="position: absolute; left: 0; top: 0; width: {{ face }}; height: {{ face }}; margin-left: {{ faceOffset }}; margin-top: {{ faceOffset }}; border-radius: 50%; cursor: pointer; background: #f1efeb; pointer-events: {{ m.pointer }}; transition: transform 380ms cubic-bezier(.2,.9,.25,1), box-shadow 380ms ease; outline: none; transform: {{ m.hoverTransform }}; box-shadow: {{ m.shadow }}">
+              <img src="{{ m.avatar }}" alt="{{ m.name }}" draggable="false" ref="{{ m.imgRef }}" style="width: 100%; height: 100%; border-radius: 50%; object-fit: cover; object-position: 50% 22%; transition: filter 300ms ease, opacity 200ms ease; display: {{ m.imgDisplay }}; filter: {{ m.imgFilter }}; opacity: {{ m.imgOpacity }}" />
+              <div style="position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; border-radius: 50%; font-family: 'Instrument Serif', Georgia, serif; font-size: 34px; letter-spacing: 0.02em; color: #6b6455; pointer-events: none; opacity: {{ m.fallbackOpacity }}">{{ m.initials }}</div>
+              <div style="position: absolute; left: 50%; bottom: 8px; transform: translateX(-50%); font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 0.14em; padding: 3px 7px; border-radius: 999px; background: rgba(255,255,255,0.92); color: #16150f; transition: opacity 260ms ease; opacity: {{ m.initialsOpacity }}">{{ m.initials }}</div>
+              <div style="position: absolute; left: 50%; top: 100%; transform: translateX(-50%); margin-top: 14px; white-space: nowrap; transition: opacity 260ms ease; display: flex; flex-direction: column; align-items: center; gap: 3px; opacity: {{ m.labelOpacity }}">
+                <div style="font-size: 14px; font-weight: 500; letter-spacing: -0.01em; color: #16150f">{{ m.name }}</div>
+                <div style="font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; color: #6b6455">{{ m.role }}</div>
+              </div>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+
+      <div style="position: absolute; left: 0; right: 0; bottom: 172px; top: 0; box-sizing: border-box; display: flex; align-items: flex-end; justify-content: center; pointer-events: none; opacity: {{ heroOpacity }}">
+        <sc-if value="{{ hasHero }}" hint-placeholder-val="{{ false }}">
+          <img src="{{ heroCutout }}" alt="{{ heroName }}" draggable="false" ref="{{ heroRef }}" onMouseEnter="{{ onHeroEnter }}" onMouseLeave="{{ onHeroLeave }}" style="height: clamp(150px, 34vh, 440px); width: auto; max-height: 100%; display: block; filter: drop-shadow(0 26px 34px rgba(22,21,15,0.16)); transition: opacity 240ms ease; opacity: {{ heroImgOpacity }}; pointer-events: auto" />
+        </sc-if>
+      </div>
+
+      <div style="position: absolute; left: 50%; bottom: 2px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; gap: 9px; text-align: center; opacity: {{ heroOpacity }}; pointer-events: {{ heroPointer }}">
+        <div style="display: flex; align-items: baseline; gap: 11px; flex-wrap: wrap; justify-content: center">
+          <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.14em; color: #6b6455">{{ heroInitials }}</div>
+          <div style="font-family: 'Instrument Serif', Georgia, serif; font-size: 27px; letter-spacing: -0.01em">{{ heroName }}</div>
+          <div style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: #6b6455">{{ heroRole }}</div>
+        </div>
+        <p style="margin: 0; max-width: 460px; font-size: 13px; line-height: 1.55; color: #6b6455; text-wrap: pretty">{{ heroBio }}</p>
+        <button onClick="{{ onClose }}" style="margin-top: 2px; border: 1px solid #e2ded4; background: #ffffff; border-radius: 999px; padding: 9px 20px; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #6b6455; cursor: pointer; transition: background 200ms ease, color 200ms ease, border-color 200ms ease" style-hover="background: #16150f; color: #ffffff; border-color: #16150f">back to the disk</button>
+      </div>
+    </div>
+  </section>
+
+  <footer style="background: #F5F3EE; border-top: 1px solid #e2ded4; padding: clamp(48px,10vw,80px) clamp(18px, 5vw, 40px) 44px;">
+    <div style="max-width: 1200px; margin: 0 auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 48px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 20px;">
+        <img src="TL6.png" alt="Tvashta Labs" style="width: clamp(130px, 34vw, 190px); height: clamp(130px, 34vw, 190px); display: block; border-radius: 10px;" />
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #6b6455; max-width: 30ch; text-wrap: pretty;">A digital forge for products, services and experiences.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6b6455;">The Forge</span>
+        <a href="Longshot Lab.dc.html#station-01" style="font-size: 16px;">Capture</a>
+        <a href="Longshot Lab.dc.html#station-02" style="font-size: 16px;">Imagine</a>
+        <a href="Longshot Lab.dc.html#station-03" style="font-size: 16px;">Prototype</a>
+        <a href="Longshot Lab.dc.html#station-04" style="font-size: 16px;">Make</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6b6455;">Studio</span>
+        <a href="Team.dc.html" style="font-size: 16px;">Founders&rsquo; Roundtable</a>
+        <a href="Longshot Lab.dc.html#artefacts" style="font-size: 16px;">Artefacts</a>
+        <a href="Longshot Lab.dc.html#journal" style="font-size: 16px;">Journal</a>
+        <a href="Longshot Lab.dc.html#materials" style="font-size: 16px;">Material library</a>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 16px;">
+        <span style="font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #6b6455;">Bring us something</span>
+        <p style="margin: 0; font-size: 15px; line-height: 1.55; color: #6b6455; text-wrap: pretty;">An idea, a sketch, a file or an object — we work out the shortest path to a real thing.</p>
+        <a href="Longshot Lab.dc.html#workbench" style="align-self: flex-start; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; background: #0F3473; border-radius: 999px; padding: 14px 26px;" style-hover="background: #18A6A0; color: #ffffff;">Place it on the workbench</a>
+      </div>
+    </div>
+    <div style="max-width: 1200px; margin: 56px auto 0; padding: 24px 0 0; border-top: 1px solid #e2ded4; display: flex; flex-wrap: wrap; gap: 16px 32px; justify-content: space-between; font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #6b6455;">
+      <span>Tvashta Labs — a place for making</span>
+      <span>Capture · Imagine · Prototype · Make</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;orbitRadius&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:340,&quot;min&quot;:240,&quot;max&quot;:440,&quot;step&quot;:10,&quot;unit&quot;:&quot;px&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;spinSeconds&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:30,&quot;min&quot;:8,&quot;max&quot;:90,&quot;step&quot;:2,&quot;unit&quot;:&quot;s&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;hoverCycleMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:700,&quot;min&quot;:350,&quot;max&quot;:1600,&quot;step&quot;:50,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Hover&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.people = [
+      { initials: 'MK', name: 'Mohan Kumar', role: 'Co-Founder — Capture & Fabrication',
+        bio: 'Runs scanning and production: point clouds, tooling, and the machines that turn data into objects.',
+        shots: ['mohan_1', 'mohan_3', 'mohan_2'] },
+      { initials: 'AS', name: 'Avinash Singh Rajput', role: 'Co-Founder — Design & Prototype',
+        bio: 'Takes an idea from first sketch to a working part — concept, CAD, prototype, revision, repeat.',
+        shots: ['avi_3', 'avi_1', 'avi_2'] },
+      { initials: 'HS', name: 'Hari Sharan Dwivedi', role: 'Co-Founder — Direction',
+        bio: "Sets the forge's direction — what gets made, for whom, and why it matters.",
+        shots: ['hari_2', 'hari_1', 'hari_3'] },
+      { initials: 'KP', name: 'Kailash Pati Pandey', role: 'Co-Founder — Materials & Finishing',
+        bio: 'Chooses the matter and the finish: how an object catches light, holds an edge, and feels in the hand.',
+        shots: ['kp_2', 'kp_1', 'kp_3'] }
+    ];
+    this.nodes = [];
+    this.missing = {};
+    this.phase = this.people.map((_, i) => i * (360 / this.people.length));
+    this.state = { active: null, expanded: false, hover: null, stageW: 1000, frame: 0, fading: false, heroHover: false, heroFading: false, menuOpen: false };
+  }
+
+  componentDidMount() {
+    this.measure = () => this.setState({ stageW: Math.min(window.innerWidth - 56, 1080) });
+    this.measure();
+    window.addEventListener('resize', this.measure);
+    this.onKey = (e) => { if (e.key === 'Escape') this.setState({ menuOpen: false }); };
+    window.addEventListener('keydown', this.onKey);
+
+    // wordmark folds into the TL6 tile as the page scrolls
+    this.markScroll = () => {
+      const word = document.querySelector('[data-mark-word]');
+      const tile = document.querySelector('[data-mark-tile]');
+      if (!word || !tile) return;
+      const travel = Math.max(1, (window.innerHeight || 800) * 0.35);
+      const p = Math.min(1, Math.max(0, (window.scrollY || 0) / travel));
+      const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      word.style.opacity = (1 - Math.min(1, e * 1.6)).toFixed(3);
+      word.style.transform = 'scaleX(' + (1 - 0.12 * e).toFixed(3) + ')';
+      tile.style.opacity = Math.max(0, (e - 0.35) / 0.65).toFixed(3);
+      tile.style.transform = 'scale(' + (0.82 + 0.18 * e).toFixed(3) + ')';
+    };
+    setTimeout(() => this.wireMenuHovers(), 0);
+    window.addEventListener('scroll', this.markScroll, { passive: true });
+    window.addEventListener('resize', this.markScroll);
+    this.markScroll();
+  }
+  componentWillUnmount() {
+    if (this.measure) window.removeEventListener('resize', this.measure);
+    if (this.onKey) window.removeEventListener('keydown', this.onKey);
+    if (this.markScroll) { window.removeEventListener('scroll', this.markScroll); window.removeEventListener('resize', this.markScroll); }
+    clearTimeout(this.expandT); clearInterval(this.cycle); clearInterval(this.heroCycle);
+    clearTimeout(this.fadeT); clearTimeout(this.heroFadeT);
+  }
+
+  // a missing photo falls back to initials — detected here, never via an inline onerror attribute
+  watchImg(el, src) {
+    if (!el || el.__watched === src) return;
+    el.__watched = src;
+    const fail = () => {
+      if (this.missing[src]) return;
+      this.missing[src] = true;
+      setTimeout(() => this.forceUpdate(), 0);
+    };
+    el.addEventListener('error', fail);
+    if (el.complete && el.naturalWidth === 0) fail();
+  }
+
+  // hovering one item in a menu list dims its siblings; the pill swaps to the address
+  wireMenuHovers() {
+    document.querySelectorAll('[data-dimgroup]').forEach((group) => {
+      if (group.__dimWired) return;
+      group.__dimWired = true;
+      const items = Array.from(group.querySelectorAll('[data-dimitem]'));
+      items.forEach((item) => {
+        item.style.transition = 'opacity 240ms ease, color 200ms ease';
+        item.addEventListener('mouseenter', () => {
+          items.forEach((o) => { o.style.opacity = o === item ? '1' : '0.32'; });
+        });
+      });
+      group.addEventListener('mouseleave', () => { items.forEach((o) => { o.style.opacity = '1'; }); });
+    });
+    document.querySelectorAll('[data-hoverswap]').forEach((node) => {
+      if (node.__swapWired) return;
+      node.__swapWired = true;
+      const swap = node.getAttribute('data-hoverswap');
+      const original = node.textContent;
+      node.addEventListener('mouseenter', () => { node.textContent = swap; });
+      node.addEventListener('mouseleave', () => { node.textContent = original; });
+    });
+  }
+
+  duration() { return Math.max(6000, this.props.spinSeconds ? this.props.spinSeconds * 1000 : 30000); }
+
+  readPhases() {
+    const dur = this.duration();
+    return this.people.map((_, i) => {
+      const el = this.nodes[i] && this.nodes[i].parentElement;
+      const anims = el && el.getAnimations ? el.getAnimations() : [];
+      const timing = anims.length && anims[0].effect && anims[0].effect.getComputedTiming
+        ? anims[0].effect.getComputedTiming() : null;
+      if (timing && typeof timing.progress === 'number') return (timing.progress * 360) % 360;
+      if (anims.length && anims[0].currentTime != null) {
+        return (((anims[0].currentTime / dur) * 360) + this.phase[i]) % 360;
+      }
+      return this.phase[i];
+    });
+  }
+
+  startCycle() {
+    clearInterval(this.cycle);
+    const period = this.props.hoverCycleMs ?? 700;
+    this.cycle = setInterval(() => {
+      this.setState({ fading: true });
+      clearTimeout(this.fadeT);
+      this.fadeT = setTimeout(() => this.setState(s => ({ frame: s.frame + 1, fading: false })), 190);
+    }, period);
+  }
+  stopCycle() { clearInterval(this.cycle); clearTimeout(this.fadeT); this.setState({ frame: 0, fading: false }); }
+
+  startHeroCycle() {
+    clearInterval(this.heroCycle);
+    const period = this.props.hoverCycleMs ?? 700;
+    this.heroCycle = setInterval(() => {
+      this.setState({ heroFading: true });
+      clearTimeout(this.heroFadeT);
+      this.heroFadeT = setTimeout(() => this.setState(s => ({ frame: s.frame + 1, heroFading: false })), 190);
+    }, period);
+  }
+  stopHeroCycle() { clearInterval(this.heroCycle); clearTimeout(this.heroFadeT); this.setState({ heroHover: false, heroFading: false, frame: 0 }); }
+
+  select(i) {
+    const live = this.readPhases();
+    this.phase = live.map(a => ((a - live[i]) % 360 + 360) % 360);
+    clearInterval(this.cycle); clearTimeout(this.fadeT); clearTimeout(this.expandT);
+    this.setState({ active: i, expanded: false, hover: null, frame: 0, fading: false });
+    this.expandT = setTimeout(() => this.setState({ expanded: true }), 800);
+  }
+
+  close() {
+    this.stopHeroCycle(); clearTimeout(this.expandT);
+    this.setState({ active: null, expanded: false, frame: 0 });
+  }
+
+  faceSize() { return (this.state.stageW || 1000) < 700 ? 92 : 138; }
+
+  geometry(deg) {
+    const R = Math.min(this.props.orbitRadius ?? 340, Math.max(110, (this.state.stageW || 1000) / 2 - this.faceSize() * 0.62));
+    const rad = (deg * Math.PI) / 180;
+    const depth = (Math.cos(rad) + 1) / 2;
+    return {
+      x: R * Math.sin(rad), y: 92 * Math.cos(rad), depth,
+      scale: 0.6 + 0.48 * depth, opacity: 0.46 + 0.54 * depth, z: Math.round(depth * 100)
+    };
+  }
+
+  renderVals() {
+    const dur = this.duration();
+    const snapped = this.state.active !== null;
+    const R = Math.min(this.props.orbitRadius ?? 340, Math.max(110, (this.state.stageW || 1000) / 2 - this.faceSize() * 0.62));
+    const orbit = this.people.map((p, i) => {
+      const hovered = this.state.hover === i;
+      const isActive = this.state.active === i;
+      const g = this.geometry(this.phase[i]);
+      const shot = hovered ? p.shots[this.state.frame % p.shots.length] : p.shots[0];
+      const avatar = 'team/av_' + shot + '.png';
+      const gone = !!this.missing[avatar];
+      return {
+        name: p.name, role: p.role, initials: p.initials,
+        avatar: avatar,
+        imgDisplay: gone ? 'none' : 'block',
+        fallbackOpacity: gone ? 1 : 0,
+        imgRef: (el) => { this.watchImg(el, avatar); },
+        ref: (el) => { this.nodes[i] = el; },
+        spinDur: snapped ? '0ms' : dur + 'ms',
+        spinDelay: snapped ? '0ms' : '-' + Math.round((this.phase[i] / 360) * dur) + 'ms',
+        playState: snapped ? 'paused' : 'running',
+        snapTransform: snapped
+          ? 'translate(' + g.x.toFixed(1) + 'px, ' + g.y.toFixed(1) + 'px) scale(' + (isActive ? 0.55 : g.scale).toFixed(3) + ')'
+          : 'none',
+        snapOpacity: snapped ? (isActive ? 0 : g.opacity.toFixed(2)) : 1,
+        snapZ: snapped ? g.z : 'auto',
+        pointer: snapped ? 'none' : 'auto',
+        hoverTransform: hovered ? 'scale(1.14) translateY(-12px)' : 'scale(1)',
+        imgOpacity: hovered && this.state.fading ? 0.15 : 1,
+        shadow: hovered
+          ? '0 0 0 6px #ffffff, 0 22px 34px rgba(22,21,15,0.2)'
+          : '0 0 0 5px #ffffff, 0 14px 26px rgba(22,21,15,0.12)',
+        imgFilter: hovered ? 'saturate(1.1) contrast(1.04)' : 'saturate(0.92)',
+        initialsOpacity: hovered || snapped || gone ? 0 : 0.9,
+        labelOpacity: hovered ? 1 : 0,
+        onSelect: () => this.select(i),
+        onEnter: () => { if (this.state.active !== null) return; this.setState({ hover: i, frame: 0 }); this.startCycle(); },
+        onLeave: () => { if (this.state.hover === i) { this.setState({ hover: null }); this.stopCycle(); } }
+      };
+    });
+    const hero = this.state.expanded && this.state.active !== null ? this.people[this.state.active] : null;
+    const heroShot = hero ? (this.state.heroHover ? hero.shots[this.state.frame % hero.shots.length] : hero.shots[0]) : null;
+    return {
+      orbit,
+      radius: R + 'px',
+      face: this.faceSize() + 'px',
+      faceOffset: '-' + this.faceSize() / 2 + 'px',
+      hasHero: !!heroShot && !this.missing['team/' + heroShot + '.png'],
+      heroRef: (el) => { if (heroShot) this.watchImg(el, 'team/' + heroShot + '.png'); },
+      heroOpacity: hero ? 1 : 0,
+      heroPointer: hero ? 'auto' : 'none',
+      heroImgOpacity: this.state.heroFading ? 0.1 : 1,
+      heroCutout: heroShot ? 'team/' + heroShot + '.png' : '',
+      heroName: hero ? hero.name : '',
+      heroRole: hero ? hero.role : '',
+      heroInitials: hero ? hero.initials : '',
+      heroBio: hero ? hero.bio : '',
+      onHeroEnter: () => { this.setState({ heroHover: true, frame: 0 }); this.startHeroCycle(); },
+      onHeroLeave: () => this.stopHeroCycle(),
+      onClose: () => this.close(),
+      menuOpacity: this.state.menuOpen ? 1 : 0,
+      menuPointer: this.state.menuOpen ? 'auto' : 'none',
+      openMenu: () => this.setState({ menuOpen: true }),
+      closeMenu: () => this.setState({ menuOpen: false })
+    };
+  }
+}
+</script>
+</body>
+</html>

@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+<script src="./image-slot.js"></script>
+<script src="./forge-canvas.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #F5F3EE; }
+  body { -webkit-font-smoothing: antialiased; }
+  a { color: #0F3473; text-decoration: none; }
+  a:hover { color: #18A6A0; }
+</style>
+</helmet>
+<div ref="{{ rootRef }}" style="min-height: 100vh; background: #F5F3EE; color: #111827; font-family: 'Space Grotesk', Helvetica, Arial, sans-serif; padding: 0 0 120px; overflow-x: hidden;">
+
+  <a data-wordmark="1" href="#top" style="position: fixed; left: clamp(18px, 5vw, 40px); top: clamp(16px, 4vw, 30px); z-index: 31; display: block; will-change: transform;" style-hover="opacity: 0.65;">
+    <img data-mark-dark="1" src="wordmark-dark.png" alt="Tvashta Labs" style="height: 17px; width: auto; display: block;" />
+    <img data-mark-light="1" src="wordmark.png" alt="" aria-hidden="true" style="position: absolute; left: 0; top: 0; height: 17px; width: auto; display: block; opacity: 0;" />
+  </a>
+
+  <header style="position: fixed; top: 0; left: 0; right: 0; z-index: 30; display: flex; align-items: flex-start; justify-content: flex-end; padding: clamp(16px, 4vw, 30px) clamp(18px, 5vw, 40px); pointer-events: none; background: transparent;">
+    <nav data-hero-nav="1" style="display: flex; align-items: center; pointer-events: auto;">
+      <button type="button" onClick="{{ openMenu }}" aria-label="Open menu" style="display: flex; flex-direction: column; gap: 6px; width: 30px; padding: 4px 0; background: transparent; border: 0; cursor: pointer;" style-hover="opacity: 0.6;">
+        <span style="display: block; height: 1.6px; width: 100%; background: #111827;"></span>
+        <span style="display: block; height: 1.6px; width: 100%; background: #111827;"></span>
+      </button>
+    </nav>
+  </header>
+
+  <div style="height: 100vh; min-height: 460px; box-sizing: border-box; display: flex; flex-direction: column; justify-content: space-between; gap: clamp(24px, 6vh, 90px); padding: clamp(74px, 15vh, 116px) 0 clamp(20px, 4vh, 34px);">
+  <section id="top" data-hero-intro="1" style="max-width: 1440px; width: 100%; margin: 0 auto; padding: 0 clamp(18px, 5vw, 40px); box-sizing: border-box; flex: 0 0 auto; min-height: 0;">
+    <sc-if value="{{ showEyebrow }}" hint-placeholder-val="{{ true }}">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.22em; text-transform: uppercase; margin: 0 0 clamp(12px, 2.6vh, 26px); color: {{ accent }};">Tvashta Labs · The Digital Forge</p>
+    </sc-if>
+    <h1 style="font-size: clamp(30px, 5.6vh, 52px); line-height: 1.09; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 15ch; text-wrap: pretty;">We give form<br /><strong style="font-weight: 700;">to ideas.</strong></h1>
+    <p style="font-size: clamp(14px, 2.3vh, 19px); line-height: 1.5; color: #667085; max-width: 46ch; margin: clamp(14px, 3vh, 30px) 0 0; text-wrap: pretty;">A digital forge for products, services and experiences — we capture what exists, imagine what doesn’t, prototype what could be, and make what comes next.</p>
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: clamp(14px, 3vh, 28px) 0 0;">Tvashta Labs&nbsp; /&nbsp; The Digital Forge</p>
+  </section>
+
+  <section id="projects" data-hero-stage="1" style="max-width: 1440px; width: 100%; margin: 0 auto; padding: 0 clamp(18px, 5vw, 40px); box-sizing: border-box; flex: 0 1 auto; min-height: 0; opacity: 0;">
+    <div data-hero-grid="1" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: clamp(10px, 2vh, 22px); max-width: min(940px, 108vh); margin-left: auto;" data-hero-fit="1">
+
+      <div style="grid-column: 6; display: flex; flex-direction: column; gap: clamp(6px, 1.4vh, 12px);">
+        <div style="aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #0F3473;">
+        <image-slot id="tile-01" shape="rect" fit="cover" placeholder="the four founders at the bench" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+      </div>
+        <a href="#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1.5vh, 12px); letter-spacing: 0.2em; text-transform: uppercase; color: #667085;" style-hover="color: #0F3473;">Team</a>
+      </div>
+
+      <div style="grid-column: 4; display: flex; flex-direction: column; gap: clamp(6px, 1.4vh, 12px);">
+        <div style="aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #18A6A0;">
+        <image-slot id="tile-02" shape="rect" fit="cover" placeholder="a finished project, in use" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+      </div>
+        <a href="#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1.5vh, 12px); letter-spacing: 0.2em; text-transform: uppercase; color: #667085;" style-hover="color: #0F3473;">Projects</a>
+      </div>
+      <div style="grid-column: 5; display: flex; flex-direction: column; gap: clamp(6px, 1.4vh, 12px);">
+        <div style="aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #E8EBF0;">
+        <image-slot id="tile-03" shape="rect" fit="cover" placeholder="an archived artefact" style="position: absolute; inset: 0; color: #111827;"></image-slot>
+      </div>
+        <a href="#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1.5vh, 12px); letter-spacing: 0.2em; text-transform: uppercase; color: #667085;" style-hover="color: #0F3473;">Archive</a>
+      </div>
+      <div style="grid-column: 6; display: flex; flex-direction: column; gap: clamp(6px, 1.4vh, 12px);">
+        <div style="aspect-ratio: 1 / 1; border-radius: 6px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #111827;">
+        <image-slot id="tile-04" shape="rect" fit="cover" placeholder="inside the workshop" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+      </div>
+        <a href="#projects" style="font-family: 'IBM Plex Mono', monospace; font-size: clamp(9px, 1.5vh, 12px); letter-spacing: 0.2em; text-transform: uppercase; color: #667085;" style-hover="color: #0F3473;">About</a>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+  <div data-menu="1" style="position: fixed; inset: 0; z-index: 40; background: #0B285A; opacity: 0; pointer-events: none; overflow-y: auto;">
+    <div style="display: flex; align-items: center; justify-content: space-between; padding: 22px clamp(18px, 5vw, 40px);">
+      <span style="display: block;">
+        <img src="wordmark.png" alt="Tvashta Labs" style="height: 17px; width: auto; display: block;" />
+      </span>
+      <button type="button" onClick="{{ closeMenu }}" aria-label="Close menu" style="width: 34px; height: 34px; position: relative; background: transparent; border: 0; cursor: pointer;" style-hover="opacity: 0.7;">
+        <span style="position: absolute; left: 3px; top: 16px; width: 28px; height: 1.6px; background: #F5F3EE; transform: rotate(45deg); display: block;"></span>
+        <span style="position: absolute; left: 3px; top: 16px; width: 28px; height: 1.6px; background: #F5F3EE; transform: rotate(-45deg); display: block;"></span>
+      </button>
+    </div>
+
+    <div style="max-width: 1560px; margin: 0 auto; padding: clamp(40px,9vw,70px) clamp(18px, 5vw, 40px) clamp(34px,7vw,60px); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 90px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 60px;">
+        <div data-dimgroup="1" style="display: flex; flex-direction: column; gap: 8px;">
+          <a data-dimitem="1" data-menu-link="1" href="#top" onClick="{{ closeMenu }}" style="font-size: 76px; line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Home</a>
+          <a data-dimitem="1" data-menu-link="1" href="Projects.dc.html" onClick="{{ closeMenu }}" style="font-size: 76px; line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Work</a>
+          <a data-dimitem="1" data-menu-link="1" href="Team.dc.html" onClick="{{ closeMenu }}" style="font-size: 76px; line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">Founders’ Roundtable</a>
+          <a data-dimitem="1" data-menu-link="1" href="#lab" onClick="{{ closeMenu }}" style="font-size: 76px; line-height: 1.12; letter-spacing: -0.03em; color: #F5F3EE;" style-hover="color: #18A6A0;">The Digital Forge</a>
+        </div>
+        <div data-dimgroup="1" data-menu-secondary="1" style="display: flex; align-items: center; gap: 40px; flex-wrap: wrap;">
+          <a data-hoverswap="work@tvashtalabs.com" href="mailto:work@tvashtalabs.com" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; border: 1px solid #F5F3EE; border-radius: 999px; padding: 15px 30px; transition: background 420ms cubic-bezier(.22,.9,.2,1), color 420ms cubic-bezier(.22,.9,.2,1), border-color 420ms cubic-bezier(.22,.9,.2,1); " style-hover="background: #F5F3EE; color: #0B285A;">Work with us</a>
+          <a data-dimitem="1" href="Team.dc.html" onClick="{{ closeMenu }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Team</a>
+          <a data-dimitem="1" href="Projects.dc.html" onClick="{{ closeMenu }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Projects</a>
+          <a data-dimitem="1" href="#journal" onClick="{{ closeMenu }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Archive</a>
+        </div>
+      </div>
+
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <a data-menu-story="1" href="#projects" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">017</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">Project</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Kashi Model — capture to replica</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+        <a data-menu-story="1" href="#projects" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">024</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">Project</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Dhara Vessel — imagined, prototyped, made</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+        <a data-menu-story="1" href="#projects" onClick="{{ closeMenu }}" style="display: grid; grid-template-columns: 64px 1fr auto; align-items: center; gap: clamp(16px, 4vw, 28px); padding: 20px 26px; border: 1px solid #1C4386; border-radius: 10px;" style-hover="border-color: #F5F3EE;">
+          <span style="display: flex; align-items: center; justify-content: center; height: 60px; border-radius: 7px; background: #123B80; font-family: 'IBM Plex Mono', monospace; font-size: 15px; letter-spacing: 0.06em; color: #F5F3EE;">04</span>
+          <span style="display: flex; flex-direction: column; gap: 8px;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">People</span>
+            <span style="font-size: 21px; line-height: 1.3; letter-spacing: -0.01em; color: #F5F3EE;">Four founders, one workbench</span>
+          </span>
+          <span style="font-size: 22px; color: #A9B7CE;">&#8594;</span>
+        </a>
+      </div>
+    </div>
+
+    <div style="max-width: 1560px; margin: 0 auto; padding: clamp(24px,6vw,40px) clamp(18px, 5vw, 40px) clamp(40px,9vw,70px); display: flex; align-items: flex-end; justify-content: space-between; gap: 60px; flex-wrap: wrap;">
+      <div data-menu-secondary="1" style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;">Keep up to date</span>
+        <span style="display: flex; align-items: center; gap: 16px; flex-wrap: wrap;">
+          <input type="email" placeholder="Your email" style="width: 260px; background: transparent; border: 1px solid #1C4386; border-radius: 999px; outline: none; padding: 15px 26px; color: #F5F3EE; font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.14em;" />
+          <a href="#lab" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE;" style-hover="color: #18A6A0;">Subscribe</a>
+        </span>
+      </div>
+      <div data-menu-secondary="1" style="display: flex; align-items: center; gap: 34px;">
+        <a href="#lab" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">Instagram</a>
+        <a href="#lab" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">LinkedIn</a>
+        <a href="#lab" style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.18em; text-transform: uppercase; color: #C3CBDA;" style-hover="color: #F5F3EE;">X</a>
+      </div>
+    </div>
+  </div>
+
+  <div data-hover-overlay="1" style="position: fixed; inset: 0; z-index: 30; opacity: 0; pointer-events: none; background: #0F3473;">
+    <div data-overlay-clone="1" style="position: absolute; inset: 0;"></div>
+    <div data-overlay-field="1" style="position: absolute; inset: 0;">
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #F5F3EE;"><image-slot id="hover-01" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #111827;"></image-slot></div>
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #18A6A0;"><image-slot id="hover-02" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot></div>
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #D95D39;"><image-slot id="hover-03" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot></div>
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #C6F36B;"><image-slot id="hover-04" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #111827;"></image-slot></div>
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #E8EBF0;"><image-slot id="hover-05" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #111827;"></image-slot></div>
+      <div data-overlay-block="1" style="position: absolute; left: 0; top: 0; width: 180px; height: 180px; border-radius: 6px; overflow: hidden; opacity: 0; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #111827;"><image-slot id="hover-06" shape="rect" fit="cover" placeholder="project image" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot></div>
+    </div>
+    <div style="position: absolute; inset: 0; z-index: 2; display: flex; align-items: center; justify-content: center; padding: 100px 40px 70px; box-sizing: border-box; pointer-events: none;">
+      <span style="display: block; overflow: hidden; padding: 0 6px;">
+        <span data-overlay-title="1" style="display: block; font-size: 72px; line-height: 1.05; font-weight: 500; letter-spacing: -0.03em; color: #ffffff; white-space: nowrap;">project</span>
+      </span>
+    </div>
+    <div data-overlay-clip="1" style="position: absolute; inset: 0; z-index: 3; display: flex; align-items: center; justify-content: center; padding: 100px 40px 70px; box-sizing: border-box; pointer-events: none; clip-path: path('M 0 0 Z');">
+      <span style="display: block; overflow: hidden; padding: 0 6px;">
+        <span data-overlay-title-alt="1" style="display: block; font-size: 72px; line-height: 1.05; font-weight: 500; letter-spacing: -0.03em; color: #111827; white-space: nowrap;">project</span>
+      </span>
+    </div>
+  </div>
+
+  <sc-if value="{{ showFooterNote }}" hint-placeholder-val="{{ true }}">
+    <section id="lab" style="max-width: 1440px; margin: 120px auto 0; padding: 120px 40px 0; display: flex; justify-content: space-between; gap: 60px; flex-wrap: wrap; border-top: 1px solid #D9DDE4;">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ accent }}; margin: 0; flex-basis: 100%;">What we do</p>
+      <div style="display: flex; flex-direction: column; gap: 24px; max-width: 46ch;">
+        <h2 style="font-size: 40px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; text-wrap: pretty;">We provide <strong style="font-weight: 700;">“Products”</strong>, <strong style="font-weight: 700;">“Services”</strong> &amp; <strong style="font-weight: 700;">Experiences</strong></h2>
+        <p style="font-size: 20px; line-height: 1.5; color: #667085; margin: 0; text-wrap: pretty;">One workshop, three outputs: things you can hold, work we run end to end, and moments built to be felt.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; gap: 18px;">
+        <button type="button" onClick="{{ replay }}" style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #0F3473; background: transparent; border: 1px solid #D9DDE4; border-radius: 999px; padding: 10px 20px; cursor: pointer;" style-hover="border-color: #0F3473; color: #18A6A0;">Replay intro</button>
+      </div>
+    </section>
+  </sc-if>
+
+  <section id="process" style="max-width: 1440px; margin: 160px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">The Tvashta process</p>
+    <h2 style="font-size: 40px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 34ch; text-wrap: pretty;">One process language runs through the whole <strong style="font-weight: 700;">Forge.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 56px 0 0;">
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 34px; border-radius: 10px; background: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #A9B7CE;">01</span>
+        <span style="font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; color: #F5F3EE;">Capture</span>
+        <span style="font-size: 17px; line-height: 1.5; color: #C3CBDA;">Preserve what exists.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 34px; border-radius: 10px; background: #18A6A0;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: rgba(245,243,238,0.75);">02</span>
+        <span style="font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; color: #F5F3EE;">Imagine</span>
+        <span style="font-size: 17px; line-height: 1.5; color: #EAF7F6;">Begin with what does not yet exist.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 34px; border-radius: 10px; background: #E8EBF0;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #667085;">03</span>
+        <span style="font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; color: #111827;">Prototype</span>
+        <span style="font-size: 17px; line-height: 1.5; color: #495468;">Make. Test. Change. Repeat.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px; padding: 30px 28px 34px; border-radius: 10px; background: #111827;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; letter-spacing: 0.16em; color: #9AA3B2;">04</span>
+        <span style="font-size: 26px; line-height: 1.2; letter-spacing: -0.02em; color: #F5F3EE;">Make</span>
+        <span style="font-size: 17px; line-height: 1.5; color: #C9CFDA;">Bring it into existence.</span>
+      </div>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr)); gap: 44px; margin: 64px 0 0; padding: 44px 0 0; border-top: 1px solid #D9DDE4;">
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085;">Enter anywhere</span>
+        <p style="font-size: 18px; line-height: 1.5; color: #667085; margin: 0; text-wrap: pretty;">A project does not have to pass through every stage. The system is flexible, not restrictive.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 20px; letter-spacing: -0.01em;">A heritage project</span>
+        <p style="font-size: 17px; line-height: 1.5; color: #667085; margin: 0;">Begins at <strong style="font-weight: 700; color: #111827;">Capture</strong> — a structure scanned before it is lost.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 20px; letter-spacing: -0.01em;">A startup</span>
+        <p style="font-size: 17px; line-height: 1.5; color: #667085; margin: 0;">Begins at <strong style="font-weight: 700; color: #111827;">Imagine</strong> — a concept with no form yet.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 10px;">
+        <span style="font-size: 20px; letter-spacing: -0.01em;">An STL file</span>
+        <p style="font-size: 17px; line-height: 1.5; color: #667085; margin: 0;">Begins directly at <strong style="font-weight: 700; color: #111827;">Make</strong> — already drawn, ready to materialise.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="station-01" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ accent }};">Station 01 / Capture</span>
+      <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; text-wrap: pretty;">Preserve what <strong style="font-weight: 700;">exists.</strong></h2>
+      <p style="font-size: 19px; line-height: 1.55; color: #667085; margin: 0; max-width: 44ch; text-wrap: pretty;">Temples, monuments, sacred architecture, cultural artefacts, physical spaces. A scanned structure moves from the real thing to a cloud of points, to a digital model, back to a physical replica.</p>
+      <div style="display: flex; align-items: center; gap: 12px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #667085;">
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Real object</span>
+        <span>&#8594;</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Point cloud</span>
+        <span>&#8594;</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Digital model</span>
+        <span>&#8594;</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Physical replica</span>
+      </div>
+      <a href="#projects" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; background: #0F3473; border-radius: 999px; padding: 15px 28px;" style-hover="background: #18A6A0;">Explore heritage</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #D9DDE4; background-color: #EFEDE7; background-image: linear-gradient(rgba(17,24,39,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.055) 1px, transparent 1px); background-size: 32px 32px; background-position: center;">
+        <forge-object mode="capture" ink="rgba(15,52,115,0.8)" accent="#18A6A0" style="position: absolute; inset: 0;"></forge-object>
+      </div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #667085;">Scan · 41M points&nbsp;&nbsp;/&nbsp;&nbsp;320 × 210 × 180&nbsp;&nbsp;/&nbsp;&nbsp;drag to turn</span>
+    </div>
+  </section>
+
+  <section id="station-02" style="max-width: 1440px; margin: 110px auto 0; padding: 0 clamp(18px, 5vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 14px; order: 2;">
+      <div style="aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #D9DDE4; background-color: #EFEDE7; background-image: linear-gradient(rgba(17,24,39,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.055) 1px, transparent 1px); background-size: 32px 32px; background-position: center;">
+        <forge-object mode="imagine" ink="rgba(17,24,39,0.5)" accent="#18A6A0" style="position: absolute; inset: 0;"></forge-object>
+      </div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #667085;">Form · unresolved&nbsp;&nbsp;/&nbsp;&nbsp;variant 07 / ∞&nbsp;&nbsp;/&nbsp;&nbsp;drag to turn</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 22px; order: 1;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ accent }};">Station 02 / Imagine</span>
+      <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; text-wrap: pretty;">Begin with what does not <strong style="font-weight: 700;">yet exist.</strong></h2>
+      <p style="font-size: 19px; line-height: 1.55; color: #667085; margin: 0; max-width: 44ch; text-wrap: pretty;">Ideas, sketches, concepts, product design, experiments. The object here has not settled — geometry shifts between several possible forms. You are looking at something before it has decided what it is.</p>
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #667085;">
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Idea</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Sketch</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Concept</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Experiment</span>
+      </div>
+      <a href="#projects" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; background: #0F3473; border-radius: 999px; padding: 15px 28px;" style-hover="background: #18A6A0;">Explore ideas</a>
+    </div>
+  </section>
+
+  <section id="station-03" style="max-width: 1440px; margin: 110px auto 0; padding: 0 clamp(18px, 5vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 22px;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ accent }};">Station 03 / Prototype</span>
+      <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; text-wrap: pretty;">Make. Test. Change. <strong style="font-weight: 700;">Repeat.</strong></h2>
+      <p style="font-size: 19px; line-height: 1.55; color: #667085; margin: 0; max-width: 44ch; text-wrap: pretty;">Product development, hardware, functional prototypes, iteration, engineering. A partially assembled object moves between concept, CAD, prototype and revision — each pass separates its parts and puts them back a little truer.</p>
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #667085;">
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Concept</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">CAD</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Prototype</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Revision</span>
+      </div>
+      <a href="#workbench" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; background: #0F3473; border-radius: 999px; padding: 15px 28px;" style-hover="background: #18A6A0;">Build a prototype</a>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 14px;">
+      <div style="aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #D9DDE4; background-color: #EFEDE7; background-image: linear-gradient(rgba(17,24,39,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.055) 1px, transparent 1px); background-size: 32px 32px; background-position: center;">
+        <forge-object mode="prototype" ink="rgba(17,24,39,0.78)" accent="#18A6A0" style="position: absolute; inset: 0;"></forge-object>
+      </div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #667085;">Assembly · exploded&nbsp;&nbsp;/&nbsp;&nbsp;rev C&nbsp;&nbsp;/&nbsp;&nbsp;drag to turn</span>
+    </div>
+  </section>
+
+  <section id="station-04" style="max-width: 1440px; margin: 110px auto 0; padding: 0 clamp(18px, 5vw, 40px); display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: start;">
+    <div style="display: flex; flex-direction: column; gap: 14px; order: 2;">
+      <div style="aspect-ratio: 4 / 3; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #D9DDE4; background-color: #EFEDE7; background-image: linear-gradient(rgba(17,24,39,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.055) 1px, transparent 1px); background-size: 32px 32px; background-position: center;">
+        <forge-object mode="make" ink="rgba(17,24,39,0.8)" accent="#18A6A0" dim="rgba(15,52,115,0.2)" style="position: absolute; inset: 0;"></forge-object>
+      </div>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #667085;">Build · layer 214&nbsp;&nbsp;/&nbsp;&nbsp;0.12 mm&nbsp;&nbsp;/&nbsp;&nbsp;drag to turn</span>
+    </div>
+    <div style="display: flex; flex-direction: column; gap: 22px; order: 1;">
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: {{ accent }};">Station 04 / Make</span>
+      <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; text-wrap: pretty;">Bring it into <strong style="font-weight: 700;">existence.</strong></h2>
+      <p style="font-size: 19px; line-height: 1.55; color: #667085; margin: 0; max-width: 44ch; text-wrap: pretty;">3D printing, digital fabrication, custom manufacturing, production, physical objects. The object emerges from layers — one deposited line at a time, a form that was only data a moment ago becomes something you could hold.</p>
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; text-transform: uppercase; color: #667085;">
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Fabrication</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Production</span>
+        <span style="padding: 9px 16px; border: 1px solid #D9DDE4; border-radius: 999px;">Finishing</span>
+      </div>
+      <a href="#workbench" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #F5F3EE; background: #0F3473; border-radius: 999px; padding: 15px 28px;" style-hover="background: #18A6A0;">Make something</a>
+    </div>
+  </section>
+
+  <section id="moves" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">Interactive object system</p>
+    <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 38ch; text-wrap: pretty;">Every station has a hero object. Every interaction explains <strong style="font-weight: 700;">what we do.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 52px; margin: 52px 0 0; align-items: start;">
+      <div style="display: flex; flex-direction: column; border-top: 1px solid #D9DDE4;">
+        <button type="button" data-move="rotate" aria-pressed="true" style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline; text-align: left; padding: 20px 12px; background: #EDEBE5; border: 0; border-bottom: 1px solid #D9DDE4; cursor: pointer; font-family: inherit; color: #111827;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #18A6A0;">Rotate</span>
+          <span style="font-size: 16px; line-height: 1.5; color: #667085;">Inspect the object from every side.</span>
+        </button>
+        <button type="button" data-move="explode" aria-pressed="false" style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline; text-align: left; padding: 20px 12px; background: transparent; border: 0; border-bottom: 1px solid #D9DDE4; cursor: pointer; font-family: inherit; color: #111827;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Explode</span>
+          <span style="font-size: 16px; line-height: 1.5; color: #667085;">Separate the components.</span>
+        </button>
+        <button type="button" data-move="slice" aria-pressed="false" style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline; text-align: left; padding: 20px 12px; background: transparent; border: 0; border-bottom: 1px solid #D9DDE4; cursor: pointer; font-family: inherit; color: #111827;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Slice</span>
+          <span style="font-size: 16px; line-height: 1.5; color: #667085;">Reveal the internal layers.</span>
+        </button>
+        <button type="button" data-move="scan" aria-pressed="false" style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline; text-align: left; padding: 20px 12px; background: transparent; border: 0; border-bottom: 1px solid #D9DDE4; cursor: pointer; font-family: inherit; color: #111827;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Scan</span>
+          <span style="font-size: 16px; line-height: 1.5; color: #667085;">Turn the object into a point cloud.</span>
+        </button>
+        <button type="button" data-move="build" aria-pressed="false" style="display: grid; grid-template-columns: 110px 1fr; gap: 20px; align-items: baseline; text-align: left; padding: 20px 12px; background: transparent; border: 0; border-bottom: 1px solid #D9DDE4; cursor: pointer; font-family: inherit; color: #111827;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Build</span>
+          <span style="font-size: 16px; line-height: 1.5; color: #667085;">Watch it materialise.</span>
+        </button>
+        <p style="font-size: 18px; line-height: 1.55; color: #667085; margin: 26px 0 0; max-width: 52ch; text-wrap: pretty;"><strong data-move-note="1" style="font-weight: 700; color: #111827;">Rotation</strong> is the resting state; the other four are the moves we make on your work every day.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 14px;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; border: 1px solid #D9DDE4; background-color: #EFEDE7; background-image: linear-gradient(rgba(17,24,39,0.055) 1px, transparent 1px), linear-gradient(90deg, rgba(17,24,39,0.055) 1px, transparent 1px); background-size: 32px 32px; background-position: center;">
+          <forge-object data-demo-forge="1" mode="rotate" ink="rgba(17,24,39,0.8)" accent="#18A6A0" style="position: absolute; inset: 0;"></forge-object>
+        </div>
+        <span style="display: flex; justify-content: space-between; gap: 20px; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.12em; color: #667085;"><span data-move-tag="1">Rotate · drag to turn</span><span>Gateway / study</span></span>
+      </div>
+    </div>
+  </section>
+
+  <section id="tools" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">The digital tools</p>
+    <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 34ch; text-wrap: pretty;">Not toolbars. Each mark stands for a <strong style="font-weight: 700;">stage of making.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 22px; margin: 52px 0 0;">
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">01</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Scanner</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Captures the physical world.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">02</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Pencil</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Imagination and conceptualisation.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">03</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Grid</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Precision.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">04</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Compass</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Geometry and proportion.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">05</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Layer</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Additive manufacturing.</span>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px; padding: 28px 26px 30px; border: 1px solid #D9DDE4; border-radius: 10px;" style-hover="border-color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; color: #18A6A0;">06</span>
+        <span style="font-size: 21px; letter-spacing: -0.01em;">The Material</span>
+        <span style="font-size: 16px; line-height: 1.5; color: #667085;">Physical existence.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="materials" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">The material library</p>
+    <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 36ch; text-wrap: pretty;">An archive of matter. Move your cursor across a <strong style="font-weight: 700;">sample.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr)); gap: 20px; margin: 52px 0 0;">
+      <div data-tilt="1" style="display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #E8EBF0;">
+          <image-slot id="material-pla" shape="rect" fit="cover" placeholder="PLA sample" style="position: absolute; inset: 0; color: #111827;"></image-slot>
+        </div>
+        <span style="font-size: 20px; letter-spacing: -0.01em;">PLA</span>
+        <span style="font-size: 15px; line-height: 1.5; color: #667085; margin-top: -8px;">Rigid · matte · everyday form studies</span>
+      </div>
+      <div data-tilt="1" style="display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #0F3473;">
+          <image-slot id="material-resin" shape="rect" fit="cover" placeholder="resin sample" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+        </div>
+        <span style="font-size: 20px; letter-spacing: -0.01em;">Resin</span>
+        <span style="font-size: 15px; line-height: 1.5; color: #667085; margin-top: -8px;">Fine detail · smooth · heritage replicas</span>
+      </div>
+      <div data-tilt="1" style="display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #111827;">
+          <image-slot id="material-metal" shape="rect" fit="cover" placeholder="metal sample" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+        </div>
+        <span style="font-size: 20px; letter-spacing: -0.01em;">Metal</span>
+        <span style="font-size: 15px; line-height: 1.5; color: #667085; margin-top: -8px;">Sintered · load-bearing · brackets &amp; parts</span>
+      </div>
+      <div data-tilt="1" style="display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #D95D39;">
+          <image-slot id="material-ceramic" shape="rect" fit="cover" placeholder="ceramic sample" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+        </div>
+        <span style="font-size: 20px; letter-spacing: -0.01em;">Ceramic</span>
+        <span style="font-size: 15px; line-height: 1.5; color: #667085; margin-top: -8px;">Fired · warm · vessels &amp; objects</span>
+      </div>
+      <div data-tilt="1" style="display: flex; flex-direction: column; gap: 16px; transform-style: preserve-3d; transition: transform 0.2s ease; will-change: transform;">
+        <div style="aspect-ratio: 1 / 1; border-radius: 10px; overflow: hidden; position: relative; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #C6F36B;">
+          <image-slot id="material-wood" shape="rect" fit="cover" placeholder="wood-fill sample" style="position: absolute; inset: 0; color: #111827;"></image-slot>
+        </div>
+        <span style="font-size: 20px; letter-spacing: -0.01em;">Wood</span>
+        <span style="font-size: 15px; line-height: 1.5; color: #667085; margin-top: -8px;">Composite · grained · tactile surfaces</span>
+      </div>
+    </div>
+    <p style="font-size: 18px; line-height: 1.55; color: #667085; margin: 30px 0 0; max-width: 60ch; text-wrap: pretty;">The goal is to make fabrication feel tactile — even on a screen. New materials are added as Tvashta expands.</p>
+  </section>
+
+  <section id="artefacts" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">Projects as artefacts</p>
+    <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 40ch; text-wrap: pretty;">Not case studies. Artefacts from the Forge — half museum catalogue, half <strong style="font-weight: 700;">engineering spec.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(300px, 100%), 1fr)); gap: 24px; margin: 52px 0 0;">
+      <div style="display: flex; flex-direction: column; border: 1px solid #D9DDE4; border-radius: 10px; overflow: hidden;" style-hover="border-color: #0F3473;">
+        <div style="aspect-ratio: 4 / 3; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #0F3473;">
+          <image-slot id="artefact-017" shape="rect" fit="cover" placeholder="Kashi Model" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px 26px 30px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #667085;">Project / 017</span>
+          <span style="font-size: 25px; letter-spacing: -0.02em;">Kashi Model</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #18A6A0;">Capture &#8594; Model &#8594; Make</span>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; padding: 18px 0 0; border-top: 1px solid #D9DDE4; font-size: 15px; line-height: 1.45;">
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Category</span>Heritage</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Material</span>Resin</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Dimensions</span>320 × 210 × 180 mm</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Build time</span>41 h</span>
+          </div>
+          <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #0F3473; border: 1px solid #D9DDE4; border-radius: 999px; padding: 8px 16px;">Complete</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; border: 1px solid #D9DDE4; border-radius: 10px; overflow: hidden;" style-hover="border-color: #0F3473;">
+        <div style="aspect-ratio: 4 / 3; position: relative; background-image: repeating-linear-gradient(135deg, rgba(255,255,255,0.07) 0 9px, transparent 9px 18px); background-color: #18A6A0;">
+          <image-slot id="artefact-024" shape="rect" fit="cover" placeholder="Dhara Vessel" style="position: absolute; inset: 0; color: #F5F3EE;"></image-slot>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px 26px 30px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #667085;">Project / 024</span>
+          <span style="font-size: 25px; letter-spacing: -0.02em;">Dhara Vessel</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #18A6A0;">Imagine &#8594; Prototype &#8594; Make</span>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; padding: 18px 0 0; border-top: 1px solid #D9DDE4; font-size: 15px; line-height: 1.45;">
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Category</span>Objects</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Material</span>Ceramic PLA</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Dimensions</span>140 × 140 × 260 mm</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Build time</span>12 h</span>
+          </div>
+          <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #0F3473; border: 1px solid #D9DDE4; border-radius: 999px; padding: 8px 16px;">In production</span>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; border: 1px solid #D9DDE4; border-radius: 10px; overflow: hidden;" style-hover="border-color: #0F3473;">
+        <div style="aspect-ratio: 4 / 3; position: relative; background-image: repeating-linear-gradient(135deg, rgba(0,0,0,0.05) 0 9px, transparent 9px 18px); background-color: #E8EBF0;">
+          <image-slot id="artefact-031" shape="rect" fit="cover" placeholder="Arc Bracket" style="position: absolute; inset: 0; color: #111827;"></image-slot>
+        </div>
+        <div style="display: flex; flex-direction: column; gap: 18px; padding: 26px 26px 30px;">
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #667085;">Project / 031</span>
+          <span style="font-size: 25px; letter-spacing: -0.02em;">Arc Bracket</span>
+          <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.1em; color: #18A6A0;">Imagine &#8594; Prototype</span>
+          <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px 20px; padding: 18px 0 0; border-top: 1px solid #D9DDE4; font-size: 15px; line-height: 1.45;">
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Category</span>Hardware</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Material</span>Metal, sintered</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Dimensions</span>96 × 54 × 22 mm</span>
+            <span style="display: flex; flex-direction: column; gap: 4px;"><span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: #667085;">Build time</span>6 h</span>
+          </div>
+          <span style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.16em; text-transform: uppercase; color: #0F3473; border: 1px solid #D9DDE4; border-radius: 999px; padding: 8px 16px;">Testing revision C</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="journal" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">The Forge Journal</p>
+    <h2 style="font-size: 38px; line-height: 1.15; font-weight: 400; letter-spacing: -0.02em; margin: 0; max-width: 34ch; text-wrap: pretty;">A place of curiosity, not a <strong style="font-weight: 700;">services page.</strong></h2>
+    <div style="display: flex; flex-direction: column; margin: 48px 0 0; border-top: 1px solid #D9DDE4;">
+      <a href="#journal" style="display: grid; grid-template-columns: 160px 1fr auto; align-items: center; gap: 28px; padding: 26px 4px; border-bottom: 1px solid #D9DDE4; color: #111827;" style-hover="background: #EDEBE5; color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Experiments</span>
+        <span style="font-size: 21px; line-height: 1.35; letter-spacing: -0.01em;">Cooling curves for a translucent resin</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #667085;">2026 · 08</span>
+      </a>
+      <a href="#journal" style="display: grid; grid-template-columns: 160px 1fr auto; align-items: center; gap: 28px; padding: 26px 4px; border-bottom: 1px solid #D9DDE4; color: #111827;" style-hover="background: #EDEBE5; color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Process</span>
+        <span style="font-size: 21px; line-height: 1.35; letter-spacing: -0.01em;">Registering a forty-million-point scan by hand</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #667085;">2026 · 07</span>
+      </a>
+      <a href="#journal" style="display: grid; grid-template-columns: 160px 1fr auto; align-items: center; gap: 28px; padding: 26px 4px; border-bottom: 1px solid #D9DDE4; color: #111827;" style-hover="background: #EDEBE5; color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Materials</span>
+        <span style="font-size: 21px; line-height: 1.35; letter-spacing: -0.01em;">Wood-fill PLA after six months outdoors</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #667085;">2026 · 06</span>
+      </a>
+      <a href="#journal" style="display: grid; grid-template-columns: 160px 1fr auto; align-items: center; gap: 28px; padding: 26px 4px; border-bottom: 1px solid #D9DDE4; color: #111827;" style-hover="background: #EDEBE5; color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Heritage</span>
+        <span style="font-size: 21px; line-height: 1.35; letter-spacing: -0.01em;">A ghat step, measured to two tenths of a millimetre</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #667085;">2026 · 05</span>
+      </a>
+      <a href="#journal" style="display: grid; grid-template-columns: 160px 1fr auto; align-items: center; gap: 28px; padding: 26px 4px; border-bottom: 1px solid #D9DDE4; color: #111827;" style-hover="background: #EDEBE5; color: #0F3473;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Objects</span>
+        <span style="font-size: 21px; line-height: 1.35; letter-spacing: -0.01em;">Tvashta Original 04 — the Layer bowl</span>
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 13px; color: #667085;">2026 · 04</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="workbench" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px);">
+    <div style="border-radius: 14px; background: #0F3473; padding: 70px 60px 74px; display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 60px; align-items: start;">
+      <div style="display: flex; flex-direction: column; gap: 22px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #A9B7CE;">Main conversion</span>
+        <h2 style="font-size: 40px; line-height: 1.14; font-weight: 400; letter-spacing: -0.02em; margin: 0; color: #F5F3EE; text-wrap: pretty;">Place an idea on the <strong style="font-weight: 700;">workbench.</strong></h2>
+        <p data-wb-role="1" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #18A6A0; margin: 0;">You bring the idea — Tvashta finds the process</p>
+        <p data-wb-body="1" style="font-size: 19px; line-height: 1.55; color: #C3CBDA; margin: 0; max-width: 40ch; text-wrap: pretty;">Describe what you have in mind and we work out whether it starts at Capture, Imagine, Prototype or Make, and what it takes to get there.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #A9B7CE;">What are you bringing to the Forge?</span>
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <button type="button" data-wb="idea" aria-pressed="true" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #0B285A; background: #F5F3EE; border: 1px solid #F5F3EE; border-radius: 999px; padding: 13px 22px; cursor: pointer;">An idea</button>
+          <button type="button" data-wb="sketch" aria-pressed="false" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #F5F3EE; background: transparent; border: 1px solid #1C4386; border-radius: 999px; padding: 13px 22px; cursor: pointer;" style-hover="border-color: #F5F3EE; background: #123B80;">A sketch</button>
+          <button type="button" data-wb="file" aria-pressed="false" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #F5F3EE; background: transparent; border: 1px solid #1C4386; border-radius: 999px; padding: 13px 22px; cursor: pointer;" style-hover="border-color: #F5F3EE; background: #123B80;">A file</button>
+          <button type="button" data-wb="object" aria-pressed="false" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #F5F3EE; background: transparent; border: 1px solid #1C4386; border-radius: 999px; padding: 13px 22px; cursor: pointer;" style-hover="border-color: #F5F3EE; background: #123B80;">An object</button>
+        </div>
+        <div data-wb-form="1" style="display: flex; flex-direction: column; gap: 24px;">
+          <label style="display: flex; flex-direction: column; gap: 12px;">
+            <span data-wb-label="1" style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.16em; text-transform: uppercase; color: #A9B7CE;">Describe your idea</span>
+            <textarea data-wb-input="1" rows="4" placeholder="A folding stand for a field scanner, about the size of a book when closed…" style="width: 100%; box-sizing: border-box; background: #123B80; border: 1px solid #1C4386; border-radius: 10px; padding: 18px 20px; color: #F5F3EE; font-family: 'Space Grotesk', Helvetica, Arial, sans-serif; font-size: 17px; line-height: 1.5; resize: vertical; outline: none;"></textarea>
+          </label>
+          <button type="button" data-wb-begin="1" style="align-self: flex-start; font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #0B285A; background: #F5F3EE; border: 0; border-radius: 999px; padding: 15px 30px; cursor: pointer;" style-hover="background: #18A6A0; color: #F5F3EE;">Begin making</button>
+        </div>
+        <div data-wb-done="1" style="display: none; flex-direction: column; gap: 12px; padding: 30px 28px 32px; border: 1px solid #18A6A0; border-radius: 10px; background: #123B80;">
+          <span style="font-size: 24px; letter-spacing: -0.02em; color: #F5F3EE;">Your idea is on the workbench.</span>
+          <span data-wb-done-msg="1" style="font-size: 17px; line-height: 1.55; color: #C3CBDA;">A maker will pick it up, map it to the process, and come back with the shortest path from here to a real object.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="statement" style="max-width: 1440px; margin: 150px auto 0; padding: 0 clamp(18px, 5vw, 40px) 130px;">
+    <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.2em; text-transform: uppercase; color: #667085; margin: 0 0 28px;">Final product statement</p>
+    <h2 style="font-size: 44px; line-height: 1.12; font-weight: 400; letter-spacing: -0.025em; margin: 0; max-width: 26ch; text-wrap: pretty;">Tvashta Labs — <strong style="font-weight: 700;">The Digital Forge.</strong></h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 28px; margin: 56px 0 0; padding: 44px 0 0; border-top: 1px solid #D9DDE4;">
+      <p style="font-size: 20px; line-height: 1.4; margin: 0;"><strong style="font-weight: 700;">Capture</strong><br /><span style="color: #667085;">what exists.</span></p>
+      <p style="font-size: 20px; line-height: 1.4; margin: 0;"><strong style="font-weight: 700;">Imagine</strong><br /><span style="color: #667085;">what doesn’t.</span></p>
+      <p style="font-size: 20px; line-height: 1.4; margin: 0;"><strong style="font-weight: 700;">Prototype</strong><br /><span style="color: #667085;">what could be.</span></p>
+      <p style="font-size: 20px; line-height: 1.4; margin: 0;"><strong style="font-weight: 700;">Make</strong><br /><span style="color: #667085;">what comes next.</span></p>
+    </div>
+    <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: 40px; flex-wrap: wrap; margin: 70px 0 0; padding: 30px 0 0; border-top: 1px solid #D9DDE4;">
+      <span style="font-size: 26px; letter-spacing: -0.02em;">We give form to ideas.</span>
+      <span style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; letter-spacing: 0.18em; text-transform: uppercase; color: #667085;">Tvashta Labs — a place for making&nbsp;&nbsp;/&nbsp;&nbsp;Capture · Imagine · Prototype · Make</span>
+    </div>
+  </section>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;accent&quot;:{&quot;editor&quot;:&quot;color&quot;,&quot;default&quot;:&quot;#0F3473&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;options&quot;:[&quot;#0F3473&quot;,&quot;#18A6A0&quot;,&quot;#D95D39&quot;,&quot;#C6F36B&quot;]},&quot;assemblyMode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;default&quot;:&quot;timeline&quot;,&quot;options&quot;:[&quot;timeline&quot;,&quot;scroll&quot;],&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Animation&quot;},&quot;animate&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Animation&quot;},&quot;animationSpeed&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:1,&quot;min&quot;:0.5,&quot;max&quot;:2.5,&quot;step&quot;:0.1,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Animation&quot;},&quot;showEyebrow&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;showFooterNote&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  constructor(props) {
+    super(props);
+    this.root = React.createRef();
+  }
+
+  componentDidMount() {
+    this.mountWordmark();
+    this.wireForge();
+    this.boot();
+  }
+
+  // the hero's stepped 6-column grid folds to a 2-up block on phones
+  wirePhoneGrid() {
+    const apply = () => {
+      const grid = document.querySelector("[data-hero-grid]");
+      if (!grid) return;
+      const phone = window.innerWidth < 700;
+      grid.style.gridTemplateColumns = phone ? "repeat(2, 1fr)" : "repeat(6, 1fr)";
+      grid.style.maxWidth = phone ? "100%" : "min(940px, 108vh)";
+      grid.style.marginLeft = phone ? "0" : "auto";
+      Array.from(grid.children).forEach((c) => {
+        if (c.__col == null) c.__col = c.style.gridColumn || "auto";
+        c.style.gridColumn = phone ? "auto" : c.__col;
+      });
+    };
+    apply();
+    window.addEventListener("resize", apply);
+    [200, 900].forEach((d) => setTimeout(apply, d));
+  }
+
+  // hovering one item in a menu list dims its siblings; the pill swaps to the address
+  wireMenuHovers(el) {
+    el.querySelectorAll("[data-dimgroup]").forEach((group) => {
+      const items = Array.from(group.querySelectorAll("[data-dimitem]"));
+      items.forEach((item) => {
+        item.style.transition = (item.style.transition ? item.style.transition + ", " : "") + "opacity 240ms ease";
+        item.addEventListener("mouseenter", () => {
+          items.forEach((o) => { o.style.opacity = o === item ? "1" : "0.32"; });
+        });
+      });
+      group.addEventListener("mouseleave", () => { items.forEach((o) => { o.style.opacity = "1"; }); });
+    });
+    el.querySelectorAll("[data-hoverswap]").forEach((node) => {
+      const swap = node.getAttribute("data-hoverswap");
+      const original = node.textContent;
+      node.addEventListener("mouseenter", () => { node.textContent = swap; });
+      node.addEventListener("mouseleave", () => { node.textContent = original; });
+    });
+  }
+
+  wireForge() {
+    const el = this.root.current;
+    if (!el || el.__forgeWired) return;
+    el.__forgeWired = true;
+
+    const MOVES = {
+      rotate: ["Rotate · drag to turn", "Rotation"],
+      explode: ["Explode · components apart", "Exploding parts"],
+      slice: ["Slice · internal section", "Slicing"],
+      scan: ["Scan · point cloud", "Scanning"],
+      build: ["Build · layer by layer", "Building"]
+    };
+    const WB = {
+      idea: {
+        role: "You bring the idea — Tvashta finds the process",
+        body: "Describe what you have in mind and we work out whether it starts at Capture, Imagine, Prototype or Make, and what it takes to get there.",
+        label: "Describe your idea",
+        ph: "A folding stand for a field scanner, about the size of a book when closed…",
+        done: "A maker will pick it up, map it to the process, and come back with the shortest path from here to a real object."
+      },
+      sketch: {
+        role: "You bring the sketch — Tvashta develops the model",
+        body: "Tell us about the drawing. We develop it into a digital model you can hold, test and revise.",
+        label: "Describe the sketch",
+        ph: "Two pencil views of a wall bracket, roughly to scale…",
+        done: "We will turn the sketch into a clean digital model and send back the first pass for your notes."
+      },
+      file: {
+        role: "You bring the file — Tvashta takes it to Make",
+        body: "Send your geometry. CAD, STL, OBJ, STEP and 3MF go straight toward fabrication.",
+        label: "What is in the file, and what do you need made?",
+        ph: "An STL of a lamp shade, 240 mm tall, in translucent resin…",
+        done: "We will check the geometry for print, confirm material and finish, and quote the build."
+      },
+      object: {
+        role: "You bring the object — Tvashta captures it",
+        body: "Tell us about the physical object. We can scan, replicate, modify or preserve it.",
+        label: "What is the object, and what do you need?",
+        ph: "A carved bracket from a temple doorway — I need an accurate replica in resin…",
+        done: "We will arrange the scan, then walk the object from point cloud to model to replica."
+      }
+    };
+
+    el.addEventListener("click", (ev) => {
+      const t = ev.target;
+      if (!t || !t.closest) return;
+
+      const mv = t.closest("[data-move]");
+      if (mv) {
+        const mode = mv.getAttribute("data-move");
+        el.querySelectorAll("[data-move]").forEach((b) => {
+          const on = b === mv;
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+          b.style.background = on ? "#EDEBE5" : "transparent";
+          const key = b.firstElementChild;
+          if (key) key.style.color = on ? "#18A6A0" : "#667085";
+        });
+        const forge = el.querySelector("[data-demo-forge]");
+        if (forge) forge.setAttribute("mode", mode);
+        const tag = el.querySelector("[data-move-tag]");
+        const note = el.querySelector("[data-move-note]");
+        if (tag) tag.textContent = MOVES[mode][0];
+        if (note) note.textContent = MOVES[mode][1];
+        return;
+      }
+
+      const wb = t.closest("[data-wb]");
+      if (wb) {
+        const key = wb.getAttribute("data-wb");
+        const d = WB[key];
+        el.querySelectorAll("[data-wb]").forEach((b) => {
+          const on = b === wb;
+          b.setAttribute("aria-pressed", on ? "true" : "false");
+          b.style.background = on ? "#F5F3EE" : "transparent";
+          b.style.color = on ? "#0B285A" : "#F5F3EE";
+          b.style.borderColor = on ? "#F5F3EE" : "#1C4386";
+        });
+        const set = (sel, text) => { const n = el.querySelector(sel); if (n) n.textContent = text; };
+        set("[data-wb-role]", d.role);
+        set("[data-wb-body]", d.body);
+        set("[data-wb-label]", d.label);
+        const input = el.querySelector("[data-wb-input]");
+        if (input) { input.placeholder = d.ph; input.value = ""; }
+        const form = el.querySelector("[data-wb-form]");
+        const done = el.querySelector("[data-wb-done]");
+        if (form) form.style.display = "flex";
+        if (done) done.style.display = "none";
+        this._wbKey = key;
+        return;
+      }
+
+      if (t.closest("[data-wb-begin]")) {
+        const d = WB[this._wbKey || "idea"];
+        const form = el.querySelector("[data-wb-form]");
+        const done = el.querySelector("[data-wb-done]");
+        const msg = el.querySelector("[data-wb-done-msg]");
+        if (msg) msg.textContent = d.done;
+        if (form) form.style.display = "none";
+        if (done) done.style.display = "flex";
+      }
+    });
+
+    this.wireMenuHovers(el);
+    this.wirePhoneGrid();
+
+    if (window.matchMedia("(pointer:fine)").matches && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      el.querySelectorAll("[data-tilt]").forEach((card) => {
+        card.addEventListener("pointermove", (ev) => {
+          const r = card.getBoundingClientRect();
+          const rx = ((ev.clientY - r.top) / r.height - 0.5) * -8;
+          const ry = ((ev.clientX - r.left) / r.width - 0.5) * 10;
+          card.style.transform = "perspective(900px) rotateX(" + rx.toFixed(2) + "deg) rotateY(" + ry.toFixed(2) + "deg) translateZ(6px)";
+        });
+        card.addEventListener("pointerleave", () => { card.style.transform = ""; });
+      });
+    }
+  }
+
+  componentWillUnmount() {
+    const el = this.root.current;
+    clearTimeout(this._watchdog);
+    // Only tear down when the DOM is really gone. A re-mount onto the same
+    // nodes (hot reload, prop change) must not kill the live controller —
+    // that is what left the tiles parked at their final state.
+    if (this.controller && (!el || (!el.isConnected && el.__heroCtl === this.controller))) {
+      this.controller.destroy();
+      if (el) el.__heroCtl = null;
+    }
+  }
+
+  mountWordmark() {
+    if (window.__markTravel) { window.__markTravel(); if (window.__markContrast) window.__markContrast(); return; }
+    const place = () => {
+      const mark = document.querySelector("[data-wordmark]");
+      if (!mark) return;
+      const img = mark.firstElementChild;
+      const w = (img && img.offsetWidth) || 200;
+      const h = (img && img.offsetHeight) || 17;
+      const travel = Math.max(1, (window.innerHeight || 800) * 0.7);
+      const p = Math.min(1, Math.max(0, (window.scrollY || 0) / travel));
+      const e = p < 0.5 ? 2 * p * p : 1 - Math.pow(-2 * p + 2, 2) / 2;
+      const dx = ((window.innerWidth || 1200) / 2 - w / 2 - 40) * e;
+      const dy = ((window.innerHeight || 800) - 30 - 26 - h) * e;
+      mark.style.setProperty("transform", "translate3d(" + dx.toFixed(1) + "px," + dy.toFixed(1) + "px,0)", "important");
+    };
+    const fit = () => {
+      const grid = document.querySelector("[data-hero-fit]");
+      const frame = grid && grid.closest("[data-hero-stage]") && grid.closest("[data-hero-stage]").parentElement;
+      if (!grid || !frame) return;
+      const fs = getComputedStyle(frame);
+      const limit =
+        frame.getBoundingClientRect().bottom - parseFloat(fs.paddingBottom || 0);
+      grid.style.maxWidth = "";
+      for (let i = 0; i < 3; i++) {
+        const r = grid.getBoundingClientRect();
+        const avail = limit - r.top;
+        if (r.height <= avail + 0.5) break;
+        grid.style.maxWidth = Math.max(240, r.width * (avail / r.height)) + "px";
+      }
+    };
+    window.__heroFit = fit;
+    window.addEventListener("resize", fit);
+    setTimeout(fit, 0);
+    setTimeout(fit, 400);
+    window.__markTravel = place;
+    window.addEventListener("scroll", place, { passive: true });
+    window.addEventListener("resize", place);
+    place();
+
+    // --- adaptive contrast: sample whatever is behind the mark, crossfade ink ---
+    const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
+    const parse = (c) => {
+      const m = /rgba?\(([^)]+)\)/.exec(c || "");
+      if (!m) return null;
+      const p = m[1].split(",").map(parseFloat);
+      return { r: p[0], g: p[1], b: p[2], a: p.length > 3 ? p[3] : 1 };
+    };
+    const over = (fg, bg) => {
+      const a = fg.a + bg.a * (1 - fg.a);
+      if (!a) return { r: 0, g: 0, b: 0, a: 0 };
+      const mix = (f, b) => (f * fg.a + b * bg.a * (1 - fg.a)) / a;
+      return { r: mix(fg.r, bg.r), g: mix(fg.g, bg.g), b: mix(fg.b, bg.b), a };
+    };
+    const lum = (c) => {
+      const f = (v) => { v /= 255; return v <= 0.04045 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+      return 0.2126 * f(c.r) + 0.7152 * f(c.g) + 0.0722 * f(c.b);
+    };
+    const sampleAt = (x, y) => {
+      const stack = document.elementsFromPoint(x, y) || [];
+      let acc = null;
+      for (let i = 0; i < stack.length; i++) {
+        const node = stack[i];
+        if (node.closest && node.closest("[data-wordmark]")) continue;
+        const cs = getComputedStyle(node);
+        if (cs.visibility === "hidden") continue;
+        const o = parseFloat(cs.opacity);
+        if (!o) continue;
+        const bg = parse(cs.backgroundColor);
+        const hasImg = cs.backgroundImage && cs.backgroundImage !== "none";
+        let layer = null;
+        if (bg && bg.a > 0) layer = { r: bg.r, g: bg.g, b: bg.b, a: clamp01(bg.a * o) };
+        // imagery / gradients of unknown content: treat as a mid tone so the
+        // mark leans to the more legible of the two inks rather than guessing
+        if (hasImg && (!layer || layer.a < 1)) {
+          const mid = { r: 128, g: 128, b: 128, a: clamp01(0.6 * o) };
+          layer = layer ? over(layer, mid) : mid;
+        }
+        if (!layer) continue;
+        acc = acc ? over(acc, layer) : layer;
+        if (acc.a >= 0.985) break;
+      }
+      if (!acc) return null;
+      if (acc.a < 1) acc = over(acc, { r: 245, g: 243, b: 238, a: 1 });
+      return lum(acc);
+    };
+
+    let cur = 0, target = 0, raf = 0, dirty = true;
+    const measure = () => {
+      const el = document.querySelector("[data-wordmark]");
+      if (!el) return;
+      const r = el.getBoundingClientRect();
+      if (!r.width || !r.height) return;
+      const vw = window.innerWidth || 1200, vh = window.innerHeight || 800;
+      const y = Math.min(vh - 1, Math.max(0, r.top + r.height / 2));
+      let sum = 0, n = 0;
+      for (let i = 0; i < 5; i++) {
+        const x = Math.min(vw - 1, Math.max(0, r.left + r.width * (0.08 + 0.21 * i)));
+        const L = sampleAt(x, y);
+        if (L != null) { sum += L; n++; }
+      }
+      if (!n) return;
+      target = clamp01((0.5 - sum / n) / 0.18 + 0.5);
+    };
+    const tick = () => {
+      if (dirty) { measure(); dirty = false; }
+      cur += (target - cur) * 0.18;
+      if (Math.abs(target - cur) < 0.003) cur = target;
+      const el = document.querySelector("[data-wordmark]");
+      if (el) {
+        const light = el.querySelector("[data-mark-light]");
+        const dark = el.querySelector("[data-mark-dark]");
+        if (light) light.style.setProperty("opacity", cur.toFixed(3), "important");
+        if (dark) dark.style.setProperty("opacity", (1 - cur).toFixed(3), "important");
+      }
+      raf = cur !== target ? requestAnimationFrame(tick) : 0;
+    };
+    const kick = () => { dirty = true; if (!raf) raf = requestAnimationFrame(tick); };
+    window.__markContrast = kick;
+    window.addEventListener("scroll", kick, { passive: true });
+    window.addEventListener("resize", kick);
+    window.addEventListener("load", kick);
+    setTimeout(kick, 300);
+    setTimeout(kick, 1200);
+    cur = target = 0;
+    kick();
+  }
+
+  async boot() {
+    const el = this.root.current;
+    if (!el) return;
+    this.mountWordmark();
+    const stage = el.querySelector("[data-hero-stage]");
+    try {
+      const gsap = await this.waitForGsap();
+      const { HeroAnimationController } = await import("./hero-animation-controller.js");
+      if (el.__heroCtl) el.__heroCtl.destroy();
+      this.controller = new HeroAnimationController({
+        root: el,
+        gsap,
+        speed: this.props.animationSpeed ?? 1,
+        mode: this.props.assemblyMode ?? "timeline",
+      });
+      el.__heroCtl = this.controller;
+      if ((this.props.animate ?? true) === false) {
+        this.controller.initialize().setFinalState();
+      } else {
+        this.controller.initialize().play();
+      }
+      // watchdog: never leave the page parked in the hidden start state
+      clearTimeout(this._watchdog);
+      this._watchdog = setTimeout(() => {
+        const c = this.controller;
+        if (!c || el.__heroCtl !== c) return;
+        // the only honest liveness test is whether a timeline has advanced —
+        // a running rAF loop proves nothing if gsap's ticker is asleep
+        const moved =
+          (c.introTl && c.introTl.progress() > 0) ||
+          (c.timeline && c.timeline.progress() > 0);
+        if (moved) return;
+        // a race can cancel the loop before its first tick — restart it once,
+        // and only park at the final state if that fails too
+        c.replay();
+        setTimeout(() => {
+          if (el.__heroCtl === c && !c.raf && !(c.timeline && c.timeline.isActive())) c.setFinalState();
+        }, 700);
+      }, 900);
+    } catch (e) {
+      if (stage) stage.style.opacity = 1;
+      console.warn("hero animation unavailable:", e);
+    }
+  }
+
+  waitForGsap(timeout = 4000) {
+    return new Promise((resolve, reject) => {
+      const t0 = Date.now();
+      const tick = () => {
+        if (window.gsap) return resolve(window.gsap);
+        if (Date.now() - t0 > timeout) return reject(new Error("gsap did not load"));
+        requestAnimationFrame(tick);
+      };
+      tick();
+    });
+  }
+
+  menuEls() {
+    const el = this.root.current;
+    if (!el) return null;
+    return {
+      menu: el.querySelector("[data-menu]"),
+      links: el.querySelectorAll("[data-menu-link]"),
+      stories: el.querySelectorAll("[data-menu-story]"),
+      secondary: el.querySelectorAll("[data-menu-secondary]"),
+    };
+  }
+
+  openMenu = (e) => {
+    if (e) e.preventDefault();
+    const p = this.menuEls();
+    const g = window.gsap;
+    if (!p || !p.menu || !g) return;
+    if (this.menuTl) this.menuTl.kill();
+    p.menu.style.pointerEvents = "auto";
+    const tl = g.timeline();
+    tl.to(p.menu, { opacity: 1, duration: 0.4, ease: "power2.out" }, 0);
+    tl.fromTo(p.links, { yPercent: 60, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.7, stagger: 0.07, ease: "power3.out" }, 0.08);
+    tl.fromTo(p.stories, { y: 26, opacity: 0 },
+      { y: 0, opacity: 1, duration: 0.6, stagger: 0.08, ease: "power2.out" }, 0.2);
+    tl.fromTo(p.secondary, { opacity: 0 },
+      { opacity: 1, duration: 0.5, stagger: 0.06 }, 0.34);
+    this.menuTl = tl;
+    document.addEventListener("keydown", this.onKey);
+  };
+
+  closeMenu = (e) => {
+    const p = this.menuEls();
+    const g = window.gsap;
+    if (!p || !p.menu || !g) return;
+    if (this.menuTl) this.menuTl.kill();
+    const tl = g.timeline({
+      onComplete: () => { p.menu.style.pointerEvents = "none"; },
+    });
+    tl.to([...p.links, ...p.stories, ...p.secondary], { opacity: 0, duration: 0.22 }, 0);
+    tl.to(p.menu, { opacity: 0, duration: 0.3, ease: "power1.in" }, 0.08);
+    this.menuTl = tl;
+    document.removeEventListener("keydown", this.onKey);
+  };
+
+  onKey = (e) => {
+    if (e.key === "Escape") this.closeMenu();
+  };
+
+  renderVals() {
+    return {
+      rootRef: this.root,
+      openMenu: this.openMenu,
+      closeMenu: this.closeMenu,
+      accent: this.props.accent ?? "#0F3473",
+      showEyebrow: this.props.showEyebrow ?? true,
+      showFooterNote: this.props.showFooterNote ?? true,
+      replay: () => this.controller && this.controller.replay(),
+    };
+  }
+}
+</script>
+</body>
+</html>

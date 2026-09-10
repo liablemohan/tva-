@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<script src="./image-slot.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; background: #fff; }
+  * { box-sizing: border-box; }
+  a { color: inherit; text-decoration: none; }
+  a:hover { opacity: 0.55; }
+</style>
+</helmet>
+
+<div data-role="root" style="position:relative;width:100%;background:#fff;font-family:'Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;color:#0a0a0a">
+
+  <nav data-role="nav" style="position:fixed;top:0;left:0;right:0;z-index:60;display:flex;align-items:center;justify-content:space-between;padding:26px 40px;color:#0a0a0a;mix-blend-mode:normal">
+    <a href="#" style="font-size:15px;letter-spacing:0.14em;text-transform:uppercase;font-weight:500">Atelier Nord</a>
+    <div style="display:flex;gap:34px;font-size:14px;letter-spacing:0.02em">
+      <a href="#">Work</a>
+      <a href="#">Clients</a>
+      <a href="#">Studio</a>
+      <a href="#">Contact</a>
+    </div>
+  </nav>
+
+  <section data-screen-label="Intro" style="min-height:100vh;display:flex;align-items:center;padding:0 40px 0 40px">
+    <div data-role="intro" style="max-width:1180px;will-change:transform,opacity">
+      <div style="display:flex;align-items:center;gap:18px;margin-bottom:44px">
+        <video src="https://lorem.video/720p#intro" autoplay muted loop playsinline width="1280" height="720" style="width:114px;height:64px;aspect-ratio:16/9;object-fit:cover;display:block;background:#eee;flex:none"></video>
+        <div style="font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#8a8a8a">Clients</div>
+      </div>
+      <h1 style="margin:0;font-size:clamp(34px,5.4vw,86px);line-height:1.02;letter-spacing:-0.025em;font-weight:500;text-wrap:pretty;max-width:19ch">We partner with the world’s most influential organizations to realize their vision and achieve their greatest impact.</h1>
+      <div style="margin-top:56px;font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a8a">Scroll</div>
+    </div>
+  </section>
+
+  <section data-role="showcase" data-screen-label="Showcase" style="position:relative;height:560vh;background:#0a0a0a">
+    <div style="position:sticky;top:0;height:100vh;overflow:hidden;overflow-x:hidden;background:#0a0a0a">
+
+      <div data-role="media" style="position:absolute;inset:0;will-change:opacity">
+        <div data-role="layer" style="position:absolute;inset:0;opacity:1;will-change:opacity,transform">
+          <img src="https://images.pexels.com/photos/1181605/pexels-photo-1181605.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop" alt="" width="1600" height="900" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#0a0a0a" />
+        </div>
+        <div data-role="layer" style="position:absolute;inset:0;opacity:0;will-change:opacity,transform">
+          <img src="https://images.pexels.com/photos/3184183/pexels-photo-3184183.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop" alt="" width="1600" height="900" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#0a0a0a" />
+        </div>
+        <div data-role="layer" style="position:absolute;inset:0;opacity:0;will-change:opacity,transform">
+          <img src="https://images.pexels.com/photos/2058128/pexels-photo-2058128.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop" alt="" width="1600" height="900" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#0a0a0a" />
+        </div>
+        <div data-role="layer" style="position:absolute;inset:0;opacity:0;will-change:opacity,transform">
+          <img src="https://images.pexels.com/photos/1181406/pexels-photo-1181406.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop" alt="" width="1600" height="900" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#0a0a0a" />
+        </div>
+        <div data-role="layer" style="position:absolute;inset:0;opacity:0;will-change:opacity,transform">
+          <img src="https://images.pexels.com/photos/3182812/pexels-photo-3182812.jpeg?auto=compress&cs=tinysrgb&w=1600&h=900&fit=crop" alt="" width="1600" height="900" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block;background:#0a0a0a" />
+        </div>
+      </div>
+
+      <div data-role="overlay" style="position:absolute;inset:0;pointer-events:none;background:linear-gradient(180deg,rgba(0,0,0,0.34) 0%,rgba(0,0,0,0.16) 40%,rgba(0,0,0,0.28) 100%)"></div>
+
+      <div data-role="textlayer" style="position:absolute;top:44%;left:40px;right:40px;transform:translateY(-50%);pointer-events:none;color:#fff;will-change:opacity">
+        <div data-role="row" style="display:flex;align-items:flex-start;gap:0.32em;font-size:clamp(19px,3.7vw,60px);line-height:1.12;letter-spacing:-0.02em;font-weight:500">
+          <div data-role="label" style="flex:none;white-space:nowrap">We partner with</div>
+          <div style="flex:1;min-width:0;position:relative">
+            <div data-role="list" style="will-change:transform">
+              <div data-role="name" style="white-space:nowrap;opacity:0.32;will-change:opacity,transform">Fondation Cartier</div>
+              <div data-role="name" style="white-space:nowrap;opacity:0.32;will-change:opacity,transform">Saint Laurent</div>
+              <div data-role="name" style="white-space:nowrap;opacity:0.32;will-change:opacity,transform">Accor</div>
+              <div data-role="name" style="white-space:nowrap;opacity:0.32;will-change:opacity,transform">ElevenLabs</div>
+              <div data-role="name" style="white-space:nowrap;opacity:0.32;will-change:opacity,transform">Consumer Technology Association</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div data-role="ticks" style="position:absolute;right:40px;bottom:40px;display:flex;flex-direction:column;gap:10px;align-items:flex-end;pointer-events:none">
+        <div data-role="tick" style="width:26px;height:1px;background:#fff;opacity:0.28"></div>
+        <div data-role="tick" style="width:26px;height:1px;background:#fff;opacity:0.28"></div>
+        <div data-role="tick" style="width:26px;height:1px;background:#fff;opacity:0.28"></div>
+        <div data-role="tick" style="width:26px;height:1px;background:#fff;opacity:0.28"></div>
+        <div data-role="tick" style="width:26px;height:1px;background:#fff;opacity:0.28"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <section data-screen-label="Outro" style="min-height:100vh;background:#fff;padding:180px 40px 140px;display:flex;justify-content:flex-start">
+    <div style="max-width:1180px;width:100%">
+      <div style="font-size:13px;letter-spacing:0.16em;text-transform:uppercase;color:#8a8a8a;margin-bottom:44px">Engagements</div>
+      <h2 style="margin:0;font-size:clamp(28px,3.6vw,54px);line-height:1.06;letter-spacing:-0.02em;font-weight:500;max-width:22ch;text-wrap:pretty">Long-form partnerships built around a single question: what is this work for?</h2>
+      <video src="https://lorem.video/720p#outro" autoplay muted loop playsinline width="1280" height="720" style="width:100%;height:auto;aspect-ratio:16/9;max-height:min(56vh,520px);object-fit:cover;display:block;background:#eee;margin-top:72px"></video>
+      <div style="margin-top:96px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:48px;border-top:1px solid #e6e6e6;padding-top:36px">
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a8a;margin-bottom:12px">Brand systems</div>
+          <p style="margin:0;font-size:16px;line-height:1.5;color:#3a3a3a;max-width:34ch">Identity, editorial direction and the standards that keep them intact.</p>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a8a;margin-bottom:12px">Film &amp; motion</div>
+          <p style="margin:0;font-size:16px;line-height:1.5;color:#3a3a3a;max-width:34ch">Campaign films, exhibition media and the sequences between them.</p>
+        </div>
+        <div>
+          <div style="font-size:13px;letter-spacing:0.14em;text-transform:uppercase;color:#8a8a8a;margin-bottom:12px">Digital</div>
+          <p style="margin:0;font-size:16px;line-height:1.5;color:#3a3a3a;max-width:34ch">Interfaces and narratives that carry a brand at full scale.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{
+  &quot;scrollLength&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 560, &quot;min&quot;: 300, &quot;max&quot;: 900, &quot;step&quot;: 20, &quot;unit&quot;: &quot;vh&quot;, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Pacing&quot; },
+  &quot;smoothing&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.12, &quot;min&quot;: 0.03, &quot;max&quot;: 1, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Pacing&quot; },
+  &quot;overlayStrength&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.3, &quot;min&quot;: 0, &quot;max&quot;: 0.6, &quot;step&quot;: 0.02, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Look&quot; },
+  &quot;inactiveOpacity&quot;: { &quot;editor&quot;: &quot;range&quot;, &quot;default&quot;: 0.32, &quot;min&quot;: 0.15, &quot;max&quot;: 0.6, &quot;step&quot;: 0.01, &quot;tsType&quot;: &quot;number&quot;, &quot;section&quot;: &quot;Look&quot; }
+}">
+const clamp = (v, a, b) => Math.min(b, Math.max(a, v));
+const smooth = t => t * t * (3 - 2 * t);
+const lerp = (a, b, t) => a + (b - a) * t;
+
+class Component extends DCLogic {
+  start() {
+    if (this.started) return;
+    this.started = true;
+    this.tick = this.tick.bind(this);
+    this.onScroll = () => {
+      try {
+        // stale frame clock means rAF is throttled/backgrounded: snap so we never paint a wrong slide
+        if (this._t && performance.now() - this._t > 200) this.sy = window.scrollY;
+        if (!this.bound) this.bound = this.bind();
+        if (this.bound) this.update();
+      } catch (err) { console.error(err); }
+    };
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('scroll', this.onScroll, { passive: true });
+    window.addEventListener('resize', () => { this.sy = window.scrollY; this._t = 0; this._narrow = undefined; this.onScroll(); });
+    this.onScroll();
+    this.raf = requestAnimationFrame(this.tick);
+  }
+
+  componentDidMount() {
+    this.start();
+  }
+
+  bind() {
+    this.root = document.querySelector('[data-role="root"]');
+    if (!this.root) return false;
+    const q = s => this.root.querySelector(s);
+    const all = s => Array.from(this.root.querySelectorAll(s));
+    this.el = {
+      nav: q('[data-role="nav"]'),
+      intro: q('[data-role="intro"]'),
+      showcase: q('[data-role="showcase"]'),
+      media: q('[data-role="media"]'),
+      overlay: q('[data-role="overlay"]'),
+      text: q('[data-role="textlayer"]'),
+      list: q('[data-role="list"]'),
+      layers: all('[data-role="layer"]'),
+      row: q('[data-role="row"]'),
+      label: q('[data-role="label"]'),
+      names: all('[data-role="name"]'),
+      ticks: all('[data-role="tick"]')
+    };
+    if (!this.el.showcase || !this.el.list || this.el.layers.length === 0) return false;
+    const vhLen = this.props.scrollLength;
+    if (vhLen) this.el.showcase.style.height = vhLen + 'vh';
+    return true;
+  }
+
+  componentWillUnmount() {
+    cancelAnimationFrame(this.raf);
+    window.removeEventListener('scroll', this.onScroll);
+    window.removeEventListener('resize', this.onScroll);
+  }
+
+  tick() {
+    try {
+      if (!this.bound) this.bound = this.bind();
+      if (this.bound) this.update();
+    } catch (err) {
+      console.error('showcase frame failed', err);
+      this.bound = false;
+    }
+    this.raf = requestAnimationFrame(this.tick);
+  }
+
+  // fractional client index with plateaus, so each state is held before it hands over
+  activeIndex(p, n) {
+    const raw = clamp(p * n - 0.5, 0, n - 1);
+    const i = Math.min(Math.floor(raw), n - 2);
+    const f = clamp((raw - i - 0.18) / 0.64, 0, 1);
+    return raw <= 0 ? 0 : i + smooth(smooth(f));
+  }
+
+  // narrow viewports stack the sentence instead of scaling the desktop row
+  applyLayout() {
+    const e = this.el;
+    const narrow = window.innerWidth < 760;
+    if (narrow === this._narrow) return;
+    this._narrow = narrow;
+    e.row.style.flexDirection = narrow ? 'column' : 'row';
+    e.row.style.gap = narrow ? '0.18em' : '0.32em';
+    e.row.style.fontSize = narrow ? 'clamp(19px,6.6vw,30px)' : 'clamp(26px,3.7vw,60px)';
+    e.label.style.whiteSpace = narrow ? 'normal' : 'nowrap';
+    e.label.style.opacity = narrow ? '0.85' : '1';
+    e.text.style.left = narrow ? '20px' : '40px';
+    e.text.style.right = narrow ? '20px' : '40px';
+    e.text.style.top = narrow ? 'auto' : '44%';
+    e.text.style.bottom = narrow ? '15vh' : 'auto';
+    e.text.style.transform = narrow ? 'none' : 'translateY(-50%)';
+    e.names.forEach(nm => {
+      nm.style.whiteSpace = narrow ? 'normal' : 'nowrap';
+      nm.style.textWrap = narrow ? 'balance' : 'nowrap';
+    });
+    e.ticks.forEach(t => { t.parentElement.style.display = narrow ? 'none' : 'flex'; });
+  }
+
+  update() {
+    const e = this.el;
+    if (!e || !e.showcase) return;
+    this.applyLayout();
+    const vh = window.innerHeight;
+    const now = performance.now();
+    const dt = Math.min(64, this._t ? now - this._t : 16);
+    this._t = now;
+    const target = window.scrollY;
+    if (this.sy == null) this.sy = target;
+    const k = 1 - Math.pow(1 - clamp(this.props.smoothing ?? 0.12, 0.02, 1), dt / 16.667);
+    this.sy += (target - this.sy) * k;
+    if (Math.abs(target - this.sy) < 0.15) this.sy = target;
+    const sy = this.sy;
+    const top = e.showcase.offsetTop - sy;
+    const bottom = top + e.showcase.offsetHeight;
+    const span = Math.max(1, e.showcase.offsetHeight - vh);
+    const p = clamp(-top / span, 0, 1);
+    const n = e.layers.length;
+    const f = this.activeIndex(p, n);
+
+    // intro release
+    const ip = clamp(sy / (vh * 0.75), 0, 1);
+    e.intro.style.opacity = String(1 - smooth(ip) * 0.95);
+    e.intro.style.transform = 'translateY(' + (-46 * smooth(ip)).toFixed(2) + 'px)';
+
+    // where the pinned viewport actually sits
+    const innerTop = top > 0 ? top : Math.min(0, bottom - vh);
+    const enter = smooth(clamp((vh - innerTop) / (vh * 0.85), 0, 1));
+    const leave = clamp((innerTop + vh * 0.9) / (vh * 0.2), 0, 1);
+    const presence = enter * smooth(leave);
+
+    e.media.style.opacity = String(lerp(0.25, 1, presence));
+    e.text.style.opacity = String(presence);
+
+    // media crossfade + restrained drift
+    for (let i = 0; i < n; i++) {
+      const w = smooth(clamp(1 - Math.abs(i - f), 0, 1));
+      const layer = e.layers[i];
+      layer.style.opacity = String(w);
+      layer.style.transform = 'scale(' + (1.035 - 0.035 * w).toFixed(4) + ')';
+      layer.style.visibility = w <= 0.002 ? 'hidden' : 'visible';
+      const name = e.names[i];
+      const dim = this.props.inactiveOpacity ?? 0.32;
+      name.style.opacity = String(lerp(dim, 1, w));
+      name.style.transform = 'translateY(' + ((1 - w) * 3).toFixed(2) + 'px)';
+      if (e.ticks[i]) {
+        e.ticks[i].style.opacity = String(lerp(0.22, 1, w));
+        e.ticks[i].style.width = (26 + 16 * w).toFixed(1) + 'px';
+      }
+    }
+
+    // list slides so the active name lands on the "We partner with" line
+    const i0 = Math.floor(f);
+    const i1 = Math.min(n - 1, i0 + 1);
+    const o0 = e.names[i0].offsetTop;
+    const o1 = e.names[i1].offsetTop;
+    e.list.style.transform = 'translateY(' + (-lerp(o0, o1, f - i0)).toFixed(2) + 'px)';
+
+    // overlay strengthens slightly only where it must
+    const base = this.props.overlayStrength ?? 0.3;
+    const g = base * (0.75 + 0.25 * Math.sin(p * Math.PI));
+    e.overlay.style.background =
+      'linear-gradient(180deg,rgba(0,0,0,' + (g * 1.15).toFixed(3) + ') 0%,rgba(0,0,0,' +
+      (g * 0.55).toFixed(3) + ') 42%,rgba(0,0,0,' + (g * 0.95).toFixed(3) + ') 100%)';
+
+    // nav ink follows what is behind it
+    const dark = smooth(clamp((vh * 0.45 - innerTop) / (vh * 0.35), 0, 1)) * smooth(leave);
+    const c = Math.round(lerp(10, 255, dark));
+    e.nav.style.color = 'rgb(' + c + ',' + c + ',' + c + ')';
+  }
+
+  renderVals() {
+    if (!this.started && typeof requestAnimationFrame === 'function') {
+      requestAnimationFrame(() => this.start());
+    }
+    return {};
+  }
+}
+</script>
+</body>
+</html>

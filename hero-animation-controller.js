@@ -27,7 +27,7 @@ function buildConfig(el, i, total, gridRect, navBottom) {
       el, order: i, phase: 0,
       from: { x: 0, y: navBottom + 16 - box.top, scale: 0.55, opacity: 0, rotate: 0 },
       start: 0, span: 0.5, smooth: true,
-      at: 0.6, stagger: 0, duration: 1.6,
+      at: 0.35, stagger: 0, duration: 1.25,
     };
   }
 
@@ -39,8 +39,9 @@ function buildConfig(el, i, total, gridRect, navBottom) {
     order: i,
     phase,
     from: {
-      x: dir * (160 + r1 * 620) * (phase === 2 ? 0.5 : 1),
-      y: (r2 - 0.3) * (phase === 0 ? 340 : 220),
+      // keep entrances inside the frame — the hero is one viewport tall now
+      x: dir * (70 + r1 * 190) * (phase === 2 ? 0.6 : 1),
+      y: (r2 - 0.3) * (phase === 0 ? 150 : 110),
       scale: bigEntry ? 1.15 + r4 * 0.35 : 0.68 + r2 * 0.2,
       opacity: startsVisible ? 1 : 0,
       rotate: r3 > 0.86 ? dir * 2 : 0,
@@ -48,9 +49,9 @@ function buildConfig(el, i, total, gridRect, navBottom) {
     start: 0.06 + (i / total) * 0.46 + (r4 - 0.5) * 0.03,
     span: 0.44 + r2 * 0.12,
     smooth: true,
-    at: [2.5, 4.0, 6.0][phase],
-    stagger: [0.15, 0.09, 0.045][phase],
-    duration: 1.15 + r2 * 0.5,
+    at: [0.9, 1.35, 1.8][phase],
+    stagger: [0.12, 0.08, 0.045][phase],
+    duration: 0.95 + r2 * 0.35,
   };
 }
 
@@ -264,7 +265,13 @@ export class HeroAnimationController {
 
   playIntro() {
     const { gsap } = this;
-    if (!gsap) return this;
+    if (!gsap) {
+      // no engine: leave the copy plainly visible
+      [].concat(this.intro || [], this.nav || []).forEach((n) => {
+        if (n && n.style) { n.style.opacity = 1; n.style.transform = "none"; }
+      });
+      return this;
+    }
     const tl = gsap.timeline();
     tl.timeScale(this.speed);
     tl.to(this.nav, { opacity: 1, duration: 0.7, ease: "power1.out" }, 0.15);

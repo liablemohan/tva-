@@ -1,0 +1,2725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive — Immersive Forge</title>
+    <!-- ARCHIVED: the immersive single-page Digital Forge (stations, canvas object system, tools, materials, artefacts, journal, workbench). Kept for reuse on interior pages. -->
+    <meta name="description" content="Tvashta Labs — The Digital Forge. Capture, Imagine, Prototype, Make.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+    <style>
+        /* ============================================================
+   TVASHTA LABS — THE DIGITAL FORGE
+   Tokens: light is the base (ivory workshop);
+   dark is "the forge at night" — same roles, re-lit.
+   ============================================================ */
+        :root {
+            /* — index.html palette — */
+            --ground: #F5F3EE;
+            --ground-2: #E8EBF0;
+            --surface: #FFFFFF;
+            --ink: #111827;
+            --ink-soft: #667085;
+            --line: rgba(17, 24, 39, .12);
+            --line-soft: rgba(17, 24, 39, .06);
+            --green: #0F3473;
+            /* primary navy */
+            --teal: #18A6A0;
+            /* teal accent   */
+            --gold: #18A6A0;
+            /* accent = teal */
+            --gold-soft: #4FB3AD;
+            --focus: #18A6A0;
+
+            --font-display: 'Newsreader', Georgia, 'Times New Roman', serif;
+            --font-sans: 'Space Grotesk', system-ui, -apple-system, Segoe UI, sans-serif;
+            --font-mono: 'IBM Plex Mono', ui-monospace, 'SF Mono', Menlo, monospace;
+
+            --step--1: .78rem;
+            --step-0: 1rem;
+            --step-1: 1.2rem;
+            --step-2: 1.55rem;
+            --step-3: 2.1rem;
+            --step-4: clamp(2.4rem, 5vw, 3.4rem);
+            --step-5: clamp(3rem, 9vw, 6.6rem);
+
+            --topnav-h: 72px;
+            --pad: clamp(1.5rem, 6vw, 7rem);
+            --maxw: 64rem;
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --ground: #0C1120;
+                --ground-2: #111827;
+                --surface: #1A2030;
+                --ink: #F5F3EE;
+                --ink-soft: #A9B7CE;
+                --line: rgba(245, 243, 238, .12);
+                --line-soft: rgba(245, 243, 238, .06);
+                --green: #4B82D5;
+                --teal: #18A6A0;
+                --gold: #18A6A0;
+                --gold-soft: #4FB3AD;
+                --focus: #18A6A0;
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --ground: #0C1120;
+            --ground-2: #111827;
+            --surface: #1A2030;
+            --ink: #F5F3EE;
+            --ink-soft: #A9B7CE;
+            --line: rgba(245, 243, 238, .12);
+            --line-soft: rgba(245, 243, 238, .06);
+            --green: #4B82D5;
+            --teal: #18A6A0;
+            --gold: #18A6A0;
+            --gold-soft: #4FB3AD;
+            --focus: #18A6A0;
+        }
+
+        * {
+            box-sizing: border-box
+        }
+
+        html {
+            scroll-behavior: smooth
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            html {
+                scroll-behavior: auto
+            }
+        }
+
+        body {
+            margin: 0;
+            background: var(--ground);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            font-size: var(--step-0);
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            overflow-x: hidden;
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: var(--font-display);
+            font-weight: 400;
+            line-height: 1.08;
+            letter-spacing: -.018em;
+            text-wrap: balance;
+            margin: 0
+        }
+
+        p {
+            margin: 0
+        }
+
+        a {
+            color: inherit
+        }
+
+        ::selection {
+            background: var(--gold);
+            color: var(--surface)
+        }
+
+        :focus-visible {
+            outline: 2px solid var(--focus);
+            outline-offset: 3px;
+            border-radius: 2px
+        }
+
+        /* ---------- utility type ---------- */
+        .eyebrow {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin: 0;
+        }
+
+        .eyebrow .n {
+            color: var(--gold)
+        }
+
+        .lead {
+            font-size: var(--step-1);
+            color: var(--ink-soft);
+            max-width: 52ch
+        }
+
+        .measure {
+            max-width: 60ch
+        }
+
+        /* ---------- skip link ---------- */
+        .skip {
+            position: fixed;
+            left: -999px;
+            top: 0;
+            z-index: 200;
+            background: var(--green);
+            color: var(--surface);
+            padding: .7rem 1.1rem;
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .1em
+        }
+
+        .skip:focus {
+            left: 1rem;
+            top: 1rem
+        }
+
+        /* ============================================================
+   TOP NAV  (sticky horizontal — matches index.html)
+   ============================================================ */
+        .topnav {
+            position: sticky;
+            top: 0;
+            z-index: 90;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+            background: #0F3473;
+            color: #F5F3EE;
+            height: var(--topnav-h);
+        }
+
+        .topnav__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            color: #F5F3EE;
+        }
+
+        .topnav__logo img {
+            display: block
+        }
+
+        .topnav__logo .logo-icon {
+            height: 32px;
+            width: auto
+        }
+
+        .topnav__logo .logo-word {
+            height: 17px;
+            width: auto
+        }
+
+        .topnav__logo .brand-name {
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: #F5F3EE;
+            line-height: 1.3;
+        }
+
+        .topnav__right {
+            display: flex;
+            align-items: center;
+            gap: 2.5rem
+        }
+
+        .topnav__links {
+            display: flex;
+            align-items: center;
+            gap: 2.4rem;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+        }
+
+        .topnav__links a {
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .15em;
+            text-transform: uppercase;
+            color: rgba(245, 243, 238, .6);
+            text-decoration: none;
+            transition: color .2s;
+        }
+
+        .topnav__links a:hover {
+            color: #F5F3EE
+        }
+
+        .hambtn {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            width: 30px;
+            padding: 8px 0;
+            transition: opacity .2s;
+        }
+
+        .hambtn:hover {
+            opacity: .7
+        }
+
+        .hambtn span {
+            display: block;
+            height: 1.6px;
+            width: 100%;
+            background: #F5F3EE
+        }
+
+        /* ---- Full-screen overlay menu ---- */
+        .overlay-menu {
+            position: fixed;
+            inset: 0;
+            z-index: 100;
+            background: #0B285A;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity .35s ease;
+            overflow-y: auto;
+        }
+
+        .overlay-menu.open {
+            opacity: 1;
+            pointer-events: auto
+        }
+
+        .overlay-menu__head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 40px;
+        }
+
+        .overlay-menu__logo {
+            display: flex;
+            align-items: center;
+            gap: 12px
+        }
+
+        .overlay-menu__logo img {
+            display: block
+        }
+
+        .closebtn {
+            appearance: none;
+            background: transparent;
+            border: 0;
+            cursor: pointer;
+            width: 34px;
+            height: 34px;
+            position: relative;
+            transition: opacity .2s;
+        }
+
+        .closebtn:hover {
+            opacity: .7
+        }
+
+        .closebtn span {
+            position: absolute;
+            left: 3px;
+            top: 16px;
+            width: 28px;
+            height: 1.6px;
+            background: #F5F3EE;
+            display: block;
+        }
+
+        .closebtn span:first-child {
+            transform: rotate(45deg)
+        }
+
+        .closebtn span:last-child {
+            transform: rotate(-45deg)
+        }
+
+        .overlay-menu__body {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 50px 40px 80px;
+        }
+
+        .overlay-menu__links {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .overlay-menu__links a {
+            font-family: var(--font-display);
+            font-size: clamp(2.2rem, 6vw, 4.6rem);
+            line-height: 1.12;
+            letter-spacing: -0.03em;
+            color: #F5F3EE;
+            text-decoration: none;
+            display: block;
+            transition: color .2s;
+        }
+
+        .overlay-menu__links a:hover {
+            color: #18A6A0
+        }
+
+        .overlay-menu__secondary {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .65rem 1.2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(245, 243, 238, .12);
+        }
+
+        .ov-link {
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            color: #C3CBDA;
+            text-decoration: none;
+            border: 1px solid rgba(245, 243, 238, .18);
+            border-radius: 999px;
+            padding: .65rem 1.3rem;
+            display: inline-block;
+            transition: background .2s, color .2s;
+        }
+
+        .ov-link:hover {
+            background: #F5F3EE;
+            color: #0B285A
+        }
+
+        .ov-util-btn {
+            appearance: none;
+            background: transparent;
+            border: 1px solid rgba(245, 243, 238, .18);
+            border-radius: 999px;
+            padding: .65rem 1.3rem;
+            cursor: pointer;
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .17em;
+            text-transform: uppercase;
+            color: #C3CBDA;
+            display: inline-flex;
+            align-items: center;
+            gap: .35rem;
+            transition: background .2s, color .2s;
+        }
+
+        .ov-util-btn:hover {
+            background: #F5F3EE;
+            color: #0B285A
+        }
+
+        .ov-util-btn .st {
+            color: #18A6A0
+        }
+
+        @media (max-width:640px) {
+            .topnav {
+                padding: 16px 20px;
+                height: auto
+            }
+
+            .topnav__links {
+                display: none
+            }
+
+            .overlay-menu__head {
+                padding: 16px 20px
+            }
+
+            .overlay-menu__body {
+                padding: 36px 20px 60px
+            }
+        }
+
+        /* ============================================================
+   LAYOUT SHELL
+   ============================================================ */
+        .shell {
+            /* sticky topnav — no left offset needed */
+        }
+
+        section {
+            position: relative;
+            padding: clamp(4.5rem, 11vh, 9rem) var(--pad);
+            border-top: 1px solid var(--line-soft);
+        }
+
+        section:first-of-type {
+            border-top: 0
+        }
+
+        .wrap {
+            max-width: var(--maxw)
+        }
+
+        /* construction grid on "world" sections */
+        .world {
+            background-image:
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px);
+            background-size: 64px 64px;
+            background-position: center;
+        }
+
+        /* corner ticks */
+        .ticked {
+            position: relative
+        }
+
+        .ticked::before,
+        .ticked::after {
+            content: "";
+            position: absolute;
+            width: 14px;
+            height: 14px;
+            border: 1px solid var(--line);
+            pointer-events: none;
+        }
+
+        .ticked::before {
+            left: calc(var(--pad) - 22px);
+            top: 2.4rem;
+            border-right: 0;
+            border-bottom: 0
+        }
+
+        .ticked::after {
+            right: calc(var(--pad) - 22px);
+            bottom: 2.4rem;
+            border-left: 0;
+            border-top: 0
+        }
+
+        @media (max-width:900px) {
+
+            .ticked::before,
+            .ticked::after {
+                display: none
+            }
+        }
+
+        /* ============================================================
+   HERO  (index.html style — Space Grotesk, navy/teal palette)
+   ============================================================ */
+        .hero {
+            max-width: 1440px;
+            margin: 0 auto;
+            padding: clamp(70px, 14vh, 170px) clamp(20px, 5vw, 60px) clamp(60px, 10vh, 130px);
+        }
+
+        .hero__eyebrow {
+            font-family: var(--font-mono);
+            font-size: .75rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            margin: 0 0 2.2rem;
+            color: var(--green);
+            opacity: 0;
+            animation: fade 1s ease .25s forwards;
+        }
+
+        .hero__h1 {
+            font-family: 'Space Grotesk', var(--font-sans);
+            font-size: clamp(2.8rem, 7vw, 4.8rem);
+            line-height: 1.08;
+            font-weight: 400;
+            letter-spacing: -0.02em;
+            margin: 0;
+            max-width: 14ch;
+            text-wrap: pretty;
+            color: var(--ink);
+            opacity: 0;
+            animation: fade 1s ease .55s forwards;
+        }
+
+        .hero__h1 strong {
+            font-weight: 700
+        }
+
+        .hero__sub {
+            font-size: clamp(1rem, 2.4vw, 1.45rem);
+            line-height: 1.55;
+            color: var(--ink-soft);
+            max-width: 42ch;
+            margin: 2.4rem 0 0;
+            text-wrap: pretty;
+            opacity: 0;
+            animation: fade 1s ease .85s forwards;
+        }
+
+        .hero__meta {
+            font-family: var(--font-mono);
+            font-size: .72rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin: 2rem 0 0;
+            opacity: 0;
+            animation: fade 1s ease 1.05s forwards;
+        }
+
+        .hero__cta {
+            margin-top: 2.6rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            opacity: 0;
+            animation: fade 1s ease 1.25s forwards;
+        }
+
+        .herobtn {
+            appearance: none;
+            cursor: pointer;
+            background: var(--green);
+            color: #F5F3EE;
+            border: 1px solid var(--green);
+            font-family: var(--font-mono);
+            font-size: .75rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            padding: 1.05rem 2.2rem;
+            display: inline-flex;
+            align-items: center;
+            gap: .8rem;
+            transition: background .3s, color .3s, gap .3s;
+        }
+
+        .herobtn:hover {
+            background: transparent;
+            color: var(--ink);
+            gap: 1.4rem
+        }
+
+        .herobtn .arw {
+            width: 30px;
+            height: 1px;
+            background: currentColor;
+            position: relative
+        }
+
+        .herobtn .arw::after {
+            content: "";
+            position: absolute;
+            right: 0;
+            top: -3px;
+            width: 6px;
+            height: 6px;
+            border-top: 1px solid currentColor;
+            border-right: 1px solid currentColor;
+            transform: rotate(45deg)
+        }
+
+        .hero__scrollcue {
+            font-family: var(--font-mono);
+            font-size: .62rem;
+            letter-spacing: .3em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            opacity: .7
+        }
+
+        @keyframes fade {
+            to {
+                opacity: 1
+            }
+        }
+
+        /* ============================================================
+   REVEAL ON SCROLL
+   ============================================================ */
+        [data-reveal] {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity .9s cubic-bezier(.2, .7, .2, 1), transform .9s cubic-bezier(.2, .7, .2, 1)
+        }
+
+        [data-reveal].in {
+            opacity: 1;
+            transform: none
+        }
+
+        /* ============================================================
+   FORGE INTRO — "nothing arrives complete"
+   ============================================================ */
+        .nothing {
+            font-size: var(--step-4);
+            line-height: 1.15;
+            max-width: 22ch
+        }
+
+        .nothing em {
+            font-style: normal;
+            color: var(--gold)
+        }
+
+        .stages {
+            list-style: none;
+            padding: 0;
+            margin: 2.4rem 0 0;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .6rem 1.4rem;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: var(--step-2);
+            color: var(--ink-soft);
+        }
+
+        .stages li {
+            display: flex;
+            align-items: center;
+            gap: 1.4rem
+        }
+
+        .stages li:not(:last-child)::after {
+            content: "";
+            width: 34px;
+            height: 1px;
+            background: var(--line)
+        }
+
+        .transform {
+            margin-top: 3rem;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: .5rem 1.1rem;
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+        }
+
+        .transform b {
+            font-weight: 500;
+            color: var(--ink)
+        }
+
+        .transform .to {
+            color: var(--gold)
+        }
+
+        /* ============================================================
+   THE PROCESS
+   ============================================================ */
+        .process {
+            display: grid;
+            gap: 3rem;
+            grid-template-columns: minmax(0, 1fr) minmax(0, 1fr)
+        }
+
+        @media (max-width:760px) {
+            .process {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .flow {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0
+        }
+
+        .flow li {
+            display: grid;
+            grid-template-columns: 3ch 1fr;
+            gap: 1.2rem;
+            align-items: baseline;
+            padding: 1.1rem 0;
+            border-top: 1px solid var(--line);
+        }
+
+        .flow li:last-child {
+            border-bottom: 1px solid var(--line)
+        }
+
+        .flow .k {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            color: var(--gold);
+            letter-spacing: .1em
+        }
+
+        .flow .v {
+            font-family: var(--font-display);
+            font-size: var(--step-2)
+        }
+
+        .flow .v small {
+            display: block;
+            font-family: var(--font-sans);
+            font-size: .85rem;
+            color: var(--ink-soft);
+            letter-spacing: 0;
+            margin-top: .2rem
+        }
+
+        .flow .down {
+            grid-column: 2;
+            color: var(--line);
+            font-family: var(--font-mono);
+            font-size: .9rem;
+            margin: -.4rem 0
+        }
+
+        .paths {
+            display: flex;
+            flex-direction: column;
+            gap: 1.4rem
+        }
+
+        .paths .card {
+            border: 1px solid var(--line);
+            padding: 1.4rem 1.5rem;
+            background: var(--surface)
+        }
+
+        .paths .card p:first-child {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: .4rem
+        }
+
+        .paths .card p:last-child {
+            color: var(--ink-soft)
+        }
+
+        /* ============================================================
+   STATIONS
+   ============================================================ */
+        .station {
+            display: grid;
+            grid-template-columns: minmax(0, 1.05fr) minmax(0, .95fr);
+            gap: clamp(2rem, 5vw, 4.5rem);
+            align-items: center
+        }
+
+        @media (max-width:860px) {
+            .station {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .station__no {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 7vw, 5rem);
+            color: var(--line);
+            line-height: 1;
+            margin-bottom: .4rem
+        }
+
+        .station h2 {
+            font-size: var(--step-4);
+            margin: .4rem 0 .2rem
+        }
+
+        .station .phil {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: var(--step-2);
+            color: var(--gold);
+            margin: .6rem 0 1.3rem
+        }
+
+        .station .rep {
+            margin: 0 0 1.4rem;
+            color: var(--ink-soft)
+        }
+
+        .chiprow {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .45rem;
+            margin-bottom: 1.6rem
+        }
+
+        .chip {
+            font-family: var(--font-mono);
+            font-size: .68rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            border: 1px solid var(--line);
+            padding: .32rem .6rem
+        }
+
+        .pipe {
+            font-family: var(--font-mono);
+            font-size: .72rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: 1.6rem;
+            line-height: 2
+        }
+
+        .pipe b {
+            color: var(--ink);
+            font-weight: 500
+        }
+
+        .pipe .to {
+            color: var(--gold);
+            margin: 0 .3rem
+        }
+
+        .stationcta {
+            appearance: none;
+            cursor: pointer;
+            background: none;
+            border: 1px solid var(--ink);
+            color: var(--ink);
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            padding: .9rem 1.6rem;
+            transition: background .3s, color .3s;
+        }
+
+        .stationcta:hover {
+            background: var(--ink);
+            color: var(--ground)
+        }
+
+        .viewport {
+            position: relative;
+            aspect-ratio: 1/1;
+            width: 100%;
+            border: 1px solid var(--line);
+            background:
+                linear-gradient(var(--line-soft) 1px, transparent 1px),
+                linear-gradient(90deg, var(--line-soft) 1px, transparent 1px),
+                var(--surface);
+            background-size: 32px 32px, 32px 32px, 100% 100%;
+            background-position: center;
+        }
+
+        .viewport canvas {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%
+        }
+
+        .viewport__tag {
+            position: absolute;
+            left: 12px;
+            bottom: 10px;
+            font-family: var(--font-mono);
+            font-size: .6rem;
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: var(--ink-soft)
+        }
+
+        .viewport__dim {
+            position: absolute;
+            right: 12px;
+            top: 10px;
+            font-family: var(--font-mono);
+            font-size: .6rem;
+            letter-spacing: .14em;
+            color: var(--gold)
+        }
+
+        /* ============================================================
+   INTERACTIVE OBJECT SYSTEM
+   ============================================================ */
+        .objsys {
+            display: grid;
+            grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr);
+            gap: clamp(2rem, 5vw, 4rem);
+            align-items: center
+        }
+
+        @media (max-width:860px) {
+            .objsys {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .verbs {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            border-top: 1px solid var(--line)
+        }
+
+        .verb {
+            appearance: none;
+            background: none;
+            border: 0;
+            border-bottom: 1px solid var(--line);
+            text-align: left;
+            cursor: pointer;
+            color: var(--ink-soft);
+            padding: 1rem .2rem;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 1.1rem;
+            align-items: baseline;
+            transition: color .25s, padding-left .25s, background .25s;
+        }
+
+        .verb:hover {
+            color: var(--ink);
+            padding-left: .5rem
+        }
+
+        .verb[aria-pressed="true"] {
+            color: var(--ink);
+            background: var(--surface);
+            padding-left: .5rem
+        }
+
+        .verb .vn {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .18em;
+            text-transform: uppercase
+        }
+
+        .verb[aria-pressed="true"] .vn {
+            color: var(--gold)
+        }
+
+        .verb .vd {
+            font-size: .86rem;
+            color: var(--ink-soft)
+        }
+
+        .objhint {
+            margin-top: 1.2rem;
+            font-size: .85rem;
+            color: var(--ink-soft)
+        }
+
+        .objhint b {
+            color: var(--ink);
+            font-weight: 500
+        }
+
+        /* ============================================================
+   DIGITAL TOOLS
+   ============================================================ */
+        .tools {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin-top: 2.6rem
+        }
+
+        @media (max-width:760px) {
+            .tools {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        @media (max-width:440px) {
+            .tools {
+                grid-template-columns: 1fr
+            }
+        }
+
+        .tool {
+            background: var(--ground);
+            padding: 1.8rem 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: background .3s
+        }
+
+        .tool:hover {
+            background: var(--surface)
+        }
+
+        .tool svg {
+            width: 46px;
+            height: 46px;
+            color: var(--green);
+            overflow: visible
+        }
+
+        .tool:hover svg {
+            color: var(--gold)
+        }
+
+        .tool h3 {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .16em;
+            text-transform: uppercase
+        }
+
+        .tool p {
+            font-size: .86rem;
+            color: var(--ink-soft)
+        }
+
+        .tool .tstroke {
+            stroke-dasharray: var(--l, 200);
+            stroke-dashoffset: var(--l, 200);
+            transition: stroke-dashoffset 1s ease
+        }
+
+        .tool.in .tstroke {
+            stroke-dashoffset: 0
+        }
+
+        /* ============================================================
+   MATERIAL LIBRARY
+   ============================================================ */
+        .mats {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 1rem;
+            margin-top: 2.6rem;
+            perspective: 900px
+        }
+
+        @media (max-width:900px) {
+            .mats {
+                grid-template-columns: repeat(3, 1fr)
+            }
+        }
+
+        @media (max-width:560px) {
+            .mats {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .mat {
+            border: 1px solid var(--line);
+            background: var(--surface);
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            min-height: 172px;
+            transform-style: preserve-3d;
+            transition: transform .2s ease, border-color .3s;
+            will-change: transform;
+        }
+
+        .mat:hover {
+            border-color: var(--gold)
+        }
+
+        .mat .swatch {
+            width: 100%;
+            height: 52px;
+            border: 1px solid var(--line)
+        }
+
+        .mat h3 {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .16em;
+            text-transform: uppercase
+        }
+
+        .mat p {
+            font-size: .76rem;
+            color: var(--ink-soft);
+            margin-top: auto
+        }
+
+        .sw-pla {
+            background: repeating-linear-gradient(45deg, #E7E2D4, #E7E2D4 4px, #DED8C6 4px, #DED8C6 8px)
+        }
+
+        .sw-resin {
+            background: linear-gradient(150deg, #EDE7D9, #CFC7B0)
+        }
+
+        .sw-metal {
+            background: linear-gradient(120deg, #B9B7AE, #8C8B84 45%, #D6D4CC)
+        }
+
+        .sw-ceramic {
+            background: radial-gradient(120% 120% at 30% 20%, #F3EEE2, #D9D1BE)
+        }
+
+        .sw-wood {
+            background: repeating-linear-gradient(92deg, #C9A56E, #C9A56E 3px, #BC9760 3px, #BC9760 7px)
+        }
+
+        /* ============================================================
+   ARTEFACTS
+   ============================================================ */
+        .artefacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line);
+            margin-top: 2.6rem
+        }
+
+        .artefact {
+            background: var(--ground);
+            padding: 1.8rem 1.6rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            transition: background .3s
+        }
+
+        .artefact:hover {
+            background: var(--surface)
+        }
+
+        .artefact__no {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .18em;
+            color: var(--gold)
+        }
+
+        .artefact h3 {
+            font-size: var(--step-2)
+        }
+
+        .artefact__proc {
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .14em;
+            text-transform: uppercase;
+            color: var(--teal)
+        }
+
+        .spec {
+            list-style: none;
+            margin: .4rem 0 0;
+            padding: 0;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: .35rem 1rem;
+            font-family: var(--font-mono);
+            font-size: .7rem;
+            letter-spacing: .04em
+        }
+
+        .spec dt {
+            color: var(--ink-soft);
+            text-transform: uppercase;
+            letter-spacing: .14em
+        }
+
+        .spec dd {
+            margin: 0;
+            color: var(--ink);
+            font-variant-numeric: tabular-nums;
+            text-align: right
+        }
+
+        .artefact__status {
+            margin-top: auto;
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            display: flex;
+            align-items: center;
+            gap: .5rem
+        }
+
+        .dotc {
+            width: 7px;
+            height: 7px;
+            border-radius: 50%;
+            background: var(--gold)
+        }
+
+        .dotc.ok {
+            background: var(--green)
+        }
+
+        .dotc.wip {
+            background: var(--teal)
+        }
+
+        /* ============================================================
+   FORGE JOURNAL
+   ============================================================ */
+        .journal {
+            display: flex;
+            flex-direction: column;
+            border-top: 1px solid var(--line);
+            margin-top: 2.4rem
+        }
+
+        .jrow {
+            display: grid;
+            grid-template-columns: 8rem 1fr auto;
+            gap: 1.4rem;
+            align-items: baseline;
+            padding: 1.3rem .2rem;
+            border-bottom: 1px solid var(--line);
+            transition: padding-left .25s, background .25s;
+        }
+
+        .jrow:hover {
+            padding-left: .5rem;
+            background: var(--surface)
+        }
+
+        .jrow .cat {
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--gold)
+        }
+
+        .jrow .ttl {
+            font-family: var(--font-display);
+            font-size: var(--step-1)
+        }
+
+        .jrow .dt {
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            color: var(--ink-soft);
+            letter-spacing: .08em
+        }
+
+        @media (max-width:640px) {
+            .jrow {
+                grid-template-columns: 1fr;
+                gap: .3rem
+            }
+
+            .jrow .dt {
+                grid-row: 1
+            }
+        }
+
+        /* ============================================================
+   WORKBENCH
+   ============================================================ */
+        .workbench {
+            background: var(--surface)
+        }
+
+        .workbench h2 {
+            font-size: var(--step-4);
+            max-width: 16ch
+        }
+
+        .wb-q {
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: var(--step-2);
+            color: var(--ink-soft);
+            margin: 1.6rem 0 1.2rem
+        }
+
+        .wb-opts {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1px;
+            background: var(--line);
+            border: 1px solid var(--line)
+        }
+
+        @media (max-width:640px) {
+            .wb-opts {
+                grid-template-columns: repeat(2, 1fr)
+            }
+        }
+
+        .wb-opt {
+            appearance: none;
+            cursor: pointer;
+            background: var(--ground);
+            border: 0;
+            padding: 1.5rem 1rem;
+            text-align: left;
+            color: var(--ink-soft);
+            display: flex;
+            flex-direction: column;
+            gap: .5rem;
+            transition: background .25s, color .25s;
+        }
+
+        .wb-opt:hover {
+            color: var(--ink)
+        }
+
+        .wb-opt[aria-pressed="true"] {
+            background: var(--green);
+            color: var(--surface)
+        }
+
+        .wb-opt .wn {
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .18em;
+            text-transform: uppercase
+        }
+
+        .wb-opt .wsvg {
+            width: 30px;
+            height: 30px
+        }
+
+        .wb-panel {
+            border: 1px solid var(--line);
+            border-top: 0;
+            padding: 1.7rem;
+            background: var(--ground)
+        }
+
+        .wb-panel__role {
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .18em;
+            text-transform: uppercase;
+            color: var(--teal);
+            margin-bottom: .5rem
+        }
+
+        .wb-panel__body {
+            color: var(--ink-soft);
+            max-width: 52ch
+        }
+
+        .wb-field {
+            margin-top: 1.2rem
+        }
+
+        .wb-field label {
+            display: block;
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink-soft);
+            margin-bottom: .5rem
+        }
+
+        .wb-field textarea,
+        .wb-field input[type=text] {
+            width: 100%;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            color: var(--ink);
+            font-family: var(--font-sans);
+            font-size: .95rem;
+            padding: .9rem;
+            resize: vertical;
+        }
+
+        .wb-field textarea {
+            min-height: 96px
+        }
+
+        .wb-drop {
+            border: 1px dashed var(--line);
+            padding: 1.3rem;
+            text-align: center;
+            font-family: var(--font-mono);
+            font-size: .7rem;
+            letter-spacing: .12em;
+            text-transform: uppercase;
+            color: var(--ink-soft)
+        }
+
+        .beginbtn {
+            margin-top: 1.4rem;
+            appearance: none;
+            cursor: pointer;
+            background: var(--gold);
+            color: #1B1608;
+            border: 1px solid var(--gold);
+            font-family: var(--font-mono);
+            font-size: var(--step--1);
+            letter-spacing: .26em;
+            text-transform: uppercase;
+            padding: 1rem 2rem;
+            transition: filter .25s;
+        }
+
+        .beginbtn:hover {
+            filter: brightness(1.08)
+        }
+
+        .wb-done {
+            border: 1px solid var(--green);
+            padding: 1.7rem;
+            background: var(--ground)
+        }
+
+        .wb-done p:first-child {
+            font-family: var(--font-display);
+            font-size: var(--step-2);
+            margin-bottom: .5rem
+        }
+
+        .wb-done p:last-child {
+            color: var(--ink-soft)
+        }
+
+        [hidden] {
+            display: none !important
+        }
+
+        /* ============================================================
+   FINALE
+   ============================================================ */
+        .finale {
+            background: var(--green);
+            color: #F1EDE2;
+            text-align: center
+        }
+
+        :root[data-theme="dark"] .finale,
+        :root:not([data-theme="light"]) .finale {
+            background: #10241D
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) .finale {
+                background: #10241D
+            }
+        }
+
+        .finale .eyebrow {
+            color: rgba(241, 237, 226, .6)
+        }
+
+        .finale h2 {
+            font-size: var(--step-5);
+            line-height: .98;
+            margin: 1.6rem 0
+        }
+
+        .finale ul {
+            list-style: none;
+            padding: 0;
+            margin: 2.4rem auto 0;
+            max-width: 44ch;
+            display: flex;
+            flex-direction: column;
+            gap: .7rem
+        }
+
+        .finale li {
+            font-family: var(--font-mono);
+            font-size: clamp(.72rem, 2.2vw, .92rem);
+            letter-spacing: .2em;
+            text-transform: uppercase;
+            color: rgba(241, 237, 226, .85)
+        }
+
+        .finale li b {
+            color: var(--gold-soft);
+            font-weight: 500
+        }
+
+        .finale .give {
+            display: block;
+            margin-top: 2.6rem;
+            font-family: var(--font-display);
+            font-style: italic;
+            font-size: var(--step-2);
+            color: #F1EDE2
+        }
+
+        /* ============================================================
+   FOOTER
+   ============================================================ */
+        footer {
+            padding: 3rem var(--pad);
+            border-top: 1px solid var(--line);
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem 2rem;
+            justify-content: space-between;
+            align-items: center;
+            font-family: var(--font-mono);
+            font-size: .66rem;
+            letter-spacing: .16em;
+            text-transform: uppercase;
+            color: var(--ink-soft)
+        }
+
+        @media (prefers-reduced-motion:reduce) {
+            [data-reveal] {
+                opacity: 1 !important;
+                transform: none !important;
+                transition: none !important
+            }
+
+            .dash {
+                animation: none;
+                stroke-dashoffset: 0
+            }
+
+            .fadein {
+                animation: none;
+                opacity: 1
+            }
+
+            .tool .tstroke {
+                transition: none;
+                stroke-dashoffset: 0
+            }
+
+            * {
+                scroll-behavior: auto !important
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <a class="skip" href="#main">Skip to content</a>
+
+    <!-- ============================ TOP NAV ============================ -->
+    <header class="topnav">
+        <a class="topnav__logo" href="../index.html" aria-label="Tvashta Labs — home">
+            <img class="logo-icon" src="../nav_icon.png" alt=""
+                onerror="this.style.display='none';document.getElementById('logoBrand').style.display='block'">
+            <img class="logo-word" src="../wordmark.png" alt="Tvashta Labs" onerror="this.style.display='none'">
+            <span class="brand-name" id="logoBrand" style="display:none">Tvashta Labs</span>
+        </a>
+
+        <div class="topnav__right">
+            <ul class="topnav__links">
+                <li><a href="#station-01">Capture</a></li>
+                <li><a href="#station-02">Imagine</a></li>
+                <li><a href="#station-03">Prototype</a></li>
+                <li><a href="#station-04">Make</a></li>
+            </ul>
+            <button class="hambtn" id="menuOpenBtn" type="button" aria-label="Open menu">
+                <span></span><span></span>
+            </button>
+        </div>
+    </header>
+
+    <!-- Full-screen overlay menu -->
+    <div class="overlay-menu" id="overlayMenu" aria-hidden="true">
+        <div class="overlay-menu__head">
+            <div class="overlay-menu__logo">
+                <img src="../nav_icon.png" alt="" style="height:32px;width:auto" onerror="this.style.display='none'">
+                <img src="../wordmark.png" alt="Tvashta Labs" style="height:17px;width:auto;margin-left:12px"
+                    onerror="this.style.display='none';document.getElementById('menuBrand').style.display='block'">
+                <span id="menuBrand"
+                    style="display:none;font-family:'IBM Plex Mono',monospace;font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;color:#F5F3EE">Tvashta
+                    Labs</span>
+            </div>
+            <button class="closebtn" id="menuCloseBtn" type="button" aria-label="Close menu">
+                <span></span><span></span>
+            </button>
+        </div>
+        <div class="overlay-menu__body">
+            <ul class="overlay-menu__links">
+                <li><a href="../index.html">Home</a></li>
+                <li><a href="../work.html">Work</a></li>
+                <li><a href="../about.html">Team</a></li>
+                <li><a href="#station-01">The Digital Forge</a></li>
+            </ul>
+            <div class="overlay-menu__secondary">
+                <a class="ov-link" href="#workbench">Work with us</a>
+                <a class="ov-link" href="#artefacts">Projects</a>
+                <a class="ov-link" href="#journal">Journal</a>
+                <button class="ov-util-btn" id="themeBtn" type="button" aria-pressed="false">
+                    Theme <span class="st" id="themeSt">Light</span>
+                </button>
+                <button class="ov-util-btn" id="soundBtn" type="button" aria-pressed="false">
+                    Sound <span class="st" id="soundSt">Off</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="shell">
+        <main id="main">
+
+            <!-- ===================== HERO ===================== -->
+            <section class="hero" id="top" data-readout="00 / Entrance">
+                <p class="hero__eyebrow">Tvashta Labs &middot; The Digital Forge</p>
+                <h1 class="hero__h1">We give form<br><strong>to ideas.</strong></h1>
+                <p class="hero__sub">A digital forge for products, services and experiences — we capture what exists,
+                    imagine what doesn&rsquo;t, prototype what could be, and make what comes next.</p>
+                <p class="hero__meta">Tvashta Labs &nbsp;/&nbsp; The Digital Forge</p>
+                <div class="hero__cta">
+                    <button class="herobtn" id="enterBtn" type="button">
+                        Enter the Forge <span class="arw" aria-hidden="true"></span>
+                    </button>
+                    <span class="hero__scrollcue">Scroll to explore the stations</span>
+                </div>
+            </section>
+
+            <!-- ===================== THE FORGE ===================== -->
+            <section class="world ticked" id="forge" data-readout="— / The Forge">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>The Forge Environment</p>
+                    <h2 class="nothing" data-reveal>Nothing arrives complete. It is imagined, shaped, tested,
+                        refined&mdash;<em>made.</em></h2>
+                    <p class="lead" data-reveal style="margin-top:1.6rem">You have entered an infinite architectural
+                        space built from planes, lines, circles and grids. It is calm and premium&mdash;ivory ground,
+                        geometry in regal green, deep teal and antique gold. A place where ideas are continuously being
+                        shaped.</p>
+
+                    <ol class="stages" data-reveal>
+                        <li>Imagined</li>
+                        <li>Shaped</li>
+                        <li>Tested</li>
+                        <li>Refined</li>
+                        <li>Made</li>
+                    </ol>
+
+                    <div class="transform" data-reveal>
+                        <b>Idea</b><span class="to">&rarr;</span><b>Material</b><span
+                            class="to">&rarr;</span><b>Process</b><span class="to">&rarr;</span><b>Form</b>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== THE PROCESS ===================== -->
+            <section id="process" data-readout="— / The Process">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>The Tvashta Process</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 2.4rem" data-reveal>One process language runs
+                        through the whole Forge.</h2>
+
+                    <div class="process">
+                        <ol class="flow" data-reveal>
+                            <li><span class="k">01</span><span class="v">Capture<small>Preserve what
+                                        exists.</small></span></li>
+                            <li class="down">&darr;</li>
+                            <li><span class="k">02</span><span class="v">Imagine<small>Begin with what does not yet
+                                        exist.</small></span></li>
+                            <li class="down">&darr;</li>
+                            <li><span class="k">03</span><span class="v">Prototype<small>Make. Test. Change.
+                                        Repeat.</small></span></li>
+                            <li class="down">&darr;</li>
+                            <li><span class="k">04</span><span class="v">Make<small>Bring it into
+                                        existence.</small></span></li>
+                        </ol>
+
+                        <div class="paths" data-reveal>
+                            <div class="card">
+                                <p>Enter anywhere</p>
+                                <p>A project does not have to pass through every stage. The system is flexible, not
+                                    restrictive.</p>
+                            </div>
+                            <div class="card">
+                                <p>A heritage project</p>
+                                <p>Begins at <b>Capture</b> &mdash; a structure scanned before it is lost.</p>
+                            </div>
+                            <div class="card">
+                                <p>A startup</p>
+                                <p>Begins at <b>Imagine</b> &mdash; a concept with no form yet.</p>
+                            </div>
+                            <div class="card">
+                                <p>An STL file</p>
+                                <p>Begins directly at <b>Make</b> &mdash; already drawn, ready to materialise.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== STATION 01 ===================== -->
+            <section class="world ticked" id="station-01" data-readout="01 / Capture" data-station="0">
+                <div class="wrap station">
+                    <div>
+                        <p class="station__no">01</p>
+                        <p class="eyebrow"><span class="n">Station 01</span> &nbsp;/&nbsp; Capture</p>
+                        <h2>Preserve what exists.</h2>
+                        <p class="phil">Temples, monuments, sacred architecture, cultural artefacts, physical spaces.
+                        </p>
+                        <p class="rep measure">A scanned architectural structure sits at the centre. Watch it move
+                            through the transformation&mdash;from the real thing to a cloud of points, to a digital
+                            model, back to a physical replica.</p>
+                        <div class="pipe"><b>Real object</b><span class="to">&rarr;</span><b>Point cloud</b><span
+                                class="to">&rarr;</span><b>Digital model</b><span class="to">&rarr;</span><b>Physical
+                                replica</b></div>
+                        <button class="stationcta" type="button" data-cta>Explore Heritage</button>
+                    </div>
+                    <div class="viewport">
+                        <canvas data-forge="capture" aria-hidden="true"></canvas>
+                        <span class="viewport__tag">Scan · 41M points</span>
+                        <span class="viewport__dim">320 × 210 × 180</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== STATION 02 ===================== -->
+            <section class="world ticked" id="station-02" data-readout="02 / Imagine" data-station="1">
+                <div class="wrap station">
+                    <div>
+                        <p class="station__no">02</p>
+                        <p class="eyebrow"><span class="n">Station 02</span> &nbsp;/&nbsp; Imagine</p>
+                        <h2>Begin with what does not yet exist.</h2>
+                        <p class="phil">Ideas, sketches, concepts, product design, experiments.</p>
+                        <p class="rep measure">The object here has not settled. Lines appear and disappear. Geometry
+                            shifts between several possible forms. You are looking at something before it has decided
+                            what it is.</p>
+                        <div class="chiprow">
+                            <span class="chip">Idea</span><span class="chip">Sketch</span><span
+                                class="chip">Concept</span><span class="chip">Experiment</span>
+                        </div>
+                        <button class="stationcta" type="button" data-cta>Explore Ideas</button>
+                    </div>
+                    <div class="viewport">
+                        <canvas data-forge="imagine" aria-hidden="true"></canvas>
+                        <span class="viewport__tag">Form · unresolved</span>
+                        <span class="viewport__dim">variant 07 / &infin;</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== STATION 03 ===================== -->
+            <section class="world ticked" id="station-03" data-readout="03 / Prototype" data-station="2">
+                <div class="wrap station">
+                    <div>
+                        <p class="station__no">03</p>
+                        <p class="eyebrow"><span class="n">Station 03</span> &nbsp;/&nbsp; Prototype</p>
+                        <h2>Make. Test. Change. Repeat.</h2>
+                        <p class="phil">Product development, hardware, functional prototypes, iteration, engineering.
+                        </p>
+                        <p class="rep measure">A partially assembled object. Toggle it between concept, CAD, prototype
+                            and revision&mdash;each pass separates its parts and puts them back a little truer.</p>
+                        <div class="chiprow">
+                            <span class="chip">Concept</span><span class="chip">CAD</span><span
+                                class="chip">Prototype</span><span class="chip">Revision</span>
+                        </div>
+                        <button class="stationcta" type="button" data-cta>Build a Prototype</button>
+                    </div>
+                    <div class="viewport">
+                        <canvas data-forge="prototype" aria-hidden="true"></canvas>
+                        <span class="viewport__tag">Assembly · exploded</span>
+                        <span class="viewport__dim">rev C</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== STATION 04 ===================== -->
+            <section class="world ticked" id="station-04" data-readout="04 / Make" data-station="3">
+                <div class="wrap station">
+                    <div>
+                        <p class="station__no">04</p>
+                        <p class="eyebrow"><span class="n">Station 04</span> &nbsp;/&nbsp; Make</p>
+                        <h2>Bring it into existence.</h2>
+                        <p class="phil">3D printing, digital fabrication, custom manufacturing, production, physical
+                            objects.</p>
+                        <p class="rep measure">The object emerges from layers. One deposited line at a time, a form that
+                            was only data a moment ago becomes something you could hold.</p>
+                        <div class="chiprow">
+                            <span class="chip">Fabrication</span><span class="chip">Production</span><span
+                                class="chip">Finishing</span>
+                        </div>
+                        <button class="stationcta" type="button" data-cta>Make Something</button>
+                    </div>
+                    <div class="viewport">
+                        <canvas data-forge="make" aria-hidden="true"></canvas>
+                        <span class="viewport__tag">Build · layer 214</span>
+                        <span class="viewport__dim">0.12 mm</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== INTERACTIVE OBJECT SYSTEM ===================== -->
+            <section id="objsys" data-readout="— / Interactions">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>Interactive Object System</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 2.2rem;max-width:24ch" data-reveal>Every station
+                        has a hero object. Every interaction explains what we do.</h2>
+
+                    <div class="objsys">
+                        <div class="verbs" data-reveal role="group" aria-label="Object interactions">
+                            <button class="verb" data-mode="rotate" aria-pressed="true"><span
+                                    class="vn">Rotate</span><span class="vd">Inspect the object from every
+                                    side.</span></button>
+                            <button class="verb" data-mode="explode"><span class="vn">Explode</span><span
+                                    class="vd">Separate the components.</span></button>
+                            <button class="verb" data-mode="slice"><span class="vn">Slice</span><span class="vd">Reveal
+                                    the internal layers.</span></button>
+                            <button class="verb" data-mode="scan"><span class="vn">Scan</span><span class="vd">Turn the
+                                    object into a point cloud.</span></button>
+                            <button class="verb" data-mode="build"><span class="vn">Build</span><span class="vd">Watch
+                                    it materialise.</span></button>
+                        </div>
+                        <div>
+                            <div class="viewport" style="max-width:460px;margin-inline:auto">
+                                <canvas id="demoForge" data-forge="rotate" aria-hidden="true"></canvas>
+                                <span class="viewport__tag" id="demoTag">Rotate · drag to turn</span>
+                                <span class="viewport__dim">Gateway / study</span>
+                            </div>
+                            <p class="objhint" data-reveal>Drag inside the frame to turn the object. <b
+                                    id="demoNote">Rotation</b> is the resting state; the other four are the moves we
+                                make on your work every day.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== DIGITAL TOOLS ===================== -->
+            <section class="world" id="tools" data-readout="— / Digital Tools">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>The Digital Tools</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 .4rem;max-width:22ch" data-reveal>Not toolbars.
+                        Each mark stands for a stage of making.</h2>
+
+                    <div class="tools">
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round">
+                                <path class="tstroke" style="--l:120" d="M6 24h10M32 24h10" />
+                                <circle class="tstroke" style="--l:88" cx="24" cy="24" r="9" />
+                                <path class="tstroke" style="--l:60" d="M24 6v6M24 36v6" />
+                            </svg>
+                            <h3>The Scanner</h3>
+                            <p>Captures the physical world.</p>
+                        </div>
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path class="tstroke" style="--l:90" d="M12 36l4-12L34 6l6 6-18 18z" />
+                                <path class="tstroke" style="--l:20" d="M30 10l6 6" />
+                            </svg>
+                            <h3>The Pencil</h3>
+                            <p>Imagination and conceptualisation.</p>
+                        </div>
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path class="tstroke" style="--l:220"
+                                    d="M8 8h32v32H8zM8 19h32M8 30h32M19 8v32M30 8v32" />
+                            </svg>
+                            <h3>The Grid</h3>
+                            <p>Precision.</p>
+                        </div>
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linecap="round">
+                                <path class="tstroke" style="--l:70" d="M24 8L12 38M24 8l12 30" />
+                                <circle class="tstroke" style="--l:14" cx="24" cy="8" r="3" />
+                                <path class="tstroke" style="--l:36" d="M17 25a9 9 0 0 0 14 0" />
+                            </svg>
+                            <h3>The Compass</h3>
+                            <p>Geometry and proportion.</p>
+                        </div>
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"
+                                stroke-linejoin="round">
+                                <path class="tstroke" style="--l:120" d="M24 8l16 8-16 8L8 16z" />
+                                <path class="tstroke" style="--l:120" d="M8 24l16 8 16-8M8 32l16 8 16-8" />
+                            </svg>
+                            <h3>The Layer</h3>
+                            <p>Additive manufacturing.</p>
+                        </div>
+                        <div class="tool" data-reveal>
+                            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5">
+                                <path class="tstroke" style="--l:110" d="M10 14l14-7 14 7v20l-14 7-14-7z" />
+                                <path class="tstroke" style="--l:44" d="M24 7v34" />
+                            </svg>
+                            <h3>The Material</h3>
+                            <p>Physical existence.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== MATERIAL LIBRARY ===================== -->
+            <section id="materials" data-readout="— / Material Library">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>The Material Library</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 .4rem;max-width:24ch" data-reveal>An archive of
+                        matter. Move your cursor across a sample.</h2>
+                    <p class="lead" data-reveal>The goal is to make fabrication feel tactile&mdash;even on a screen. New
+                        materials are added as Tvashta expands.</p>
+
+                    <div class="mats" id="mats" data-reveal>
+                        <div class="mat">
+                            <div class="swatch sw-pla"></div>
+                            <h3>PLA</h3>
+                            <p>Rigid · matte · everyday form studies</p>
+                        </div>
+                        <div class="mat">
+                            <div class="swatch sw-resin"></div>
+                            <h3>Resin</h3>
+                            <p>Fine detail · smooth · heritage replicas</p>
+                        </div>
+                        <div class="mat">
+                            <div class="swatch sw-metal"></div>
+                            <h3>Metal</h3>
+                            <p>Sintered · load-bearing · brackets & parts</p>
+                        </div>
+                        <div class="mat">
+                            <div class="swatch sw-ceramic"></div>
+                            <h3>Ceramic</h3>
+                            <p>Fired · warm · vessels & objects</p>
+                        </div>
+                        <div class="mat">
+                            <div class="swatch sw-wood"></div>
+                            <h3>Wood</h3>
+                            <p>Composite · grained · tactile surfaces</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== ARTEFACTS ===================== -->
+            <section class="world" id="artefacts" data-readout="— / Artefacts">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>Projects as Artefacts</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 .4rem;max-width:26ch" data-reveal>Not case
+                        studies. Artefacts from the Forge&mdash;half museum catalogue, half engineering spec.</h2>
+
+                    <div class="artefacts" data-reveal>
+                        <article class="artefact">
+                            <p class="artefact__no">Project / 017</p>
+                            <h3>Kashi Model</h3>
+                            <p class="artefact__proc">Capture &rarr; Model &rarr; Make</p>
+                            <dl class="spec">
+                                <dt>Category</dt>
+                                <dd>Heritage</dd>
+                                <dt>Material</dt>
+                                <dd>Resin</dd>
+                                <dt>Dimensions</dt>
+                                <dd>320 × 210 × 180 mm</dd>
+                                <dt>Build time</dt>
+                                <dd>41 h</dd>
+                            </dl>
+                            <p class="artefact__status"><span class="dotc ok"></span> Complete</p>
+                        </article>
+                        <article class="artefact">
+                            <p class="artefact__no">Project / 024</p>
+                            <h3>Dhara Vessel</h3>
+                            <p class="artefact__proc">Imagine &rarr; Prototype &rarr; Make</p>
+                            <dl class="spec">
+                                <dt>Category</dt>
+                                <dd>Objects</dd>
+                                <dt>Material</dt>
+                                <dd>Ceramic PLA</dd>
+                                <dt>Dimensions</dt>
+                                <dd>140 × 140 × 260 mm</dd>
+                                <dt>Build time</dt>
+                                <dd>12 h</dd>
+                            </dl>
+                            <p class="artefact__status"><span class="dotc wip"></span> In production</p>
+                        </article>
+                        <article class="artefact">
+                            <p class="artefact__no">Project / 031</p>
+                            <h3>Arc Bracket</h3>
+                            <p class="artefact__proc">Imagine &rarr; Prototype</p>
+                            <dl class="spec">
+                                <dt>Category</dt>
+                                <dd>Hardware</dd>
+                                <dt>Material</dt>
+                                <dd>Metal, sintered</dd>
+                                <dt>Dimensions</dt>
+                                <dd>96 × 54 × 22 mm</dd>
+                                <dt>Build time</dt>
+                                <dd>6 h</dd>
+                            </dl>
+                            <p class="artefact__status"><span class="dotc"></span> Testing revision C</p>
+                        </article>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FORGE JOURNAL ===================== -->
+            <section id="journal" data-readout="— / Forge Journal">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>The Forge Journal</p>
+                    <h2 style="font-size:var(--step-3);margin:.6rem 0 .2rem;max-width:24ch" data-reveal>A place of
+                        curiosity, not a services page.</h2>
+
+                    <div class="journal" data-reveal>
+                        <a class="jrow" href="#journal"><span class="cat">Experiments</span><span class="ttl">Cooling
+                                curves for a translucent resin</span><span class="dt">2026 · 08</span></a>
+                        <a class="jrow" href="#journal"><span class="cat">Process</span><span class="ttl">Registering a
+                                forty-million-point scan by hand</span><span class="dt">2026 · 07</span></a>
+                        <a class="jrow" href="#journal"><span class="cat">Materials</span><span class="ttl">Wood-fill
+                                PLA after six months outdoors</span><span class="dt">2026 · 06</span></a>
+                        <a class="jrow" href="#journal"><span class="cat">Heritage</span><span class="ttl">A ghat step,
+                                measured to two tenths of a millimetre</span><span class="dt">2026 · 05</span></a>
+                        <a class="jrow" href="#journal"><span class="cat">Objects</span><span class="ttl">Tvashta
+                                Original 04 &mdash; the Layer bowl</span><span class="dt">2026 · 04</span></a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== WORKBENCH ===================== -->
+            <section class="workbench ticked" id="workbench" data-readout="— / The Workbench">
+                <div class="wrap">
+                    <p class="eyebrow" data-reveal>Main Conversion</p>
+                    <h2 data-reveal>Place an idea on the workbench.</h2>
+                    <p class="wb-q" data-reveal>What are you bringing to the Forge?</p>
+
+                    <div data-reveal>
+                        <div class="wb-opts" role="group" aria-label="What are you bringing">
+                            <button class="wb-opt" data-wb="idea" aria-pressed="true">
+                                <svg class="wsvg" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                                    stroke-width="1.4">
+                                    <circle cx="16" cy="13" r="7" />
+                                    <path d="M13 24h6M14 27h4" />
+                                </svg>
+                                <span class="wn">An Idea</span>
+                            </button>
+                            <button class="wb-opt" data-wb="sketch">
+                                <svg class="wsvg" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                                    stroke-width="1.4" stroke-linejoin="round">
+                                    <path d="M8 24l3-8 12-12 4 4-12 12z" />
+                                    <path d="M20 8l4 4" />
+                                </svg>
+                                <span class="wn">A Sketch</span>
+                            </button>
+                            <button class="wb-opt" data-wb="file">
+                                <svg class="wsvg" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                                    stroke-width="1.4" stroke-linejoin="round">
+                                    <path d="M9 4h10l6 6v18H9z" />
+                                    <path d="M19 4v6h6" />
+                                </svg>
+                                <span class="wn">A File</span>
+                            </button>
+                            <button class="wb-opt" data-wb="object">
+                                <svg class="wsvg" viewBox="0 0 32 32" fill="none" stroke="currentColor"
+                                    stroke-width="1.4" stroke-linejoin="round">
+                                    <path d="M16 4l11 6v12l-11 6-11-6V10z" />
+                                    <path d="M16 4v22M5 10l11 6 11-6" />
+                                </svg>
+                                <span class="wn">An Object</span>
+                            </button>
+                        </div>
+
+                        <div class="wb-panel">
+                            <p class="wb-panel__role" id="wbRole">You bring the idea &mdash; Tvashta finds the process
+                            </p>
+                            <p class="wb-panel__body" id="wbBody">Describe what you have in mind. We work out whether it
+                                starts at Capture, Imagine, Prototype or Make&mdash;and what it takes to get there.</p>
+
+                            <div class="wb-field" id="wbFieldWrap">
+                                <label for="wbInput" id="wbLabel">Describe your idea</label>
+                                <textarea id="wbInput"
+                                    placeholder="A folding stand for a field scanner, about the size of a book when closed…"></textarea>
+                            </div>
+
+                            <button class="beginbtn" id="beginBtn" type="button">Begin Making</button>
+                        </div>
+
+                        <div class="wb-done" id="wbDone" hidden>
+                            <p>Your idea is on the workbench.</p>
+                            <p id="wbDoneMsg">A maker will pick it up, map it to the process, and come back with the
+                                shortest path from here to a real object.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ===================== FINALE ===================== -->
+            <section class="finale" id="finale" data-readout="— / The Forge">
+                <div class="wrap" style="margin-inline:auto">
+                    <p class="eyebrow" data-reveal>Final Product Statement</p>
+                    <h2 data-reveal>Tvashta Labs<br>The Digital Forge.</h2>
+                    <ul>
+                        <li data-reveal><b>Capture</b> what exists.</li>
+                        <li data-reveal><b>Imagine</b> what doesn&rsquo;t.</li>
+                        <li data-reveal><b>Prototype</b> what could be.</li>
+                        <li data-reveal><b>Make</b> what comes next.</li>
+                    </ul>
+                    <span class="give" data-reveal>We give form to ideas.</span>
+                </div>
+            </section>
+
+            <footer>
+                <span>Tvashta Labs &mdash; A place for making</span>
+                <span>Capture · Imagine · Prototype · Make</span>
+            </footer>
+
+        </main>
+    </div>
+
+    <script>
+        (function () {
+            "use strict";
+            var reduce = window.matchMedia('(prefers-reduced-motion: reduce)');
+            var prefersReduce = reduce.matches;
+            reduce.addEventListener && reduce.addEventListener('change', function (e) { prefersReduce = e.matches; });
+
+            /* ---------- Enter the Forge ---------- */
+            var enterBtn = document.getElementById('enterBtn');
+            if (enterBtn) enterBtn.addEventListener('click', function () {
+                var t = document.getElementById('forge');
+                if (t) t.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'start' });
+                tick(180);
+            });
+
+            /* ---------- Overlay menu open / close ---------- */
+            var overlayMenu = document.getElementById('overlayMenu');
+            var menuOpenBtn = document.getElementById('menuOpenBtn');
+            var menuCloseBtn = document.getElementById('menuCloseBtn');
+            function openMenu() {
+                if (!overlayMenu) return;
+                overlayMenu.classList.add('open');
+                overlayMenu.setAttribute('aria-hidden', 'false');
+                document.body.style.overflow = 'hidden';
+            }
+            function closeMenu() {
+                if (!overlayMenu) return;
+                overlayMenu.classList.remove('open');
+                overlayMenu.setAttribute('aria-hidden', 'true');
+                document.body.style.overflow = '';
+            }
+            if (menuOpenBtn) menuOpenBtn.addEventListener('click', function () { openMenu(); tick(200); });
+            if (menuCloseBtn) menuCloseBtn.addEventListener('click', function () { closeMenu(); tick(200); });
+            if (overlayMenu) {
+                overlayMenu.querySelectorAll('a').forEach(function (a) {
+                    a.addEventListener('click', closeMenu);
+                });
+            }
+            document.addEventListener('keydown', function (e) {
+                if (e.key === 'Escape' && overlayMenu && overlayMenu.classList.contains('open')) closeMenu();
+            });
+
+            /* ---------- Reveal on scroll ---------- */
+            var revs = document.querySelectorAll('[data-reveal]');
+            if ('IntersectionObserver' in window) {
+                var ro = new IntersectionObserver(function (es) {
+                    es.forEach(function (en) {
+                        if (en.isIntersecting) { en.target.classList.add('in'); ro.unobserve(en.target); }
+                    });
+                }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+                revs.forEach(function (el, i) {
+                    el.style.transitionDelay = Math.min(i % 6, 5) * 55 + 'ms';
+                    ro.observe(el);
+                });
+                var tools = document.querySelectorAll('.tool');
+                var to2 = new IntersectionObserver(function (es) {
+                    es.forEach(function (en) { if (en.isIntersecting) { en.target.classList.add('in'); to2.unobserve(en.target); } });
+                }, { threshold: 0.3 });
+                tools.forEach(function (t) { to2.observe(t); });
+            } else {
+                revs.forEach(function (el) { el.classList.add('in'); });
+            }
+
+            /* ---------- Rail readout + active station ---------- */
+            var readoutVal = document.getElementById('readoutVal');
+            var navLinks = Array.prototype.slice.call(document.querySelectorAll('.rail__nav a'));
+            var sections = document.querySelectorAll('section[data-readout]');
+            if ('IntersectionObserver' in window) {
+                var current = null;
+                var so = new IntersectionObserver(function (es) {
+                    es.forEach(function (en) {
+                        if (en.isIntersecting) {
+                            current = en.target;
+                            if (readoutVal) readoutVal.textContent = en.target.getAttribute('data-readout');
+                            var st = en.target.getAttribute('data-station');
+                            navLinks.forEach(function (a, i) { a.classList.toggle('is-active', String(i) === st); });
+                        }
+                    });
+                }, { threshold: 0.5 });
+                sections.forEach(function (s) { so.observe(s); });
+            }
+
+            /* ---------- Theme toggle ---------- */
+            var themeBtn = document.getElementById('themeBtn');
+            var themeSt = document.getElementById('themeSt');
+            function sysDark() { return window.matchMedia('(prefers-color-scheme: dark)').matches; }
+            function currentTheme() {
+                var t = document.documentElement.getAttribute('data-theme');
+                return t ? t : (sysDark() ? 'dark' : 'light');
+            }
+            function applyTheme(t) {
+                document.documentElement.setAttribute('data-theme', t);
+                if (themeSt) themeSt.textContent = t === 'dark' ? 'Dark' : 'Light';
+                if (themeBtn) themeBtn.setAttribute('aria-pressed', t === 'dark' ? 'true' : 'false');
+                try { localStorage.setItem('forge-theme', t); } catch (e) { }
+                refreshForges();
+            }
+            try {
+                var saved = localStorage.getItem('forge-theme');
+                if (saved) { applyTheme(saved); } else { if (themeSt) themeSt.textContent = currentTheme() === 'dark' ? 'Dark' : 'Light'; }
+            } catch (e) { }
+            if (themeBtn) themeBtn.addEventListener('click', function () {
+                applyTheme(currentTheme() === 'dark' ? 'light' : 'dark'); tick(200);
+            });
+            window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function () {
+                if (!document.documentElement.getAttribute('data-theme')) refreshForges();
+            });
+
+            /* ---------- Sound (optional, off by default) ---------- */
+            var soundBtn = document.getElementById('soundBtn');
+            var soundSt = document.getElementById('soundSt');
+            var soundOn = false, actx = null, masterGain = null;
+            function ensureAudio() {
+                if (actx) return;
+                try {
+                    actx = new (window.AudioContext || window.webkitAudioContext)();
+                    masterGain = actx.createGain();
+                    masterGain.gain.value = 0.05;
+                    masterGain.connect(actx.destination);
+                } catch (e) { actx = null; }
+            }
+            function tick(freq) {
+                if (!soundOn || !actx) return;
+                try {
+                    var o = actx.createOscillator(), g = actx.createGain();
+                    o.type = 'triangle'; o.frequency.value = freq || 220;
+                    g.gain.setValueAtTime(0.0001, actx.currentTime);
+                    g.gain.exponentialRampToValueAtTime(0.6, actx.currentTime + 0.008);
+                    g.gain.exponentialRampToValueAtTime(0.0001, actx.currentTime + 0.09);
+                    o.connect(g); g.connect(masterGain);
+                    o.start(); o.stop(actx.currentTime + 0.1);
+                } catch (e) { }
+            }
+            if (soundBtn) soundBtn.addEventListener('click', function () {
+                soundOn = !soundOn;
+                if (soundOn) { ensureAudio(); if (actx && actx.state === 'suspended') actx.resume(); }
+                if (soundSt) soundSt.textContent = soundOn ? 'On' : 'Off';
+                soundBtn.setAttribute('aria-pressed', soundOn ? 'true' : 'false');
+                tick(330);
+            });
+
+            /* ---------- Station / demo CTA ticks ---------- */
+            document.querySelectorAll('[data-cta]').forEach(function (b) {
+                b.addEventListener('click', function () { tick(196); document.getElementById('workbench').scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth' }); });
+            });
+
+            /* ============================================================
+               THE FORGE — canvas renderer
+               One projected wireframe "gateway"; five behaviours.
+               ============================================================ */
+            function buildGeo() {
+                var W = 1.0, H = 1.62, arch = 0.95, D = 0.6, N = 16;
+                var prof = [];
+                prof.push([-W, -H]);
+                prof.push([-W, H - arch]);
+                for (var i = 0; i <= N; i++) { var t = Math.PI * (1 - i / N); prof.push([W * Math.cos(t), (H - arch) + arch * Math.sin(t)]); }
+                prof.push([W, -H]);
+                var V = [], E = [], front = [], back = [];
+                prof.forEach(function (p) { front.push(V.push([p[0], p[1], D]) - 1); });
+                prof.forEach(function (p) { back.push(V.push([p[0], p[1], -D]) - 1); });
+                for (var k = 0; k < prof.length; k++) {
+                    var j = (k + 1) % prof.length;
+                    E.push([front[k], front[j]]);
+                    E.push([back[k], back[j]]);
+                    E.push([front[k], back[k]]);
+                }
+                var grp = V.map(function (v) {
+                    if (v[1] < -H * 0.32) return 0;
+                    if (v[1] < H - arch) return 1;
+                    return 2;
+                });
+                var gY = [-0.9, 0, 0.9];
+                // deterministic point cloud samples
+                var cloud = [];
+                var seed = 1;
+                function rnd() { seed = (seed * 1103515245 + 12345) & 0x7fffffff; return seed / 0x7fffffff; }
+                E.forEach(function (e, ei) {
+                    for (var s = 0; s < 7; s++) {
+                        cloud.push({ e: ei, t: s / 6, jx: (rnd() - 0.5), jy: (rnd() - 0.5), jz: (rnd() - 0.5) });
+                    }
+                });
+                return { V: V, E: E, grp: grp, gY: gY, cloud: cloud, W: W, H: H, arch: arch, D: D };
+            }
+            var GEO = buildGeo();
+
+            function palette() {
+                var dark = currentTheme() === 'dark';
+                return dark ? {
+                    line: 'rgba(150,197,178,0.42)', strong: 'rgba(197,226,213,0.72)',
+                    pt: 'rgba(201,162,78,0.95)', accent: 'rgba(120,192,192,0.6)', hatch: 'rgba(150,197,178,0.16)'
+                } : {
+                    line: 'rgba(31,64,52,0.5)', strong: 'rgba(27,38,33,0.82)',
+                    pt: 'rgba(156,122,47,0.95)', accent: 'rgba(21,92,96,0.7)', hatch: 'rgba(31,64,52,0.16)'
+                };
+            }
+
+            function project(p, ang, tilt, f) {
+                var ca = Math.cos(ang), sa = Math.sin(ang);
+                var x = p[0] * ca + p[2] * sa;
+                var z = -p[0] * sa + p[2] * ca;
+                var y = p[1];
+                var ct = Math.cos(tilt), st = Math.sin(tilt);
+                var y2 = y * ct - z * st;
+                var z2 = y * st + z * ct;
+                var s = f / (f - z2);
+                return [x * s, y2 * s, z2, s];
+            }
+            function widthAt(y) {
+                var W = GEO.W, H = GEO.H, arch = GEO.arch;
+                if (y <= H - arch) return W;
+                var u = (y - (H - arch)) / arch;
+                if (u >= 1) return 0.001;
+                return W * Math.sqrt(Math.max(0, 1 - u * u));
+            }
+
+            var forges = [];
+            function createForge(canvas) {
+                var ctx = canvas.getContext('2d');
+                var mode = canvas.getAttribute('data-forge');
+                var dpr = Math.min(window.devicePixelRatio || 1, 2);
+                var w = 0, h = 0, running = false, raf = 0, t0 = performance.now();
+                var ang = 0.6, tilt = 0.34, dragging = false, lastX = 0, lastY = 0, spinPaused = false;
+
+                function resize() {
+                    var r = canvas.getBoundingClientRect();
+                    w = r.width; h = r.height;
+                    canvas.width = Math.max(1, w * dpr); canvas.height = Math.max(1, h * dpr);
+                    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+                }
+                resize();
+
+                function line(a, b, alpha, col, wd) {
+                    ctx.strokeStyle = col; ctx.globalAlpha = alpha; ctx.lineWidth = wd || 1;
+                    ctx.beginPath(); ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]); ctx.stroke();
+                    ctx.globalAlpha = 1;
+                }
+
+                function frame(now) {
+                    var tt = (now - t0) / 1000;
+                    var pal = palette();
+                    ctx.clearRect(0, 0, w, h);
+                    var cx = w / 2, cy = h / 2, scale = Math.min(w, h) * 0.255, f = 4.2;
+                    if (!dragging && !spinPaused) ang = 0.6 + tt * 0.42;
+
+                    var V = GEO.V, E = GEO.E, grp = GEO.grp, gY = GEO.gY;
+                    var m = mode;
+                    var pp = []; // projected verts (with per-mode offset)
+
+                    // per-mode vertex transforms
+                    var ex = 0, lvl = 0, plane = 0, scan = 0, noiseAmp = 0;
+                    if (m === 'explode') { ex = (Math.sin(tt * 0.9) * 0.5 + 0.5); }
+                    if (m === 'prototype') { ex = (Math.sin(tt * 0.7) * 0.5 + 0.5) * 0.8; }
+                    if (m === 'make' || m === 'build') { lvl = ((tt * 0.28) % 1) * (2 * GEO.H) - GEO.H; }
+                    if (m === 'slice') { plane = Math.sin(tt * 0.6) * GEO.H * 0.96; }
+                    if (m === 'scan' || m === 'capture') { scan = (Math.sin(tt * 0.5 - Math.PI / 2) * 0.5 + 0.5); }
+                    if (m === 'imagine') { noiseAmp = 0.16 * (0.6 + 0.4 * Math.sin(tt * 0.8)); }
+
+                    for (var i = 0; i < V.length; i++) {
+                        var v = V[i].slice();
+                        if (m === 'explode' || m === 'prototype') {
+                            v[1] += (grp[i] - 1) * ex * 0.62;
+                            v[2] += (grp[i] - 1) * ex * 0.12;
+                        }
+                        if (m === 'imagine') {
+                            v[0] += Math.sin(tt * 0.7 + i * 1.3) * noiseAmp;
+                            v[1] += Math.cos(tt * 0.9 + i * 0.7) * noiseAmp;
+                            v[2] += Math.sin(tt * 1.1 + i * 2.1) * noiseAmp;
+                        }
+                        pp[i] = project(v, ang, tilt, f);
+                    }
+                    function S(pr) { return [cx + pr[0] * scale, cy - pr[1] * scale]; }
+
+                    // ---- hatch layers for build ----
+                    if (m === 'make' || m === 'build') {
+                        for (var y = -GEO.H; y <= lvl; y += 0.11) {
+                            var wd = widthAt(y);
+                            var a = project([-wd, y, 0], ang, tilt, f), b = project([wd, y, 0], ang, tilt, f);
+                            line(S(a), S(b), 0.5, pal.hatch, 1);
+                        }
+                    }
+
+                    // ---- edges ----
+                    for (var e = 0; e < E.length; e++) {
+                        var ia = E[e][0], ib = E[e][1];
+                        var A = pp[ia], B = pp[ib];
+                        var depth = (A[2] + B[2]) / 2;
+                        var dAlpha = 0.35 + 0.5 * ((depth + 1.4) / 2.8);
+                        dAlpha = Math.max(0.12, Math.min(0.9, dAlpha));
+
+                        if ((m === 'explode' || m === 'prototype') && grp[ia] !== grp[ib] && ex > 0.06) {
+                            // seams that have come apart: faint, short, no trailing lines
+                            continue;
+                        }
+                        if (m === 'make' || m === 'build') {
+                            if (GEO.V[ia][1] > lvl || GEO.V[ib][1] > lvl) continue;
+                        }
+                        if (m === 'slice') {
+                            var ya = GEO.V[ia][1], yb = GEO.V[ib][1];
+                            if (ya > plane && yb > plane) continue;
+                            if ((ya > plane) !== (yb > plane)) {
+                                var f2 = (plane - ya) / (yb - ya);
+                                var mid = [GEO.V[ia][0] + (GEO.V[ib][0] - GEO.V[ia][0]) * f2, plane, GEO.V[ia][2] + (GEO.V[ib][2] - GEO.V[ia][2]) * f2];
+                                var pm = project(mid, ang, tilt, f);
+                                var lowP = ya <= plane ? A : B;
+                                line(S(lowP), S(pm), dAlpha, pal.strong, 1);
+                                continue;
+                            }
+                        }
+                        if (m === 'scan' || m === 'capture') {
+                            line(S(A), S(B), dAlpha * (1 - scan) * 0.9, pal.line, 1);
+                            continue;
+                        }
+                        line(S(A), S(B), dAlpha, m === 'imagine' ? pal.line : pal.strong, m === 'imagine' ? 1 : 1.15);
+                    }
+
+                    // ---- flicker construction lines for imagine ----
+                    if (m === 'imagine') {
+                        for (var q = 0; q < E.length; q += 1) {
+                            if (Math.sin(tt * 2.4 + q * 11.0) > 0.72) {
+                                var A2 = pp[E[q][0]], B2 = pp[E[q][1]];
+                                line(S(A2), S(B2), 0.9, pal.accent, 1.4);
+                            }
+                        }
+                    }
+
+                    // ---- point cloud for scan ----
+                    if ((m === 'scan' || m === 'capture') && scan > 0.01) {
+                        ctx.fillStyle = pal.pt;
+                        for (var c = 0; c < GEO.cloud.length; c++) {
+                            var cl = GEO.cloud[c];
+                            var ee = E[cl.e]; var va = V[ee[0]], vb = V[ee[1]];
+                            var px = va[0] + (vb[0] - va[0]) * cl.t + cl.jx * 0.45 * scan;
+                            var py = va[1] + (vb[1] - va[1]) * cl.t + cl.jy * 0.45 * scan;
+                            var pz = va[2] + (vb[2] - va[2]) * cl.t + cl.jz * 0.45 * scan;
+                            var pr = project([px, py, pz], ang, tilt, f);
+                            var sp = S(pr);
+                            ctx.globalAlpha = 0.35 + 0.5 * scan;
+                            var rad = 0.9 + pr[3] * 0.6;
+                            ctx.fillRect(sp[0] - rad / 2, sp[1] - rad / 2, rad, rad);
+                        }
+                        ctx.globalAlpha = 1;
+                    }
+
+                    // ---- slice plane outline ----
+                    if (m === 'slice') {
+                        var wd2 = widthAt(plane);
+                        var corners = [[-wd2, plane, GEO.D], [wd2, plane, GEO.D], [wd2, plane, -GEO.D], [-wd2, plane, -GEO.D]];
+                        ctx.strokeStyle = pal.pt; ctx.globalAlpha = 0.9; ctx.lineWidth = 1.4;
+                        ctx.beginPath();
+                        for (var k2 = 0; k2 < 4; k2++) {
+                            var pc = S(project(corners[k2], ang, tilt, f));
+                            if (k2 === 0) ctx.moveTo(pc[0], pc[1]); else ctx.lineTo(pc[0], pc[1]);
+                        }
+                        ctx.closePath(); ctx.stroke(); ctx.globalAlpha = 1;
+                    }
+
+                    // ---- explode: a single centre axis the parts move along ----
+                    if ((m === 'explode' || m === 'prototype') && ex > 0.05) {
+                        var axA = S(project([0, -2.0, 0], ang, tilt, f));
+                        var axB = S(project([0, 2.0, 0], ang, tilt, f));
+                        ctx.setLineDash([1, 5]);
+                        line(axA, axB, 0.22 * ex, pal.accent, 1);
+                        ctx.setLineDash([]);
+                    }
+
+                    if (running) raf = requestAnimationFrame(frame);
+                }
+
+                function start() {
+                    if (running) return;
+                    running = true;
+                    if (prefersReduce) {
+                        // one representative static frame
+                        var save = t0;
+                        if (mode === 'explode' || mode === 'prototype') t0 = performance.now() - 1150;
+                        if (mode === 'scan' || mode === 'capture') t0 = performance.now() - 3140;
+                        if (mode === 'make' || mode === 'build') t0 = performance.now() - 2600;
+                        if (mode === 'imagine') t0 = performance.now() - 900;
+                        running = false;
+                        frame(performance.now());
+                        return;
+                    }
+                    raf = requestAnimationFrame(frame);
+                }
+                function stop() { running = false; cancelAnimationFrame(raf); }
+
+                // pointer drag
+                canvas.addEventListener('pointerdown', function (ev) {
+                    dragging = true; spinPaused = true; lastX = ev.clientX; lastY = ev.clientY;
+                    canvas.setPointerCapture && canvas.setPointerCapture(ev.pointerId);
+                });
+                canvas.addEventListener('pointermove', function (ev) {
+                    if (!dragging) return;
+                    ang += (ev.clientX - lastX) * 0.01;
+                    tilt = Math.max(-0.9, Math.min(1.1, tilt + (ev.clientY - lastY) * 0.006));
+                    lastX = ev.clientX; lastY = ev.clientY;
+                    if (prefersReduce || !running) frame(performance.now());
+                });
+                function endDrag() { dragging = false; setTimeout(function () { spinPaused = false; }, 900); }
+                canvas.addEventListener('pointerup', endDrag);
+                canvas.addEventListener('pointercancel', endDrag);
+                canvas.addEventListener('pointerleave', function () { if (dragging) endDrag(); });
+
+                window.addEventListener('resize', function () { resize(); if (prefersReduce) frame(performance.now()); });
+
+                var api = {
+                    el: canvas, start: start, stop: stop,
+                    setMode: function (mm) { mode = mm; t0 = performance.now(); if (prefersReduce || !running) { start(); } },
+                    redraw: function () { if (!running) frame(performance.now()); }
+                };
+                forges.push(api);
+                return api;
+            }
+            function refreshForges() { forges.forEach(function (fg) { fg.redraw(); }); }
+
+            var forgeEls = document.querySelectorAll('canvas[data-forge]');
+            forgeEls.forEach(function (cv) {
+                var api = createForge(cv);
+                if ('IntersectionObserver' in window) {
+                    var io = new IntersectionObserver(function (es) {
+                        es.forEach(function (en) { if (en.isIntersecting) api.start(); else api.stop(); });
+                    }, { threshold: 0.08 });
+                    io.observe(cv);
+                } else { api.start(); }
+                cv._forge = api;
+            });
+
+            /* ---------- Interactive Object System ---------- */
+            var demo = document.getElementById('demoForge');
+            var demoTag = document.getElementById('demoTag');
+            var demoNote = document.getElementById('demoNote');
+            var verbCopy = {
+                rotate: ['Rotate · drag to turn', 'Rotation'],
+                explode: ['Explode · components apart', 'Exploding parts'],
+                slice: ['Slice · internal section', 'Slicing'],
+                scan: ['Scan · point cloud', 'Scanning'],
+                build: ['Build · layer by layer', 'Building']
+            };
+            document.querySelectorAll('.verb').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.verb').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+                    btn.setAttribute('aria-pressed', 'true');
+                    var mode = btn.getAttribute('data-mode');
+                    if (demo._forge) demo._forge.setMode(mode);
+                    if (demoTag) demoTag.textContent = verbCopy[mode][0];
+                    if (demoNote) demoNote.textContent = verbCopy[mode][1];
+                    tick(240);
+                });
+            });
+
+            /* ---------- Material tilt ---------- */
+            var matWrap = document.getElementById('mats');
+            if (matWrap && !prefersReduce && window.matchMedia('(pointer:fine)').matches) {
+                matWrap.querySelectorAll('.mat').forEach(function (card) {
+                    card.addEventListener('pointermove', function (ev) {
+                        var r = card.getBoundingClientRect();
+                        var rx = ((ev.clientY - r.top) / r.height - 0.5) * -10;
+                        var ry = ((ev.clientX - r.left) / r.width - 0.5) * 12;
+                        card.style.transform = 'rotateX(' + rx.toFixed(2) + 'deg) rotateY(' + ry.toFixed(2) + 'deg) translateZ(6px)';
+                    });
+                    card.addEventListener('pointerleave', function () { card.style.transform = ''; });
+                });
+            }
+
+            /* ---------- Workbench ---------- */
+            var wbData = {
+                idea: {
+                    role: 'You bring the idea — Tvashta finds the process',
+                    body: 'Describe what you have in mind. We work out whether it starts at Capture, Imagine, Prototype or Make — and what it takes to get there.',
+                    label: 'Describe your idea',
+                    field: 'textarea',
+                    placeholder: 'A folding stand for a field scanner, about the size of a book when closed…',
+                    done: 'A maker will pick it up, map it to the process, and come back with the shortest path from here to a real object.'
+                },
+                sketch: {
+                    role: 'You bring the sketch — Tvashta develops the model',
+                    body: 'Upload an image of your sketch. We develop it into a digital model you can hold, test and revise.',
+                    label: 'Attach a sketch',
+                    field: 'drop',
+                    placeholder: 'Drop an image — JPG, PNG, PDF',
+                    done: 'We will turn the sketch into a clean digital model and send back the first pass for your notes.'
+                },
+                file: {
+                    role: 'You bring the file — Tvashta takes it to Make',
+                    body: 'Upload your geometry. CAD, STL, OBJ and other supported formats go straight toward fabrication.',
+                    label: 'Attach a file',
+                    field: 'drop',
+                    placeholder: 'Drop a file — STL, OBJ, STEP, 3MF',
+                    done: 'We will check the geometry for print, confirm material and finish, and quote the build.'
+                },
+                object: {
+                    role: 'You bring the object — Tvashta captures it',
+                    body: 'Tell us about the physical object. We can scan, replicate, modify or preserve it.',
+                    label: 'What is the object, and what do you need?',
+                    field: 'textarea',
+                    placeholder: 'A carved bracket from a temple doorway — I need an accurate replica in resin…',
+                    done: 'We will arrange the scan, then walk the object from point cloud to model to replica.'
+                }
+            };
+            var wbRole = document.getElementById('wbRole');
+            var wbBody = document.getElementById('wbBody');
+            var wbLabel = document.getElementById('wbLabel');
+            var wbFieldWrap = document.getElementById('wbFieldWrap');
+            var wbDone = document.getElementById('wbDone');
+            var wbDoneMsg = document.getElementById('wbDoneMsg');
+            var beginBtn = document.getElementById('beginBtn');
+
+            function setWb(key) {
+                var d = wbData[key];
+                wbRole.textContent = d.role;
+                wbBody.textContent = d.body;
+                wbLabel.textContent = d.label;
+                var inner = '';
+                if (d.field === 'drop') {
+                    inner = '<label for="wbInput" id="wbLabel">' + d.label + '</label><div class="wb-drop" id="wbDrop">' + d.placeholder + '</div><input type="text" id="wbInput" style="margin-top:.7rem" placeholder="Add a note (optional)">';
+                } else {
+                    inner = '<label for="wbInput" id="wbLabel">' + d.label + '</label><textarea id="wbInput" placeholder="' + d.placeholder.replace(/"/g, '&quot;') + '"></textarea>';
+                }
+                wbFieldWrap.innerHTML = inner;
+                wbLabel = document.getElementById('wbLabel');
+                wbDone.hidden = true;
+                beginBtn.hidden = false;
+                wbFieldWrap.hidden = false;
+                wbRole.hidden = false;
+                wbBody.hidden = false;
+            }
+            document.querySelectorAll('.wb-opt').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    document.querySelectorAll('.wb-opt').forEach(function (b) { b.setAttribute('aria-pressed', 'false'); });
+                    btn.setAttribute('aria-pressed', 'true');
+                    setWb(btn.getAttribute('data-wb'));
+                    tick(210);
+                });
+            });
+            if (beginBtn) beginBtn.addEventListener('click', function () {
+                var active = document.querySelector('.wb-opt[aria-pressed="true"]');
+                var key = active ? active.getAttribute('data-wb') : 'idea';
+                wbFieldWrap.hidden = true;
+                beginBtn.hidden = true;
+                wbRole.hidden = true;
+                wbBody.hidden = true;
+                wbDoneMsg.textContent = wbData[key].done;
+                wbDone.hidden = false;
+                wbDone.scrollIntoView({ behavior: prefersReduce ? 'auto' : 'smooth', block: 'center' });
+                tick(160);
+            });
+
+        })();
+    </script>
+</body>
+
+</html>

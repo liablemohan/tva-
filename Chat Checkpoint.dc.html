@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="crossorigin" />
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  html, body { margin: 0; padding: 0; background: #0b0b0b; }
+  body { -webkit-font-smoothing: antialiased; }
+  a { color: #9be7c4; text-decoration: none; }
+  a:hover { color: #ffffff; }
+</style>
+</helmet>
+<div style="background: #0b0b0b; color: #ececea; font-family: 'Space Grotesk', Helvetica, Arial, sans-serif; padding: 56px 32px 90px;">
+  <div style="max-width: 1180px; margin: 0 auto; display: flex; flex-direction: column; gap: 44px;">
+
+    <header style="display: flex; flex-direction: column; gap: 14px; border-bottom: 1px solid #232323; padding-bottom: 28px;">
+      <p style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.24em; text-transform: uppercase; color: #9be7c4; margin: 0;">Checkpoint · 05 Sep 2026</p>
+      <h1 style="font-size: 40px; line-height: 1.1; font-weight: 500; letter-spacing: -0.02em; margin: 0;">Portfolio site design — conversation graph</h1>
+      <p style="font-size: 17px; line-height: 1.55; color: #9c9c98; margin: 0; max-width: 70ch; text-wrap: pretty;">Every request in this chat, what it changed, and which branch is canonical. Written record: <a href="CHECKPOINT.md">CHECKPOINT.md</a>. Design: <a href="Longshot Lab.dc.html">Longshot Lab.dc.html</a>.</p>
+    </header>
+
+    <section style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 14px;">
+      <div style="border: 1px solid #232323; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a;">Live design</span>
+        <span style="font-size: 16px;">Longshot Lab.dc.html</span>
+      </div>
+      <div style="border: 1px solid #232323; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a;">Animation + hover</span>
+        <span style="font-size: 16px;">hero-animation-controller.js</span>
+      </div>
+      <div style="border: 1px solid #232323; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a;">Image tiles</span>
+        <span style="font-size: 16px;">16 base · 6 hover</span>
+      </div>
+      <div style="border: 1px solid #232323; border-radius: 8px; padding: 18px 20px; display: flex; flex-direction: column; gap: 8px;">
+        <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a;">Assembly</span>
+        <span style="font-size: 16px;">scroll-driven (default)</span>
+      </div>
+    </section>
+
+    <section style="display: flex; flex-direction: column; gap: 0;">
+      <sc-for list="{{ nodes }}" as="n" hint-placeholder-count="6">
+        <div style="display: grid; grid-template-columns: 92px 26px minmax(0, 1fr); gap: 0 20px; align-items: stretch;">
+          <div style="padding: 18px 0 18px; text-align: right;">
+            <span style="font-family: 'IBM Plex Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: #6e6e6a;">{{ n.tag }}</span>
+          </div>
+          <div style="position: relative; display: flex; justify-content: center;">
+            <span style="position: absolute; top: 0; bottom: 0; width: 1px; background: #232323;"></span>
+            <span style="position: relative; margin-top: 22px; width: 13px; height: 13px; border-radius: 50%; background: {{ n.dot }}; box-shadow: 0 0 0 4px #0b0b0b;"></span>
+          </div>
+          <div style="padding: 14px 0 26px; display: flex; flex-direction: column; gap: 9px;">
+            <div style="display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap;">
+              <h2 style="font-size: 21px; font-weight: 500; letter-spacing: -0.01em; margin: 0;">{{ n.title }}</h2>
+              <span style="font-family: 'IBM Plex Mono', monospace; font-size: 10px; letter-spacing: 0.16em; text-transform: uppercase; color: {{ n.dot }};">{{ n.kind }}</span>
+            </div>
+            <p style="font-size: 16px; line-height: 1.55; color: #9c9c98; margin: 0; max-width: 78ch; text-wrap: pretty;">{{ n.body }}</p>
+            <sc-if value="{{ n.note }}" hint-placeholder-val="{{ true }}">
+              <p style="font-family: 'IBM Plex Mono', monospace; font-size: 12px; line-height: 1.5; color: #d9a35a; margin: 0; max-width: 78ch;">{{ n.note }}</p>
+            </sc-if>
+          </div>
+        </div>
+      </sc-for>
+    </section>
+
+    <section style="border-top: 1px solid #232323; padding-top: 30px; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 26px;">
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="font-size: 13px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a; margin: 0;">Constraints in force</h3>
+        <sc-for list="{{ rules }}" as="r" hint-placeholder-count="5">
+          <p style="font-size: 15px; line-height: 1.5; color: #c9c9c5; margin: 0;">{{ r }}</p>
+        </sc-for>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 12px;">
+        <h3 style="font-size: 13px; font-family: 'IBM Plex Mono', monospace; letter-spacing: 0.2em; text-transform: uppercase; color: #6e6e6a; margin: 0;">Abandoned branch</h3>
+        <p style="font-size: 15px; line-height: 1.55; color: #c9c9c5; margin: 0; text-wrap: pretty;">The 12-tile milestone build (T01–T12, firstTile → hold labels, cover-plate reveals) was reverted. Do not treat it as current; the 16-tile scroll assembly is canonical.</p>
+      </div>
+    </section>
+  </div>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{}">
+const ACCENT = "#9be7c4";
+const EDIT = "#7f9cff";
+const REVERT = "#d9a35a";
+
+class Component extends DCLogic {
+  renderVals() {
+    return {
+      nodes: [
+        { tag: "01", kind: "origin", dot: ACCENT, title: "Two reference images → one page",
+          body: "Dark hero with headline + lede, sticky nav, and a staircase tile grid built from the two supplied screenshots." },
+        { tag: "02", kind: "spec", dot: ACCENT, title: "Animation concept (items 20–32)",
+          body: "Per-tile x / y / scale / opacity / rotation animated independently; GSAP timeline generated from tile data; nav and copy stay stable; logic extracted into HeroAnimationController (initialize · play · setFinalState · replay · destroy)." },
+        { tag: "03", kind: "direction", dot: EDIT, title: "\u201cLike the x.company hero\u201d",
+          body: "Assembly became scroll-linked \u2014 each tile has its own progress window, so tiles read as being placed rather than a grid fading in. The timed version survives as assemblyMode: timeline." },
+        { tag: "04", kind: "reverted", dot: REVERT, title: "12-tile milestone rebuild",
+          body: "Rebuilt to a named-milestone timeline (firstTile 0.0 \u2192 hold 8.0) with T01 appearing alone, receding, returning, and cover plates resolving into content.",
+          note: "Reverted on request \u2192 the 16-tile scroll build is canonical." },
+        { tag: "05", kind: "detail", dot: EDIT, title: "Lead tile drop",
+          body: "Top-right tile drops from just below the nav (offset measured from the nav\u2019s real bottom edge) at 0.55 scale and opacity 0, easing smoothly to full size and opacity, then stopping." },
+        { tag: "06", kind: "detail", dot: EDIT, title: "Smoother field",
+          body: "All non-lead tiles moved to the same smooth in-out curve with longer overlapping windows; opacity leads the movement so tiles fade rather than pop." },
+        { tag: "07", kind: "feature", dot: ACCENT, title: "Hover layer",
+          body: "Hovering a tile greys it and raises a full-screen layer: scattered blocks plus the project name mask-revealed in the centre. Leaving reverses it." },
+        { tag: "08", kind: "refine \u00d75", dot: EDIT, title: "Hover layer refinement",
+          body: "Gaps + 6px radii matching the base layer \u2192 reserved rectangular text band \u2192 greyscale clone of the hovered tile pinned at its exact box, other tiles sized to the base grid tile, colourful, never overlapping (22px clearance) \u2192 blocks must clear the headline\u2019s line box." },
+        { tag: "09", kind: "logic", dot: ACCENT, title: "Computed text contrast",
+          body: "Replaced difference blending: a white headline plus an identical near-black copy clipped by a multi-rect clip-path to exactly the light-luminance regions it crosses, using WCAG relative luminance (greyscale + 0.55 brightness of the clone accounted for)." },
+        { tag: "10", kind: "content", dot: ACCENT, title: "Image slots everywhere",
+          body: "All tiles hold images: 16 slots in the base grid (tile-01\u2026tile-16, colour tint as empty state, old label as caption) and 6 in the hover layer (hover-01\u2026hover-06). Drops persist and travel with the clone." },
+        { tag: "11", kind: "feature", dot: ACCENT, title: "Light bar + dark menu",
+          body: "Sticky off-white bar with dark wordmark and two-line hamburger opens a full-screen dark menu (oversized links, pill CTA, story rows with image slots, newsletter + social row) with a staggered reveal.",
+          note: "Pattern only \u2014 built in this page\u2019s own type and palette, not the reference site\u2019s branding." },
+        { tag: "12", kind: "meta", dot: EDIT, title: "This checkpoint",
+          body: "Conversation graph plus CHECKPOINT.md, referenced from CLAUDE.md so future sessions read it before changing anything." },
+        { tag: "13", kind: "rebrand", dot: ACCENT, title: "Tvashta Labs identity",
+          body: "nav_icon + wordmark marks replace the Orbital lockup (both trimmed from 2000\u00b2 uploads to their artwork, transparent grounds). Hero becomes \u201cWe give form / to ideas.\u201d with the forge lede; the section below the grid becomes \u201cWhat we do \u2014 Products, Services & Experiences\u201d." },
+        { tag: "14", kind: "system", dot: ACCENT, title: "Palette 01 \u2014 Digital Material",
+          body: "Warm off-white ground #F5F3EE, ink #111827, slate #667085. Navy #0F3473 reserved for identity, teal #18A6A0 for interaction only, terracotta and lime as one-off accents. Overlay ground and menu run on deep navy; per-tile caption colour picked by luminance." },
+        { tag: "15", kind: "detail", dot: EDIT, title: "Navy bar + image wordmark",
+          body: "Top bar takes the icon\u2019s navy with an off-white hamburger; the TVASHTA LABS text is replaced by the supplied wordmark image at true cap height." },
+        { tag: "16", kind: "edit", dot: EDIT, title: "Four tiles + menu content",
+          body: "Hero grid cut from 16 tiles to the top 4. Menu content taken from the reference: Home / Work / Founders\u2019 Roundtable / The Digital Forge, outlined WORK WITH US pill, three numbered index rows, and the subscribe + social line.",
+          note: "Our navy palette kept \u2014 not the reference\u2019s lighter blue." },
+      ],
+      rules: [
+        "Animate only transform and opacity \u2014 never left / top / width / height.",
+        "Copy and navigation stay stable while the tile field builds.",
+        "No random rotation; \u00b12\u00b0 maximum, most tiles 0.",
+        "Overlay keeps the 22px clearance rule and the reserved text band.",
+        "Timing and trajectory stay data-driven in the controller, not hand-written tweens.",
+        "Boot is self-healing: root.__heroCtl ownership + 900ms watchdog to setFinalState().",
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
