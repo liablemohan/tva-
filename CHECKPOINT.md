@@ -3,7 +3,7 @@
 Canonical reference for this project's history. Visual graph: `Chat Checkpoint.dc.html`.
 
 ## Files
-- `Longshot Lab.dc.html` — the design (only DC; template + logic).
+- `index.html` — the design (only DC; template + logic).
 - `hero-animation-controller.js` — all hero animation + hover-overlay logic.
 - `image-slot.js` — starter component, user-fillable image placeholders.
 - `uploads/` — user reference screenshots.
